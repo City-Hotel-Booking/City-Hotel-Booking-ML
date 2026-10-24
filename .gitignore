@@ -1,0 +1,56 @@
+# Project reference documents (local context only)
+/CSE382_Project_Architecture_and_Milestone_Plan.docx
+/CSE382_Project_Description_Milestones.pdf
+
+# Raw/private datasets
+/data/raw/*
+!/data/raw/.gitkeep
+
+# Trained models and fitted preprocessing artifacts
+/artifacts/*
+!/artifacts/README.md
+*.joblib
+*.pkl
+*.pickle
+*.onnx
+*.h5
+*.keras
+*.pt
+*.pth
+*.ckpt
+
+# Local generated data and scratch outputs
+/data/processed/
+/outputs/tmp/
+/outputs/logs/
+*.log
+/submission/
+~$*.docx
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Notebooks and local tooling
+.ipynb_checkpoints/
+.idea/
+.vscode/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
