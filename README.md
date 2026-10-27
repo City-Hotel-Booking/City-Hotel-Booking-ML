@@ -4,7 +4,7 @@ CSE382 university machine learning project for a team of six. Use H2.csv (City H
 
 ## Current status
 
-This repository contains the agreed folder layout, command routing, task modules, and report templates. The data-analysis, preprocessing, model, and result-writing functions deliberately raise `NotImplementedError` until their owners implement them. There are no experiment results yet.
+This repository contains the agreed folder layout, command routing, a provisional feature policy, a working supervised split, and report templates. EDA, preprocessing, model, and result-writing functions still need their owners. There are no model experiment results yet.
 
 Milestone 1 is due **5 November 2026**. Milestone 2 is due **11 December 2026**, according to the supplied project Description.
 
@@ -28,7 +28,7 @@ Place your own copy of H2 at data/H2.csv; see data/README.md. The raw CSV and th
 
 ## Commands and ownership
 
-The following command routes exist. Help/configuration/routing and a provisional feature policy are implemented; the task commands still exit with a clear unfinished-task message until their owners complete them.
+The following command routes exist. Help/configuration/routing, a provisional feature policy, and prepare are implemented. Validate, analyze, and baseline still exit with an unfinished-task message until their owners complete them.
 
 | Command | Owner | Expected output after implementation |
 | --- | --- | --- |
