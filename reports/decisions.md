@@ -9,8 +9,8 @@ Change the policy or split version and rerun affected experiments when a rule ch
 | Decision | Chosen option or current recommendation | Reason | Alternatives considered | Open concerns | Version | Date |
 | --- | --- | --- | --- | --- | --- | --- |
 | Prediction/analysis point | **Provisional:** when a booking first enters the PMS, for all three tasks. | Gives a concrete rule for checking when each input exists. | Before arrival; after check-in; retrospective clustering. | H2 is a later snapshot, so some recorded values may have changed after entry. Team approval needed. | m1-draft-1 | 2026-10-27 |
-| ADR regression population | **Open:** examine all rows with a usable ADR target and document exclusions before training. | Canceled, zero-night, zero-ADR, and extreme-rate rows can have different meanings. | Drop all canceled or zero-rate rows; cap or remove outliers. | Member 1 must report counts and evidence; Members 2 and 3 must agree on the target population. | pending | 2026-10-27 |
-| Import cleaning | **Requested:** convert literal NULL and blank strings to missing, and strip padded text without changing source row positions. | H2 contains padded strings and explicit missing tokens. | Leave text unchanged; replace missing with a numeric sentinel. | Distinguish unknown from not-applicable Agent/Company values. No row removals are approved. | m1-draft-1 | 2026-10-27 |
+| ADR regression population | **Open:** examine all rows with a usable ADR target and document exclusions before training. | Canceled, zero-night, zero-ADR, and extreme-rate rows can have different meanings. | Drop all canceled or zero-rate rows; cap or remove outliers. | Training-only evidence below; Members 1, 2, and 3 must agree on the target population. | pending | 2026-10-27 |
+| Import cleaning | **Implemented for preprocessing, pending review:** convert literal NULL, blank, and NA strings to missing, and strip padded text without changing source row positions. | H2 has four literal NA values in Children; numeric parsing otherwise fails. | Leave text unchanged; replace missing with a numeric sentinel. | Split grouping currently normalizes blank/NULL; Member 1 should confirm NA semantics and whether split normalization needs a new version. Distinguish unknown from not-applicable Agent/Company values. No row removals are approved. | m1-draft-1 | 2026-10-27 |
 | Duplicate policy | **Requested:** keep all rows; group identical records on all 31 normalized source fields for splitting. | An identical record may still be a distinct booking, but duplicates across splits can inflate validation scores. | Delete duplicates; split rows independently. | Without a booking ID, exact matching cannot find every repeated real booking. Record the group definition. | m1-draft-1 | 2026-10-27 |
 | Supervised split | **Implemented, pending team approval:** seed 42, approximately 70/15/15, stratified by IsCanceled and kept intact by duplicate group. | Shares one reproducible assignment across regression and classification while limiting duplicate leakage. | Chronological arrival-date holdout; ordinary stratified random split. | Exact ratios can shift with indivisible groups. A random split does not measure 2015-2017 time drift; report this limitation. | m1-group-stratified-v1 | 2026-10-27 |
 | Task feature lists | **Provisional:** use only columns marked use in src/features/policy.py; keep disputed columns out. | A column is eligible only when its value is available at the selected point. | Use every non-target column; add conditional fields without an audit. | Members 1 and 3-5 must review the timing and meaning of each disputed field. | m1-draft-1 | 2026-10-27 |
@@ -25,7 +25,8 @@ Change the policy or split version and rerun affected experiments when a rule ch
 
 - Team reviewers: **pending**.
 - Approval date: **pending**.
-- Source data quality counts and treatment counts: **pending actual H2 run**.
+- Source data quality counts: **training-only initial checks recorded below**;
+  Member 1's full validation and treatment decisions are still pending.
 - A change to prediction time, ADR population, split policy, or active columns
   requires a new version and rerun of affected experiments.
 
@@ -41,3 +42,13 @@ identical normalized source rows; an independent hash check found zero groups
 spanning splits. These figures describe the current draft split, not team
 approval or final test performance. The machine-readable evidence is in
 outputs/data/split_metadata.json and outputs/data/split_manifest.csv.
+
+## Training-only ADR population evidence
+
+Using the frozen manifest to select only the 55,532 training rows from the
+confirmed local H2 file, all ADR entries parse numerically. There are 785
+zero-ADR rows, zero negative-ADR rows, 224 zero-night rows, and 23,172 canceled
+rows. Fifty-three rows are both zero-ADR and canceled, so these groups must
+not be added as disjoint counts. No records were removed. Members 1, 2, and 3
+must decide whether any of these groups belong in the regression target
+population before Member 3's baseline is accepted.

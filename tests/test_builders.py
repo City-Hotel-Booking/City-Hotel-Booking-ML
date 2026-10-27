@@ -4,11 +4,15 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import numpy as np
 import pandas as pd
 import yaml
 from sklearn.exceptions import NotFittedError
+from sklearn.compose import ColumnTransformer
+from sklearn.dummy import DummyClassifier
+from sklearn.pipeline import Pipeline
 from sklearn.utils.validation import check_is_fitted
 
 from src.features.policy import get_features
@@ -98,6 +102,26 @@ class PreprocessorTests(unittest.TestCase):
         changed = {**CONFIG, "preprocessing": {**CONFIG["preprocessing"], "unknown_categories": "error"}}
         with self.assertRaisesRegex(ValueError, "unknown_categories"):
             build_preprocessor("classification", changed)
+
+    def test_model_pipeline_fits_preprocessor_on_train_indices_only(self) -> None:
+        rows = _rows("classification")
+        train_ids = [10, 11, 12]
+        validation_ids = [13]
+        observed_fit_indices: list[list[int]] = []
+        original = ColumnTransformer.fit_transform
+
+        def record_fit(transformer, X, y=None, **kwargs):
+            observed_fit_indices.append(list(X.index))
+            return original(transformer, X, y=y, **kwargs)
+
+        model = Pipeline([
+            ("preprocess", build_preprocessor("classification", CONFIG)),
+            ("estimator", DummyClassifier()),
+        ])
+        with patch.object(ColumnTransformer, "fit_transform", record_fit):
+            model.fit(rows.loc[train_ids], [0, 1, 0])
+        self.assertEqual(observed_fit_indices, [train_ids])
+        self.assertEqual(len(model.predict(rows.loc[validation_ids])), 1)
 
 
 if __name__ == "__main__":
