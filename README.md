@@ -4,7 +4,7 @@ CSE382 university machine learning project for a team of six. Use H2.csv (City H
 
 ## Current status
 
-This repository contains the agreed folder layout, command routing, a provisional feature policy, a working supervised split, and report templates. EDA, preprocessing, model, and result-writing functions still need their owners. There are no model experiment results yet.
+This repository contains the agreed folder layout, command routing, a provisional feature policy, a working supervised split, an unfitted shared preprocessing builder, and report templates. EDA, model, and result-writing functions still need their owners. There are no model experiment results yet.
 
 Milestone 1 is due **5 November 2026**. Milestone 2 is due **11 December 2026**, according to the supplied project Description.
 
@@ -40,6 +40,34 @@ The following command routes exist. Help/configuration/routing, a provisional fe
 | `python main.py baseline --task clustering` | Member 5 | `outputs/clustering/`, `reports/clustering_m1.md` |
 
 Use `python main.py --config config.yaml <command>` to select a configuration explicitly. Paths in the configuration are relative to the project root, not to an individual laptop.
+
+## Member 2 preprocessing handoff
+
+`get_features(task, config)` returns the provisional input columns and
+`build_preprocessor(task, config)` returns a fresh **unfitted** transformer.
+Members 3 and 4 should select their own train/validation row IDs from
+`outputs/data/split_manifest.csv`, then put the transformer inside their
+model Pipeline before fitting. For example:
+
+```python
+from sklearn.pipeline import Pipeline
+from src.features.policy import get_features
+from src.preprocessing.builders import build_preprocessor
+
+features = get_features("classification", config)
+model = Pipeline([
+    ("preprocess", build_preprocessor("classification", config)),
+    ("estimator", classifier),
+])
+model.fit(train_rows[features], train_rows["IsCanceled"])
+predictions = model.predict(validation_rows[features])
+```
+
+Create a separate unfitted transformer for clustering. The current feature
+lists exclude disputed inputs; agree on any policy change and bump its version
+before adding them. `NULL`, blank, and literal `NA` are missing values inside
+the transformer; `NA` appears in four source `Children` entries. Numeric
+statistics and one-hot categories are learned only during `fit`.
 
 ## Milestone 1 sequence
 

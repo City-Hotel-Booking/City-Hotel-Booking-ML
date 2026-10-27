@@ -1,6 +1,6 @@
 # Focused checks
 
-Owners add focused tests with their implementations. Member 2's policy and split tests are implemented in test_policy.py and test_split.py; model and preprocessing tests are still pending.
+Owners add focused tests with their implementations. Member 2's policy, split, and preprocessing checks are in test_policy.py, test_split.py, and test_builders.py. Model tests are still pending.
 
 - Member 1: loader/source-label checks, padded strings, and meaningful not-applicable values.
 - Member 2: disjoint reproducible splits, stable row IDs, approved input lists, unseen categories, and training-only learned preprocessing.

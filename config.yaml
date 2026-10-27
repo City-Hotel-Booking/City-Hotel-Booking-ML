@@ -34,6 +34,16 @@ decisions:
   feature_policy_version: m1-draft-1
   split_version: m1-group-stratified-v1
 
+# These choices take effect only when a model owner fits a Pipeline on training.
+preprocessing:
+  numeric_imputation: median
+  numeric_scaling: standard
+  categorical_imputation: constant_missing
+  categorical_encoding: one_hot
+  unknown_categories: ignore
+  high_cardinality_encoding: one_hot_rare
+  high_cardinality_min_frequency: 20
+
 baselines:
   regression: null
   classification: null
