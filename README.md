@@ -24,11 +24,11 @@ For development tests, install `requirements-dev.txt` instead. Editors can diffe
 
 ## Data
 
-Place your own copy of H2 at `data/raw/H2.csv`; see `data/README.md`. The raw CSV and the two root reference documents are excluded from Git. The local Word coordination plan is shared separately; the team ownership summary is also in `CONTRIBUTING.md`.
+Place your own copy of H2 at data/H2.csv; see data/README.md. The raw CSV and the two root reference documents are excluded from Git. The local Word coordination plan is shared separately; the team ownership summary is also in CONTRIBUTING.md.
 
 ## Commands and ownership
 
-The following command routes exist. Only help/configuration/routing are implemented at this stage; the task commands exit with a clear unfinished-task message until their owners complete them.
+The following command routes exist. Help/configuration/routing and a provisional feature policy are implemented; the task commands still exit with a clear unfinished-task message until their owners complete them.
 
 | Command | Owner | Expected output after implementation |
 | --- | --- | --- |
@@ -49,7 +49,7 @@ Use `python main.py --config config.yaml <command>` to select a configuration ex
 4. Members 3-5 run one untuned experiment each using the common preparation.
 5. Member 6 connects the commands, reruns the workflow, and assembles the report with checked contributions from every member.
 
-Open scientific decisions remain `null` in `config.yaml` and are tracked in `reports/decisions.md`. The team has not yet approved a prediction time, split ratio, row deletion rule, model, or interface.
+Provisional booking-time and split settings are recorded in config.yaml and reports/decisions.md. The team has not yet approved the prediction point, ADR population, row-deletion rules, baseline models, or final feature lists.
 
 ## Shared working rules
 
@@ -67,7 +67,7 @@ M2 extends the same modules with at least three models/algorithms per task, base
 
 ## Submission record
 
-GitHub repository URL: https://github.com/makarioussafa/City-Hotel-Booking-ML
+GitHub repository URL: https://github.com/City-Hotel-Booking/City-Hotel-Booking-ML
 
 Submitted commit SHA: not available yet.
 

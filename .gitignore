@@ -3,6 +3,7 @@
 /CSE382_Project_Description_Milestones.pdf
 
 # Raw/private datasets
+/data/H2.csv
 /data/raw/*
 !/data/raw/.gitkeep
 

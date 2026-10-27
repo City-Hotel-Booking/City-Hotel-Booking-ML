@@ -3,24 +3,36 @@ project:
   random_seed: 42
 
 data:
-  raw_path: data/raw/H2.csv
+  raw_path: data/H2.csv
   expected_rows: 79330
   expected_columns: 31
+  null_token: "NULL"
+  strip_padded_text: true
 
 targets:
   regression: ADR
   classification: IsCanceled
 
-# The team fills these in after reviewing the data and agreeing on the rules.
+# These are draft Member 2 settings. The team must review scientific choices.
 decisions:
-  prediction_point: null
+  prediction_point:
+    regression: at_booking_entry
+    classification: at_booking_entry
+    clustering: at_booking_entry
+  prediction_point_status: provisional
   adr_population: null
-  duplicate_policy: null
+  duplicate_policy: preserve_rows_group_identical_for_split
   invalid_row_policy: null
-  split_method: null
-  split_parameters: null
-  feature_policy_version: null
-  split_version: null
+  split_method: stratified_group_random
+  split_parameters:
+    train: 0.70
+    validation: 0.15
+    test: 0.15
+    stratify_column: IsCanceled
+    group_columns: all_31_source_columns
+  feature_policy_reference: src.features.policy
+  feature_policy_version: m1-draft-1
+  split_version: m1-group-stratified-v1
 
 baselines:
   regression: null
