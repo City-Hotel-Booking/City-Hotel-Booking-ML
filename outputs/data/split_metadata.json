@@ -1,0 +1,87 @@
+{
+  "achieved_ratios": {
+    "test": 0.14999369721416866,
+    "train": 0.7000126055716627,
+    "validation": 0.14999369721416866
+  },
+  "assignment_method": "Shuffle groups within each class with seed+class, sort largest first, then place each group in the split with the largest remaining row quota.",
+  "class_balance": {
+    "test": {
+      "0": 0.5827380452138835,
+      "1": 0.4172619547861165
+    },
+    "train": {
+      "0": 0.5827270762803428,
+      "1": 0.41727292371965713
+    },
+    "validation": {
+      "0": 0.5827380452138835,
+      "1": 0.4172619547861165
+    }
+  },
+  "class_counts": {
+    "test": {
+      "0": 6934,
+      "1": 4965
+    },
+    "train": {
+      "0": 32360,
+      "1": 23172
+    },
+    "validation": {
+      "0": 6934,
+      "1": 4965
+    }
+  },
+  "data_checksum_sha256": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "duplicate_extra_row_count": 25902,
+  "duplicate_group_count": 5846,
+  "grouping": "SHA-256 of all 31 source fields after trim/NULL normalization",
+  "requested_ratios": {
+    "test": 0.15,
+    "train": 0.7,
+    "validation": 0.15
+  },
+  "row_counts": {
+    "test": 11899,
+    "train": 55532,
+    "validation": 11899
+  },
+  "seed": 42,
+  "source_columns": 31,
+  "source_header_mapping": {
+    "ADR": "ADR",
+    "Adults": "Adults",
+    "Agent": "Agent",
+    "ArrivalDateDayOfMonth": "ArrivalDateDayOfMonth",
+    "ArrivalDateMonth": "ArrivalDateMonth",
+    "ArrivalDateWeekNumber": "ArrivalDateWeekNumber",
+    "ArrivalDateYear": "ArrivalDateYear",
+    "AssignedRoomType": "AssignedRoomType",
+    "Babies": "Babies",
+    "BookingChanges": "BookingChanges",
+    "Children": "Children",
+    "Company": "Company",
+    "Country": "Country",
+    "CustomerType": "CustomerType",
+    "DaysInWaitingList": "DaysInWaitingList",
+    "DepositType": "DepositType",
+    "DistributionChannel": "DistributionChannel",
+    "IsCanceled": "IsCanceled",
+    "IsRepeatedGuest": "IsRepeatedGuest",
+    "LeadTime": "LeadTime",
+    "MarketSegment": "MarketSegment",
+    "Meal": "Meal",
+    "PreviousBookingsNotCanceled": "PreviousBookingsNotCanceled",
+    "PreviousCancellations": "PreviousCancellations",
+    "RequiredCarParkingSpaces": "RequiredCarParkingSpaces",
+    "ReservationStatus": "ReservationStatus",
+    "ReservationStatusDate": "ReservationStatusDate",
+    "ReservedRoomType": "ReservedRoomType",
+    "StaysInWeekNights": "StaysInWeekNights",
+    "StaysInWeekendNights": "StaysInWeekendNights",
+    "TotalOfSpecialRequests": "TotalOfSpecialRequests"
+  },
+  "source_rows": 79330,
+  "split_version": "m1-group-stratified-v1"
+}
