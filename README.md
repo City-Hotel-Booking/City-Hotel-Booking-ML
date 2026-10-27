@@ -4,7 +4,7 @@ CSE382 university machine learning project for a team of six. Use H2.csv (City H
 
 ## Current status
 
-This repository contains the agreed folder layout, command routing, task modules, and report templates. The data-analysis, preprocessing, model, and result-writing functions deliberately raise `NotImplementedError` until their owners implement them. There are no experiment results yet.
+This repository contains the agreed folder layout, command routing, a provisional feature policy, a working supervised split, an unfitted shared preprocessing builder, and report templates. EDA, model, and result-writing functions still need their owners. There are no model experiment results yet.
 
 Milestone 1 is due **5 November 2026**. Milestone 2 is due **11 December 2026**, according to the supplied project Description.
 
@@ -24,11 +24,11 @@ For development tests, install `requirements-dev.txt` instead. Editors can diffe
 
 ## Data
 
-Place your own copy of H2 at `data/raw/H2.csv`; see `data/README.md`. The raw CSV and the two root reference documents are excluded from Git. The local Word coordination plan is shared separately; the team ownership summary is also in `CONTRIBUTING.md`.
+Place your own copy of H2 at data/H2.csv; see data/README.md. The raw CSV and the two root reference documents are excluded from Git. The local Word coordination plan is shared separately; the team ownership summary is also in CONTRIBUTING.md.
 
 ## Commands and ownership
 
-The following command routes exist. Only help/configuration/routing are implemented at this stage; the task commands exit with a clear unfinished-task message until their owners complete them.
+The following command routes exist. Help/configuration/routing, a provisional feature policy, and prepare are implemented. Validate, analyze, and baseline still exit with an unfinished-task message until their owners complete them.
 
 | Command | Owner | Expected output after implementation |
 | --- | --- | --- |
@@ -41,6 +41,34 @@ The following command routes exist. Only help/configuration/routing are implemen
 
 Use `python main.py --config config.yaml <command>` to select a configuration explicitly. Paths in the configuration are relative to the project root, not to an individual laptop.
 
+## Member 2 preprocessing handoff
+
+`get_features(task, config)` returns the provisional input columns and
+`build_preprocessor(task, config)` returns a fresh **unfitted** transformer.
+Members 3 and 4 should select their own train/validation row IDs from
+`outputs/data/split_manifest.csv`, then put the transformer inside their
+model Pipeline before fitting. For example:
+
+```python
+from sklearn.pipeline import Pipeline
+from src.features.policy import get_features
+from src.preprocessing.builders import build_preprocessor
+
+features = get_features("classification", config)
+model = Pipeline([
+    ("preprocess", build_preprocessor("classification", config)),
+    ("estimator", classifier),
+])
+model.fit(train_rows[features], train_rows["IsCanceled"])
+predictions = model.predict(validation_rows[features])
+```
+
+Create a separate unfitted transformer for clustering. The current feature
+lists exclude disputed inputs; agree on any policy change and bump its version
+before adding them. `NULL`, blank, and literal `NA` are missing values inside
+the transformer; `NA` appears in four source `Children` entries. Numeric
+statistics and one-hot categories are learned only during `fit`.
+
 ## Milestone 1 sequence
 
 1. Member 1 checks H2 and provides evidence for cleaning decisions.
@@ -49,7 +77,7 @@ Use `python main.py --config config.yaml <command>` to select a configuration ex
 4. Members 3-5 run one untuned experiment each using the common preparation.
 5. Member 6 connects the commands, reruns the workflow, and assembles the report with checked contributions from every member.
 
-Open scientific decisions remain `null` in `config.yaml` and are tracked in `reports/decisions.md`. The team has not yet approved a prediction time, split ratio, row deletion rule, model, or interface.
+Provisional booking-time and split settings are recorded in config.yaml and reports/decisions.md. The team has not yet approved the prediction point, ADR population, row-deletion rules, baseline models, or final feature lists.
 
 ## Shared working rules
 
@@ -67,7 +95,7 @@ M2 extends the same modules with at least three models/algorithms per task, base
 
 ## Submission record
 
-GitHub repository URL: https://github.com/makarioussafa/City-Hotel-Booking-ML
+GitHub repository URL: https://github.com/City-Hotel-Booking/City-Hotel-Booking-ML
 
 Submitted commit SHA: not available yet.
 

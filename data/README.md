@@ -1,6 +1,6 @@
 # Dataset
 
-Place an unchanged H2.csv at `data/raw/H2.csv` on each laptop. Use City Hotel only, not H1 or a combined file.
+Place an unchanged H2.csv at data/H2.csv on each laptop. Use City Hotel only, not H1 or a combined file.
 
 The course expects 79,330 rows and 31 source variables before deliberate filtering. Member 1 checks exact source labels, records a file checksum, and reports discrepancies. Do not edit the raw CSV to perform cleaning.
 

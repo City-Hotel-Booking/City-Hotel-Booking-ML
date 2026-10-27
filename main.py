@@ -25,7 +25,7 @@ def build_parser() -> argparse.ArgumentParser:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("validate", help="Check the H2 source data (not implemented).")
     commands.add_parser("analyze", help="Produce EDA summaries and plots (not implemented).")
-    commands.add_parser("prepare", help="Create the agreed split manifest (not implemented).")
+    commands.add_parser("prepare", help="Create the grouped, stratified split manifest.")
     baseline = commands.add_parser("baseline", help="Run one baseline (not implemented).")
     baseline.add_argument(
         "--task", required=True, choices=("regression", "classification", "clustering")
