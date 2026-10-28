@@ -1,6 +1,6 @@
 # Milestone 1 preliminary leakage audit
 
-Owner: Member 2, for review with Members 1 and 3-5. Date: 27 October 2026.
+Owner: Member 2, for review with Members 1 and 3-5. Updated 29 October 2026.
 Status: **provisional** (`m1-draft-1`); the team has not yet approved the
 feature lists or ADR population.
 
@@ -121,10 +121,14 @@ and record the training subsample and seed for any dendrogram.
    `ColumnTransformer`. Put it in a scikit-learn `Pipeline` with the model;
    fit the whole pipeline only on each training fold. Numeric median/scaling,
    categorical imputation/one-hot, and later feature engineering learn there.
-   Unknown categories are ignored at transform time. Four literal `NA` values
-   in `Children` are treated as missing inside preprocessing; Member 1 should
-   confirm this source convention. Agent, Company, and Country are excluded
-   until approved; the builder's rare-category one-hot branch is dormant.
+   Unknown categories are ignored at transform time. Member 1 verified four
+   unknown `Children` values; preprocessing treats them as missing, not zero.
+   `Agent` and `Company` NULL means not applicable and is preserved as a
+   categorical token in the builder. Agent, Company, and Country remain
+   excluded until approved; rare-category one-hot is dormant. Scaled model
+   families use a train-fold `log1p` transform on LeadTime after imputation;
+   tree models can use unscaled inputs. Clustering uses a separate dense,
+   scaled transformer instance.
 4. Cross-validation and search use development rows only. Put preprocessing,
    feature selection, PCA, and LDA *inside* each fold's pipeline. LDA uses
    that fold's training labels only. Never fit these on all H2 before a
@@ -153,3 +157,42 @@ not a replacement for this frozen M1 manifest.
 - Member 5: agree clustering population and purpose before selecting
   features or using any outcomes to interpret groups.
 - All model owners: cite policy and split versions in result records.
+
+## Member 1 evidence and new leakage checks
+
+The following are **full-source descriptions**, not training counts or
+selection thresholds. `outputs/data/validation.json`, `outputs/data/review.json`,
+and `outputs/data/schema.csv` record the source SHA-256, counts and meanings;
+`reports/data_review.md` records overlaps. The source has 79,330 rows and 31
+columns, 4 unknown Children, 24 unknown Country, 8,131 Agent NULL and 75,641
+Company NULL values. Country has 166 known categories, Agent 224 and Company
+208. Agent and Company IDs are categories even when their tokens look numeric.
+Do not interpret ID magnitude as distance, or fit rare-category boundaries on
+all rows. The source also has 331 zero-night, 1,208 zero-ADR, 167 complete
+zero-guest rows, and an ADR maximum of 5,400. These flags overlap. Applying a
+full-source outlier threshold or filtering rows *before* the shared split
+would change the scientific population and may leak evaluation information.
+
+The shared loader keeps raw tokens separate from its normalized view. The
+frozen split groups after trimming outer whitespace and normalizing blank and
+NULL. The analysis view also recognizes NA/N/A/NAN and preserves Agent/Company
+NULL as not applicable. The new split-loader path uses Member 1's **raw** view
+and the old grouping rule; the regenerated manifest matches the saved file
+exactly. Do not feed the normalized view directly into group hashing without
+versioning and verifying the result. `row_id` is the original zero-based CSV
+position and must be assigned before any task-specific exclusion.
+
+Potential timing risks remain: stored guest counts and stay length may reflect
+changes after first booking entry; Country may be filled at check-in; recorded
+ADR may have been amended. `ReservationStatus` and `ReservationStatusDate`
+encode final outcomes. These findings support keeping disputed fields out for
+Milestone 1 but do not prove the initial values of the current active fields.
+The arrival period, 2015-07-01 through 2017-08-31, also makes a random split
+insufficient to measure future-year drift. Any chronological robustness check
+must be separate from the frozen common manifest.
+
+`outputs/data/preprocessing_checks.json` records real-H2 checks: train-only
+transformer fitting, unknown-category handling, forbidden outcomes absent,
+label-free manifest, deterministic assignments, finite transformed train and
+validation arrays, and zero duplicate-group crossings. No model or learned
+transformer has been fitted on final test rows.
