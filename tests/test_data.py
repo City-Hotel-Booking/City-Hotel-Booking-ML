@@ -152,6 +152,21 @@ class DataTests(unittest.TestCase):
         report = inspect_dataset(read_dataset(self.path))
         self.assertEqual(report["checks"]["invalid_reservation_status_dates"], 0)
 
+    def test_eda_report_records_separate_validation_and_analysis_commands(self):
+        from src.data.eda import write_notes
+        self.write([self.row()])
+        dataset = read_dataset(self.path)
+        report = inspect_dataset(dataset)
+        destination = self.root / "eda_notes.md"
+        for prefix in ["python main.py", "python main.py --config 'custom config.yaml'"]:
+            with self.subTest(prefix=prefix):
+                analysis_command = prefix + " analyze"
+                report["command"] = analysis_command
+                write_notes(dataset, report, {"command": analysis_command, "figures": []}, destination)
+                text = destination.read_text(encoding="utf-8")
+                self.assertIn(f"Validation command: `{prefix} validate`", text)
+                self.assertIn(f"Analysis command: `{analysis_command}`", text)
+
 
 if __name__ == "__main__":
     unittest.main()

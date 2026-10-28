@@ -142,6 +142,7 @@ Monthly arrival counts include partial endpoint years: 2015 starts in July and 2
 4. Paula and Michael should agree whether canceled, zero-night, zero-rate and extreme-rate bookings belong in the ADR prediction population. Report each affected count and overlap before exclusion.
 5. Define each task's prediction/analysis point before approving features. Final ReservationStatus and ReservationStatusDate encode lifecycle outcomes. AssignedRoomType, BookingChanges and other mutable fields need timing review. The original paper warns that guest counts, stay duration and room preferences can change during the booking lifecycle, and nationality may be unknown until check-in. This document does not approve the remaining fields automatically.
 6. Aya and Michael should select a justified, separately prepared clustering population and feature set. Agent and Company have high cardinality; numerical IDs are not quantities or meaningful distances. Outcome labels must not select clusters or parameters.
+7. Members 1 and 2 must reconcile normalization before enabling Agent/Company or changing duplicate grouping. EDA preserves their NULL category; the modeling builder converts NULL to missing, and these columns are currently excluded. EDA also treats literal NA as missing, whereas the split reader normalizes only blank/NULL tokens. Agree the representations, version the feature/preprocessing policy and any affected split rule, and preserve the current frozen manifest until that review is complete.
 
 ## Handoff recipients
 
@@ -155,7 +156,7 @@ Monthly arrival counts include partial endpoint years: 2015 starts in July and 2
 
 ## Reproduction
 
-Validation command: `python main.py analyze`
+Validation command: `python main.py validate`
 
 Analysis command: `python main.py analyze`
 

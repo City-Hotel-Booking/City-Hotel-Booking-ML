@@ -57,6 +57,7 @@ These packages are prepared locally. They have not been sent, reviewed or approv
 3. What is the justified response to the isolated extreme ADR?
 4. How should repeated groups be handled in the split without assuming they are erroneous bookings?
 5. Which fields are available at each approved prediction or clustering analysis point?
+6. How should Agent/Company NULL categories and literal NA values be normalized consistently across EDA, modeling and duplicate grouping? Agent and Company remain excluded from active inputs. Members 1 and 2 must agree the representations and version the relevant policy; a change to group hashing also requires an explicitly reviewed split version rather than silently overwriting the frozen manifest.
 
 Michael coordinates these decisions with Zeina and the model owners. Any learned imputation, scaling, encoding, dimensionality reduction or threshold selection belongs inside the agreed training protocol. This contribution creates no model or test-performance results and preserves the existing shared split assignments.
 

@@ -50,11 +50,10 @@ Both `validate` and `analyze` expose `run(config, project_root)` and use configu
 - [EDA notes](reports/eda_notes.md)
 - [Unusual records and duplicate review](reports/data_review.md)
 - [Integration and source-identity notes](reports/member1_integration.md)
-- [Manual checklist and observations](reports/zeina_checklist.md)
 
-Run `python scripts/verify_outputs.py` to independently reconcile generated evidence and run the combined test suite. The script uses the shared configuration by default. Analysis regenerates its reports but preserves the manual checklist and Michael's existing split files. Full-source descriptions are not test-performance evaluation and must not become all-data fitted model-selection rules.
+Run `python scripts/verify_outputs.py` to independently reconcile generated evidence and run the combined test suite. The script uses the shared configuration by default. Analysis regenerates its reports and preserves the existing split files. Full-source descriptions are not test-performance evaluation and must not become all-data fitted model-selection rules.
 
-The source file should match the split metadata checksum. The supplied spreadsheet export has equivalent row values but different byte formatting; this integration uses the course mirror whose exact checksum matches the existing split. See the integration notes. Agent/Company NULL is preserved as not applicable in EDA. These fields remain excluded by the provisional modeling policy; any future activation needs agreement with Member 2 on categorical handling.
+The source file should match the split metadata checksum. The supplied spreadsheet export has equivalent row values but different byte formatting; this integration uses the course mirror whose exact checksum matches the existing split. See the integration notes. Agent/Company NULL is preserved as not applicable in EDA, while the modeling preprocessor converts NULL to missing. These fields remain excluded by the provisional modeling policy; before activation, Members 1 and 2 must agree on the representation and version the policy. They must also review the difference between EDA's NA normalization and the split reader's blank/NULL-only normalization before changing duplicate grouping or split versions.
 
 ## Member 2 preprocessing handoff
 
