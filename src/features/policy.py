@@ -72,20 +72,20 @@ COLUMN_POLICY: dict[str, dict[Task, ColumnDecision]] = {
         ),
     },
     "StaysInWeekendNights": _same(
-        "needs-team-decision", "H2 may contain amended or actual nights rather than nights first booked.",
+        "needs-team-decision", "Stay length can change after entry; H2 has 331 zero-night records across both night fields.",
         "Use only if the team can justify the booking-entry value.",
     ),
     "StaysInWeekNights": _same(
-        "needs-team-decision", "H2 may contain amended or actual nights rather than nights first booked.",
+        "needs-team-decision", "Stay length can change after entry; H2 has 331 zero-night records across both night fields.",
         "Use only if the team can justify the booking-entry value.",
     ),
     "Adults": _same("use", "Initial party size is normally entered with the booking; verify amendments."),
-    "Children": _same("use", "Initial child count is normally entered with the booking; missing values need handling."),
+    "Children": _same("use", "Initial child count is normally entered; four H2 values are unknown, not proven zero."),
     "Babies": _same("use", "Initial baby count is normally entered with the booking; verify amendments."),
     "Meal": _same("use", "The selected meal package is normally part of the initial booking."),
     "Country": _same(
-        "needs-team-decision", "Country may be unknown at booking and completed later at check-in.",
-        "Use only if a booking-time country value is available; otherwise exclude.",
+        "needs-team-decision", "Country may be completed at check-in; H2 has 24 unknown values and 166 known categories.",
+        "Use only if a booking-time country value is available; keep unknown distinct if approved.",
     ),
     "MarketSegment": _same("use", "The booking's market channel is normally assigned at entry; verify timing."),
     "DistributionChannel": _same("use", "The booking distribution channel is normally known at entry."),
@@ -114,19 +114,19 @@ COLUMN_POLICY: dict[str, dict[Task, ColumnDecision]] = {
         "Use only after confirming its booking-time meaning and documenting the proxy risk.",
     ),
     "Agent": _same(
-        "needs-team-decision", "Agent ID may be known at entry; missing can mean no agent and IDs are numerous.",
-        "Confirm timing and not-applicable meaning, then choose a bounded encoding.",
+        "needs-team-decision", "Agent ID may be known at entry; NULL means no agency and IDs are numerous.",
+        "Confirm booking-time availability; preserve NULL as not applicable and use bounded categorical encoding if approved.",
     ),
     "Company": _same(
-        "needs-team-decision", "Company ID may be known at entry; missing can mean no company and IDs are numerous.",
-        "Confirm timing and not-applicable meaning, then choose a bounded encoding.",
+        "needs-team-decision", "Company ID may be known at entry; NULL means not applicable and IDs are numerous.",
+        "Confirm booking-time availability; preserve NULL as not applicable and use bounded categorical encoding if approved.",
     ),
     "DaysInWaitingList": _same("exclude", "Waiting duration is accumulated after the booking enters the PMS."),
     "CustomerType": _same("use", "Booking customer type is normally assigned at entry; verify timing."),
     "ADR": {
         "regression": ColumnDecision("exclude", "This is the regression target."),
         "classification": ColumnDecision(
-            "needs-team-decision", "Recorded ADR may differ from the initial quoted price.",
+            "needs-team-decision", "Recorded ADR may differ from the initial quote; H2 has 1,208 zero-ADR rows.",
             "Exclude until a booking-time quote with the same meaning is confirmed.",
         ),
         "clustering": ColumnDecision(
@@ -168,6 +168,13 @@ def get_features(task: str, config: Mapping[str, object] | None = None) -> list[
             if version not in (None, POLICY_VERSION):
                 raise ValueError(f"Feature policy version mismatch: {version!r}")
     return [column for column, decision in policy.items() if decision.role == "use"]
+
+
+def get_target(task: str) -> str | None:
+    """Return the supervised target, or None for unsupervised clustering."""
+    if task not in TASKS:
+        raise ValueError(f"Unknown task: {task}")
+    return {"regression": "ADR", "classification": "IsCanceled", "clustering": None}[task]
 
 
 if set(COLUMN_POLICY) != set(OFFICIAL_COLUMNS) or any(

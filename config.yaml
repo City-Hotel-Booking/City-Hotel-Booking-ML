@@ -43,6 +43,7 @@ preprocessing:
   unknown_categories: ignore
   high_cardinality_encoding: one_hot_rare
   high_cardinality_min_frequency: 20
+  skewed_numeric_features: [LeadTime]
 
 baselines:
   regression: null
