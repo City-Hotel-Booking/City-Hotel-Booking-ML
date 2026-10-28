@@ -1,0 +1,43 @@
+row_id,flag,IsCanceled,ADR,Adults,Children,Babies,ReservedRoomType,MarketSegment,LeadTime,total_nights,total_guests
+473,zero_nights,0,0.0,2,0,0,A,Direct,0,0,2
+474,zero_nights,0,0.0,2,0,0,A,Direct,0,0,2
+961,zero_nights,0,0.0,2,0,0,A,Direct,0,0,2
+1079,zero_nights,0,0.0,2,0,0,A,Online TA,0,0,2
+1964,zero_nights,0,0.0,1,0,0,A,Direct,0,0,1
+3693,zero_nights,0,0.0,1,0,0,A,Offline TA/TO,30,0,1
+3736,zero_nights,0,0.0,1,0,0,A,Offline TA/TO,56,0,1
+3737,zero_nights,0,0.0,1,0,0,A,Offline TA/TO,2,0,1
+4443,zero_nights,0,0.0,2,0,0,A,Online TA,33,0,2
+4507,zero_nights,0,0.0,2,0,0,A,Offline TA/TO,30,0,2
+0,zero_ADR,0,0.0,1,0,0,A,Offline TA/TO,6,2,1
+134,zero_ADR,1,0.0,2,0,0,A,Direct,0,1,2
+139,zero_ADR,0,0.0,2,0,0,F,Direct,0,7,2
+166,zero_ADR,0,0.0,1,0,0,A,Groups,18,2,1
+196,zero_ADR,0,0.0,1,0,0,A,Groups,12,4,1
+220,zero_ADR,0,0.0,1,0,0,A,Groups,12,4,1
+251,zero_ADR,0,0.0,1,0,0,A,Groups,20,2,1
+280,zero_ADR,0,0.0,1,0,0,A,Groups,20,2,1
+300,zero_ADR,0,0.0,1,0,0,A,Groups,132,1,1
+316,zero_ADR,0,0.0,1,0,0,A,Groups,132,1,1
+332,zero_guests,0,0.0,0,0,0,A,Groups,132,7,0
+862,zero_guests,0,0.0,0,0,0,F,Online TA,0,2,0
+960,zero_guests,0,0.0,0,0,0,E,Online TA,0,29,0
+996,zero_guests,0,0.0,0,0,0,A,Online TA,0,4,0
+2392,zero_guests,1,0.0,0,0,0,A,Groups,1,2,0
+2531,zero_guests,0,0.0,0,0,0,A,Online TA,0,5,0
+2811,zero_guests,0,0.0,0,0,0,A,Groups,0,2,0
+2874,zero_guests,0,0.0,0,0,0,A,Direct,4,1,0
+7106,zero_guests,1,0.0,0,0,0,B,Online TA,1,3,0
+7120,zero_guests,0,0.0,0,0,0,D,Complementary,0,1,0
+3731,ADR_above_source_p99,1,231.0,2,2,0,F,Online TA,26,4,4
+3868,ADR_above_source_p99,1,250.0,2,2,0,F,Online TA,23,1,4
+3939,ADR_above_source_p99,1,250.0,1,0,0,A,Groups,39,1,1
+8352,ADR_above_source_p99,1,277.5,2,2,1,G,Direct,27,4,5
+8455,ADR_above_source_p99,1,5400.0,2,0,0,A,Offline TA/TO,35,1,2
+8641,ADR_above_source_p99,1,254.0,2,2,0,F,Online TA,5,5,4
+9589,ADR_above_source_p99,1,228.6,2,2,0,F,Online TA,32,7,4
+10099,ADR_above_source_p99,1,228.6,2,2,0,F,Online TA,57,3,4
+10130,ADR_above_source_p99,1,260.5,1,2,0,F,Online TA,13,4,3
+11110,ADR_above_source_p99,1,241.59,2,2,0,B,Online TA,50,6,4
+6559,babies_above_2_review_only,0,84.45,2,0,10,D,Online TA,37,2,12
+38596,babies_above_2_review_only,0,95.0,1,0,9,A,Corporate,11,3,10

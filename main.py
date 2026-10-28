@@ -23,8 +23,8 @@ def build_parser() -> argparse.ArgumentParser:
         "--config", default="config.yaml", help="Configuration path relative to the project."
     )
     commands = parser.add_subparsers(dest="command", required=True)
-    commands.add_parser("validate", help="Check the H2 source data (not implemented).")
-    commands.add_parser("analyze", help="Produce EDA summaries and plots (not implemented).")
+    commands.add_parser("validate", help="Check H2 source data and save validation evidence.")
+    commands.add_parser("analyze", help="Produce EDA tables, plots and unusual-record review.")
     commands.add_parser("prepare", help="Create the grouped, stratified split manifest.")
     baseline = commands.add_parser("baseline", help="Run one baseline (not implemented).")
     baseline.add_argument(
@@ -54,4 +54,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

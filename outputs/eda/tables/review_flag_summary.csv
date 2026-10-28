@@ -1,0 +1,6 @@
+flag,records,canceled,not_canceled,zero_ADR,zero_nights,zero_guests,median_ADR
+zero_nights,331,23,308,331,331,67,0.0
+zero_ADR,1208,129,1079,1208,331,137,0.0
+zero_guests,167,23,144,137,67,167,0.0
+ADR_above_source_p99,786,295,491,0,0,0,247.0
+babies_above_2_review_only,2,0,2,0,0,0,89.725

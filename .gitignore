@@ -55,3 +55,6 @@ htmlcov/
 Thumbs.db
 desktop.ini
 
+# Personal checklist is maintained outside the shared repository.
+/reports/zeina_checklist.md
+

@@ -1,0 +1,75 @@
+{
+  "dataset_sha256": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "source_rows": 79330,
+  "source_p99_ADR": 228.0,
+  "flag_profiles": [
+    {
+      "flag": "zero_nights",
+      "records": 331,
+      "canceled": 23,
+      "not_canceled": 308,
+      "zero_ADR": 331,
+      "zero_nights": 331,
+      "zero_guests": 67,
+      "median_ADR": 0.0
+    },
+    {
+      "flag": "zero_ADR",
+      "records": 1208,
+      "canceled": 129,
+      "not_canceled": 1079,
+      "zero_ADR": 1208,
+      "zero_nights": 331,
+      "zero_guests": 137,
+      "median_ADR": 0.0
+    },
+    {
+      "flag": "zero_guests",
+      "records": 167,
+      "canceled": 23,
+      "not_canceled": 144,
+      "zero_ADR": 137,
+      "zero_nights": 67,
+      "zero_guests": 167,
+      "median_ADR": 0.0
+    },
+    {
+      "flag": "ADR_above_source_p99",
+      "records": 786,
+      "canceled": 295,
+      "not_canceled": 491,
+      "zero_ADR": 0,
+      "zero_nights": 0,
+      "zero_guests": 0,
+      "median_ADR": 247.0
+    },
+    {
+      "flag": "babies_above_2_review_only",
+      "records": 2,
+      "canceled": 0,
+      "not_canceled": 2,
+      "zero_ADR": 0,
+      "zero_nights": 0,
+      "zero_guests": 0,
+      "median_ADR": 89.725
+    }
+  ],
+  "distinct_rows_with_any_review_flag": 2026,
+  "distinct_rows_with_zero_nights_ADR_or_guests": 1238,
+  "duplicate_groups": 5846,
+  "unique_raw_records": 53428,
+  "largest_identical_group": 180,
+  "raw_excess_duplicates": 25902,
+  "raw_duplicate_group_members": 31748,
+  "room_P": {
+    "records": 10,
+    "canceled": 10,
+    "zero_ADR": 10,
+    "zero_guests": 10
+  },
+  "max_ADR_row_id": 8455,
+  "max_ADR": 5400.0,
+  "second_highest_ADR": 510.0,
+  "rows_removed": 0,
+  "scientific_decision_status": "Proposals; awaiting team review."
+}

@@ -1,0 +1,11 @@
+first_flag,second_flag,records
+zero_nights,zero_ADR,331
+zero_nights,zero_guests,67
+zero_nights,ADR_above_source_p99,0
+zero_nights,babies_above_2_review_only,0
+zero_ADR,zero_guests,137
+zero_ADR,ADR_above_source_p99,0
+zero_ADR,babies_above_2_review_only,0
+zero_guests,ADR_above_source_p99,0
+zero_guests,babies_above_2_review_only,0
+ADR_above_source_p99,babies_above_2_review_only,0

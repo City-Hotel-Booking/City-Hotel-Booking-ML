@@ -1,0 +1,32 @@
+source_label,semantic_role,meaning,raw_dtype,normalized_dtype,raw_blank_count,whitespace_padded_count,missing_token_count_after_strip,normalized_missing_count,not_applicable_count,distinct_nonmissing,invalid_numeric_tokens,nonfinite_numeric_values
+IsCanceled,binary target,1 if canceled; 0 otherwise.,string,Int64,0,0,0,0,0,2,0.0,0.0
+LeadTime,integer,Days between PMS booking entry and arrival.,string,Int64,0,0,0,0,0,453,0.0,0.0
+ArrivalDateYear,temporal integer,Arrival year.,string,Int64,0,0,0,0,0,3,0.0,0.0
+ArrivalDateMonth,temporal category,Arrival month name.,string,string,0,0,0,0,0,12,,
+ArrivalDateWeekNumber,temporal integer,Arrival week number.,string,Int64,0,0,0,0,0,53,0.0,0.0
+ArrivalDateDayOfMonth,temporal integer,Arrival day of month.,string,Int64,0,0,0,0,0,31,0.0,0.0
+StaysInWeekendNights,integer,Number of weekend nights booked or stayed.,string,Int64,0,0,0,0,0,14,0.0,0.0
+StaysInWeekNights,integer,Number of weekday nights booked or stayed.,string,Int64,0,0,0,0,0,29,0.0,0.0
+Adults,integer,Number of adults.,string,Int64,0,0,0,0,0,5,0.0,0.0
+Children,integer,Number of children.,string,Int64,0,0,4,4,0,4,0.0,0.0
+Babies,integer,Number of babies.,string,Int64,0,0,0,0,0,5,0.0,0.0
+Meal,category,Meal package.,string,string,0,79330,0,0,0,4,,
+Country,category,Country of origin code.,string,string,0,0,24,24,0,166,,
+MarketSegment,category,Market segment designation.,string,string,0,0,0,0,0,8,,
+DistributionChannel,category,Booking distribution channel.,string,string,0,0,0,0,0,5,,
+IsRepeatedGuest,binary,1 for a repeated guest; 0 otherwise.,string,Int64,0,79330,0,0,0,2,0.0,0.0
+PreviousCancellations,integer,Previous bookings canceled by the customer.,string,Int64,0,0,0,0,0,10,0.0,0.0
+PreviousBookingsNotCanceled,integer,Previous bookings not canceled by the customer.,string,Int64,0,0,0,0,0,73,0.0,0.0
+ReservedRoomType,category,Room type originally reserved.,string,string,0,79330,0,0,0,8,,
+AssignedRoomType,category,Room type ultimately assigned.,string,string,0,79330,0,0,0,9,,
+BookingChanges,integer,Booking amendments before check-in or cancellation.,string,Int64,0,0,0,0,0,21,0.0,0.0
+DepositType,category,Deposit arrangement.,string,string,0,79330,0,0,0,3,,
+Agent,categorical ID,Travel-agency identifier; may contain NULL.,string,string,0,79330,8131,0,8131,224,,
+Company,categorical ID,Company or entity identifier; may contain NULL.,string,string,0,79330,75641,0,75641,208,,
+DaysInWaitingList,integer,Days on the waiting list before confirmation.,string,Int64,0,0,0,0,0,115,0.0,0.0
+CustomerType,category,Booking or customer type.,string,string,0,0,0,0,0,4,,
+ADR,numeric target,Average Daily Rate.,string,Float64,0,0,0,0,0,5405,0.0,0.0
+RequiredCarParkingSpaces,integer,Number of requested car-parking spaces.,string,Int64,0,0,0,0,0,4,0.0,0.0
+TotalOfSpecialRequests,integer,Number of special requests.,string,Int64,0,0,0,0,0,6,0.0,0.0
+ReservationStatus,outcome category,Final reservation status.,string,string,0,0,0,0,0,3,,
+ReservationStatusDate,date,Date the last reservation status was set.,string,string,0,0,0,0,0,864,,

@@ -1,0 +1,11 @@
+row_id,IsCanceled,ADR,Adults,Children,Babies,ReservedRoomType,MarketSegment,LeadTime,identical_group_size
+20097,1,100.0,2,0,0,A,Groups,277,180
+42694,1,75.0,2,0,0,A,Groups,68,150
+12920,1,130.0,1,0,0,A,Offline TA/TO,188,109
+11595,1,130.0,1,0,0,A,Groups,158,101
+40315,1,90.0,1,0,0,A,Offline TA/TO,34,100
+22378,1,75.0,1,0,0,A,Corporate,38,99
+24056,1,95.0,2,0,0,A,Groups,28,99
+26744,1,100.0,2,0,0,A,Groups,156,99
+12811,1,120.0,1,0,0,A,Offline TA/TO,71,89
+19634,1,110.0,1,0,0,A,Offline TA/TO,166,85
