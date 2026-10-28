@@ -90,6 +90,29 @@ def _read_h2(path: Path) -> pd.DataFrame:
     return raw
 
 
+def _read_h2_shared(path: Path) -> pd.DataFrame:
+    """Use Member 1's raw-token loader while preserving the frozen group rule."""
+    from src.data.load import read_dataset
+
+    source = read_dataset(path)
+    original_headers = [str(column).strip() for column in source.raw.columns]
+    unknown = [column for column in original_headers if column not in HEADER_TO_OFFICIAL]
+    if unknown:
+        raise ValueError(f"Unknown H2 source headers: {unknown}")
+    mapped = [HEADER_TO_OFFICIAL[column] for column in original_headers]
+    if len(mapped) != len(OFFICIAL_COLUMNS) or set(mapped) != set(OFFICIAL_COLUMNS):
+        raise ValueError("H2 must contain each of the 31 official columns exactly once.")
+    raw = source.raw.copy()
+    raw.columns = mapped
+    raw = raw.loc[:, list(OFFICIAL_COLUMNS)].reset_index(drop=True)
+    raw.insert(0, "row_id", range(len(raw)))
+    for column in OFFICIAL_COLUMNS:
+        values = raw[column].str.strip()
+        raw[column] = values.mask(values.isin(["", "NULL"]))
+    raw.attrs["header_mapping"] = dict(zip(original_headers, mapped))
+    return raw
+
+
 def _file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -224,7 +247,7 @@ def create_split(data: pd.DataFrame, config: dict) -> SplitResult:
 def run(config: dict, project_root: Path) -> None:
     """Write the label-free manifest and its reproducibility metadata."""
     data_path = project_root / config["data"]["raw_path"]
-    data = _read_h2(data_path)
+    data = _read_h2_shared(data_path)
     expected = int(config["data"]["expected_rows"])
     if len(data) != expected:
         raise ValueError(f"Expected {expected} H2 rows; found {len(data)}.")
