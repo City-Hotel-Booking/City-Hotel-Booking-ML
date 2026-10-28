@@ -1,0 +1,33 @@
+{
+  "dataset_sha256": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "source_rows": 79330,
+  "scope": "Full-source descriptive EDA. No training, split creation, or test scoring.",
+  "command": "python main.py analyze",
+  "tables": [
+    "tables/numeric_summary.csv",
+    "tables/missingness_and_cardinality.csv",
+    "tables/category_frequencies.csv",
+    "tables/cancellation_balance.csv",
+    "tables/arrivals_by_month.csv",
+    "tables/adr_population_by_cancellation.csv",
+    "tables/adr_extreme_examples.csv",
+    "tables/duplicate_group_sizes.csv",
+    "tables/market_segment_summary.csv",
+    "tables/review_flag_summary.csv",
+    "tables/review_flag_overlaps.csv",
+    "tables/review_flag_combinations.csv",
+    "tables/review_record_examples.csv",
+    "tables/duplicate_profiles_by_cancellation.csv",
+    "tables/duplicate_group_examples.csv"
+  ],
+  "figures": [
+    "figures/cancellation_balance.png",
+    "figures/adr_distribution.png",
+    "figures/missing_values.png",
+    "figures/lead_time_and_stay_length.png",
+    "figures/arrivals_by_month.png",
+    "figures/cancellation_by_market_segment.png",
+    "figures/adr_by_reserved_room.png"
+  ],
+  "review_summary": "../data/review.json"
+}
