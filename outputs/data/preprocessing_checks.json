@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "dataset_sha256": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "split_version": "m1-group-stratified-v1",
+  "feature_policy_version": "m1-draft-1",
+  "rows": {
+    "train": 55532,
+    "validation": 11899,
+    "test": 11899
+  },
+  "checks": {
+    "label_free_manifest": {
+      "status": "PASS",
+      "detail": "columns=['row_id', 'split'], rows=79330"
+    },
+    "source_identity": {
+      "status": "PASS",
+      "detail": "sha256=6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4"
+    },
+    "forbidden_outcomes_absent": {
+      "status": "PASS",
+      "detail": "{'regression': [], 'classification': [], 'clustering': []}"
+    },
+    "same_seed_determinism": {
+      "status": "PASS",
+      "detail": "Two regenerated assignments equal each other and the frozen manifest."
+    },
+    "duplicate_groups_stay_together": {
+      "status": "PASS",
+      "detail": "groups_crossing_splits=0"
+    },
+    "train_only_fitting": {
+      "status": "PASS",
+      "detail": "fit_calls=3; each must contain exactly 55532 training row_ids"
+    },
+    "unknown_category_handling": {
+      "status": "PASS",
+      "detail": "An unseen Meal token transforms with the same output width and finite values."
+    },
+    "zero_nan_after_transform": {
+      "status": "PASS",
+      "detail": "regression: train=(55532, 50), validation=(11899, 50), finite=True; classification: train=(55532, 50), validation=(11899, 50), finite=True; clustering: train=(55532, 45), validation=(11899, 45), finite=True"
+    },
+    "not_applicable_ids_preserved": {
+      "status": "PASS",
+      "detail": "Agent and Company NULL remain categorical not-applicable values."
+    }
+  }
+}
