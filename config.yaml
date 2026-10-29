@@ -13,16 +13,17 @@ targets:
   regression: ADR
   classification: IsCanceled
 
-# These are draft Member 2 settings. The team must review scientific choices.
+# Shared starting settings for Milestone 1.
+# Owners document task-specific departures in their experiment records.
 decisions:
   prediction_point:
     regression: at_booking_entry
     classification: at_booking_entry
     clustering: at_booking_entry
-  prediction_point_status: provisional
-  adr_population: null
+  prediction_point_status: starting_assumption
+  adr_population: all_bookings_with_finite_adr
   duplicate_policy: preserve_rows_group_identical_for_split
-  invalid_row_policy: null
+  invalid_row_policy: flag_without_automatic_removal
   split_method: stratified_group_random
   split_parameters:
     train: 0.70
@@ -34,7 +35,6 @@ decisions:
   feature_policy_version: m1-draft-1
   split_version: m1-group-stratified-v1
 
-# These choices take effect only when a model owner fits a Pipeline on training.
 preprocessing:
   numeric_imputation: median
   numeric_scaling: standard
@@ -45,6 +45,7 @@ preprocessing:
   high_cardinality_min_frequency: 20
   skewed_numeric_features: [LeadTime]
 
+# Each task owner records the selected untuned baseline.
 baselines:
   regression: null
   classification: null
@@ -58,4 +59,3 @@ paths:
   classification_outputs: outputs/classification
   clustering_outputs: outputs/clustering
   reports: reports
-
