@@ -9,7 +9,10 @@ The repository source-data location is:
 
 `data/H2.csv`
 
-The unchanged source CSV is included with the project.
+The source CSV is kept locally and excluded from Git. Obtain the course H2
+file, place it at `data/H2.csv`, and verify its SHA-256 below. The project
+evidence uses the exact course mirror documented in
+`reports/member1_integration.md`.
 Do not edit or resave it to perform cleaning. Apply transformations in code.
 
 ## Source identity

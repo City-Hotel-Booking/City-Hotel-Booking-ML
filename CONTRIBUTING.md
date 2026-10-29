@@ -225,9 +225,9 @@ A member must not approve their own pull request.
 
 ## Tracked and local files
 
-The unchanged `data/H2.csv` is included in the repository and must match
+Keep the unchanged `data/H2.csv` locally; it is ignored by Git and must match
 the checksum in the frozen split metadata.
 
 Commit source code, configuration, tests, relevant results and report figures.
-Do not commit environments, caches, secrets, processed datasets or fitted
+Do not commit raw data, environments, caches, secrets, processed datasets or fitted
 models and pipelines. Keep the two local reference documents excluded.

@@ -74,7 +74,7 @@ unpinned. Earlier source verification used the environment recorded in
 
 ## Dataset
 
-Use City Hotel H2 only. The unchanged CSV is included at:
+Use City Hotel H2 only. Place the unchanged, locally held CSV at:
 
 ```text
 data/H2.csv
@@ -121,7 +121,7 @@ src/classification/        Classification experiments
 src/clustering/            Clustering experiments
 src/tuning/                Milestone 2 tuning extension
 src/inference/             Milestone 2 inference extension
-data/H2.csv                Unchanged H2 source
+data/H2.csv                Local H2 source (ignored by Git)
 outputs/data/              Validation, review and frozen split evidence
 outputs/eda/               Descriptive tables and figures
 outputs/regression/        Regression results
@@ -365,10 +365,10 @@ https://github.com/City-Hotel-Booking/City-Hotel-Booking-ML
 
 Submitted commit SHA: pending milestone submission.
 
-Commit source, configuration, tests, the unchanged H2 CSV, relevant result
+Commit source code, configuration, tests, relevant result
 tables and figures, and reports.
 
-Exclude environments, caches, secrets, processed datasets, fitted pipelines
+Exclude raw data, environments, caches, secrets, processed datasets, fitted pipelines
 and models, scratch outputs and the two local reference documents.
 
 Record the tested environment, reproduction commands and submitted revision

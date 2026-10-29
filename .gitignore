@@ -2,7 +2,8 @@
 /*.docx
 /*.pdf
 
-# Local processed or alternative datasets
+# Local raw, processed, or alternative datasets
+/data/H2.csv
 /data/raw/
 /data/processed/
 
