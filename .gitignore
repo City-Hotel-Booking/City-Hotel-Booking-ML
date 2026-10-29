@@ -1,11 +1,10 @@
-# Project reference documents (local context only)
-/CSE382_Project_Architecture_and_Milestone_Plan.docx
-/CSE382_Project_Description_Milestones.pdf
+# Local reference documents
+/*.docx
+/*.pdf
 
-# Raw/private datasets
-/data/H2.csv
-/data/raw/*
-!/data/raw/.gitkeep
+# Local processed or alternative datasets
+/data/raw/
+/data/processed/
 
 # Trained models and fitted preprocessing artifacts
 /artifacts/*
@@ -20,8 +19,7 @@
 *.pth
 *.ckpt
 
-# Local generated data and scratch outputs
-/data/processed/
+# Temporary outputs and logs
 /outputs/tmp/
 /outputs/logs/
 *.log
@@ -55,6 +53,5 @@ htmlcov/
 Thumbs.db
 desktop.ini
 
-# Personal checklist is maintained outside the shared repository.
+# Personal checklist
 /reports/zeina_checklist.md
-

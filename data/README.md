@@ -1,14 +1,29 @@
-# Dataset
+# City Hotel source dataset
 
-Place an unchanged H2.csv at data/H2.csv on each laptop. Use City Hotel only, not H1 or a combined file.
+The project uses City Hotel H2 only, with 79,330 bookings and 31 source
+variables. Do not combine H1 and H2 for the required experiments.
 
-The course expects 79,330 rows and 31 source variables before deliberate filtering. Member 1 checks exact source labels, records a file checksum, and reports discrepancies. Do not edit the raw CSV to perform cleaning.
+## Location
 
-The download mirror supplied in the course Description is:
-https://raw.githubusercontent.com/afaq-ahmad/Hotel-booking-demand-Case-Study/master/H2.csv
+The repository source-data location is:
 
-The source paper supplies variable definitions:
-https://pmc.ncbi.nlm.nih.gov/articles/PMC6297060/
+`data/H2.csv`
 
-Raw CSV files are excluded from Git. A local `data/processed/` directory, if needed later, is also excluded. Save shareable validation tables and split metadata in `outputs/data/`.
+The unchanged source CSV is included with the project.
+Do not edit or resave it to perform cleaning. Apply transformations in code.
 
+## Source identity
+
+Expected SHA-256:
+
+`6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4`
+
+The frozen split and existing validation evidence refer to this exact file.
+Different exports can contain equivalent values but have different byte
+formatting. Do not replace the source without checking identity and ordering.
+
+Check the file from the repository root:
+
+```powershell
+Get-FileHash -LiteralPath ".\data\H2.csv" -Algorithm SHA256
+```

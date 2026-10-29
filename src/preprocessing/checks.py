@@ -37,7 +37,7 @@ def run_checks(config: dict, project_root: Path) -> dict:
 
     source_path = root / config["data"]["raw_path"]
     source = load_h2(source_path)
-    manifest = load_manifest(root)
+    manifest = load_manifest(root, config=config)
     metadata = json.loads((root / config["paths"]["data_outputs"] / "split_metadata.json").read_text())
     ids = {name: manifest.loc[manifest["split"].eq(name), "row_id"].astype(int).tolist()
            for name in ("train", "validation", "test")}

@@ -11,10 +11,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 RUNNERS = {
     "validate": "src.data.validate",
     "analyze": "src.data.eda",
-    "prepare": "src.data.split",
+    "prepare": "src.data.prepare",
 }
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description="City Hotel H2 project: Milestone 1 command interface."

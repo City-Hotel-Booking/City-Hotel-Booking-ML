@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class Member1IntegrationTests(unittest.TestCase):
     def test_shared_command_routes_and_config_option_are_preserved(self):
         self.assertEqual(tuple(SOURCE_COLUMNS), OFFICIAL_COLUMNS)
-        self.assertEqual(RUNNERS["prepare"], "src.data.split")
+        self.assertEqual(RUNNERS["prepare"], "src.data.prepare")
         self.assertEqual(RUNNERS["validate"], "src.data.validate")
         args = build_parser().parse_args(["--config", "config.yaml", "baseline", "--task", "regression"])
         self.assertEqual(args.task, "regression")
