@@ -10,8 +10,12 @@ never requested. All metric selection uses the original full validation set.
 
 from __future__ import annotations
 
+import argparse
 import json
 import math
+import shlex
+import shutil
+import sys
 from pathlib import Path
 from time import perf_counter
 
@@ -30,7 +34,7 @@ from src.features.policy import get_features
 from src.preprocessing.builders import build_preprocessor
 from src.regression.baseline import (
     FORBIDDEN_FEATURES, POPULATION_POLICY, _finite_target_rows,
-    _metrics, _require_contract,
+    _metrics, _require_contract, _software_versions,
 )
 from src.settings import load_config
 
@@ -51,7 +55,7 @@ def _models(seed: int, config: dict):
             ("preprocess", build_preprocessor(TASK, config, model_family="tree")),
             ("dense", FunctionTransformer(_dense, validate=False)),
             ("model", HistGradientBoostingRegressor(
-                loss="absolute_error", random_state=seed
+                loss="absolute_error", random_state=seed, early_stopping=False
             )),
         ]),
         "random_forest_regularized": Pipeline([
@@ -131,7 +135,8 @@ def _plot_comparison(rows: list[dict], destination: Path) -> None:
         plt.close(fig)
 
 
-def _plot_residuals(actual: np.ndarray, predicted: np.ndarray, destination: Path, seed: int) -> None:
+def _plot_residuals(actual: np.ndarray, predicted: np.ndarray, destination: Path,
+                    seed: int, model_name: str) -> None:
     residuals = actual - predicted
     rng = np.random.default_rng(seed)
     sample = np.arange(len(actual))
@@ -148,7 +153,7 @@ def _plot_residuals(actual: np.ndarray, predicted: np.ndarray, destination: Path
     axes[1].axvline(0, color="black", linestyle="--", linewidth=1)
     axes[1].set(xlabel="Actual − predicted ADR", ylabel="Count",
                 title="Central 99% residuals (plot zoom only)")
-    fig.suptitle("Enhanced model: validation diagnostics (all rows scored)")
+    fig.suptitle(f"{model_name}: validation diagnostics (all rows scored)")
     destination.parent.mkdir(parents=True, exist_ok=True)
     try:
         fig.savefig(destination, dpi=150)
@@ -168,7 +173,8 @@ def _write_report(path: Path, summary: dict) -> None:
         "the mandatory untuned linear baseline in `reports/regression_m1.md`.",
         "The original `m1-group-stratified-v1` source assignments, `m1-draft-1`",
         "feature policy and all-finite-ADR population were retained.",
-        "The final test subset was not loaded or evaluated.", "",
+        "Reserved test rows were **not used for fitting, model selection, or evaluation**.",
+        "The shared loader reads the full CSV prior to selecting split rows.", "",
         f"- Source checksum: `{summary['data_checksum']}`.",
         f"- Training/validation rows: {summary['n_train']:,} / {summary['n_validation']:,}.",
         f"- Exact input features: `{', '.join(summary['features'])}`.",
@@ -177,8 +183,15 @@ def _write_report(path: Path, summary: dict) -> None:
         "- Preprocessing: Member 2's unfitted `tree` builder, fitted separately",
         "  with each model on training rows only; categorical unknowns ignored.",
         "- Models: original LinearRegression baseline; fixed HistGradientBoostingRegressor",
-        "  with absolute-error loss; RandomForestRegressor with 100 trees and",
+        "  with absolute-error loss and `early_stopping=False` (no internal holdout);",
+        "  RandomForestRegressor with 100 trees and",
         "  minimum five training samples per leaf (predeclared, not searched).", "",
+        "## Runtime versions and reproducibility", "",
+        "- Runtime versions: " + ", ".join(
+            f"`{name}={ver}`" for name, ver in summary["software_versions"].items()
+        ) + ".",
+        "- `early_stopping=False` prevents a second, non-group-aware HGB internal split.",
+        "- All candidate transformations are fitted solely on the frozen training rows.", "",
         "## Full validation comparison", "",
         "| Model | Train MAE | Train RMSE | Train R² | Validation MAE | Validation RMSE | Validation R² | Fit seconds |",
         "|---|---:|---:|---:|---:|---:|---:|---:|",
@@ -213,8 +226,10 @@ def _write_report(path: Path, summary: dict) -> None:
         "", "## Evidence and interpretation", "",
         "- Metric table: `outputs/regression/comparison.csv`.",
         "- Structured comparison: `outputs/regression/comparison.json`.",
-        "- Charts: `outputs/regression/comparison.png` and",
-        f"  `outputs/regression/enhanced_residuals.png` (shows `{summary['plotted_enhanced_model']}`).",
+        "- Model comparison figure: `outputs/regression/comparison.png`.",
+        "- HGB-only residuals: `outputs/regression/hist_gradient_boosting_mae_residuals.png`.",
+        "- Random Forest-only residuals: `outputs/regression/random_forest_regularized_residuals.png`.",
+        f"- Backward-compatible enhanced residual alias: `outputs/regression/enhanced_residuals.png` (shows `{summary['plotted_enhanced_model']}`).",
         "- Individual candidate results: `outputs/regression/*_metrics.json`.",
         "- Large ADR events can dominate RMSE even when typical errors improve.",
         "  The score gap alone does not prove ordinary overfitting.",
@@ -241,7 +256,7 @@ def _write_report(path: Path, summary: dict) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def run(config: dict, project_root: Path) -> dict:
+def run(config: dict, project_root: Path, *, command: str = COMMAND) -> dict:
     """Evaluate two fixed candidate models; never read or score the final test."""
     _require_contract(config)
     root = Path(project_root).resolve()
@@ -292,6 +307,7 @@ def run(config: dict, project_root: Path) -> dict:
         }),
     }]
     predictions = {}
+    artifacts = {}
     for name, pipeline in _models(seed, config).items():
         start = perf_counter()
         pipeline.fit(Xt, yt)
@@ -316,8 +332,9 @@ def run(config: dict, project_root: Path) -> dict:
             "feature_policy_version": config["decisions"]["feature_policy_version"],
             "split_version": config["decisions"]["split_version"],
             "evaluation_subset": "validation", "seed": seed, "metrics": vm,
-            "train_seconds": seconds, "command": COMMAND,
-            "figure_paths": ["outputs/regression/comparison.png", "outputs/regression/enhanced_residuals.png"],
+            "train_seconds": seconds, "command": command,
+            "software_versions": _software_versions(),
+            "figure_paths": ["outputs/regression/comparison.png", f"outputs/regression/{name}_residuals.png"],
             "training_metrics": tm, "features": features,
             "population": {"train": pt, "validation": pv},
             "population_policy": POPULATION_POLICY,
@@ -326,7 +343,7 @@ def run(config: dict, project_root: Path) -> dict:
             "test_set_evaluated": False,
             "tuned": False,
         }
-        save_result(artifact, out_dir / f"{name}_metrics.json")
+        artifacts[name] = artifact
     # Best candidate by full validation MAE, with RMSE as a tie breaker.
     chosen = min(rows, key=lambda row: (row["mae"], row["rmse"]))
     selected_name = chosen["model"]
@@ -334,7 +351,12 @@ def run(config: dict, project_root: Path) -> dict:
     # use the best enhanced candidate for the residual plot and label it accurately.
     enhanced_only = min(rows[1:], key=lambda row: (row["mae"], row["rmse"]))["model"]
     _plot_comparison(rows, out_dir / "comparison.png")
-    _plot_residuals(yv, predictions[enhanced_only], out_dir / "enhanced_residuals.png", seed)
+    for name, valid_predictions in predictions.items():
+        _plot_residuals(yv, valid_predictions, out_dir / f"{name}_residuals.png", seed, name)
+    # Legacy plot always matches the selected enhanced candidate, and is labelled.
+    shutil.copyfile(out_dir / f"{enhanced_only}_residuals.png", out_dir / "enhanced_residuals.png")
+    for name, artifact in artifacts.items():
+        save_result(artifact, out_dir / f"{name}_metrics.json")
     summary = {
         "task": TASK, "source": "H2", "data_checksum": metadata["data_checksum_sha256"],
         "feature_policy_version": config["decisions"]["feature_policy_version"],
@@ -345,7 +367,11 @@ def run(config: dict, project_root: Path) -> dict:
         "selected_model": selected_name, "plotted_enhanced_model": enhanced_only,
         "selected_criterion": "minimum FULL validation MAE; RMSE tie breaker",
         "extreme_row": {"row_id": int(Xv.index[int(np.argmax(yv))]), "actual_adr": float(np.max(yv))},
-        "command": COMMAND, "test_set_evaluated": False,
+        "command": command, "software_versions": _software_versions(),
+        "residual_figure_paths": {
+            name: f"outputs/regression/{name}_residuals.png" for name in predictions
+        },
+        "test_set_evaluated": False,
         "comparison": rows,
     }
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -356,14 +382,24 @@ def run(config: dict, project_root: Path) -> dict:
     for row in rows:
         print(f"  {row['model']}: MAE={row['mae']:.3f}, RMSE={row['rmse']:.3f}, R2={row['r2']:.4f}")
     print(f"Lowest full-validation MAE: {selected_name}")
-    print("Saved outputs/regression/comparison.*, enhanced_residuals.png, reports/regression_enhancement_m1.md")
+    print("Saved outputs/regression/comparison.*, per-model residual figures, "
+          "enhanced_residuals.png, reports/regression_enhancement_m1.md")
     return summary
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Compare frozen-split ADR regression candidates")
+    parser.add_argument("--config", default="config.yaml", help="Project config path (relative to repository)")
+    args = parser.parse_args()
     root = Path(__file__).resolve().parents[2]
-    config = load_config(root / "config.yaml")
-    run(config, root)
+    config_path = Path(args.config)
+    if not config_path.is_absolute():
+        config_path = root / config_path
+    config = load_config(config_path)
+    invocation = "python -m src.regression.improve"
+    if sys.argv[1:]:
+        invocation += " " + shlex.join(sys.argv[1:])
+    run(config, root, command=invocation)
 
 
 if __name__ == "__main__":

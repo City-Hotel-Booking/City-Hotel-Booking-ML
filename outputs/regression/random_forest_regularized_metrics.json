@@ -28,17 +28,26 @@
   "seed": 42,
   "metrics": {
     "mae": 12.522330039180826,
-    "rmse": 52.80522413111238,
-    "r2": 0.3257128444714076
+    "rmse": 52.80522413111239,
+    "r2": 0.32571284447140747
   },
-  "train_seconds": 3.0769860000000335,
+  "train_seconds": 6.7180890999998155,
   "command": "python -m src.regression.improve",
+  "software_versions": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "PyYAML": "6.0.3"
+  },
   "figure_paths": [
     "outputs/regression/comparison.png",
-    "outputs/regression/enhanced_residuals.png"
+    "outputs/regression/random_forest_regularized_residuals.png"
   ],
   "training_metrics": {
-    "mae": 5.73807525803412,
+    "mae": 5.738075258034119,
     "rmse": 12.096808072920853,
     "r2": 0.8958341660232374
   },
@@ -84,7 +93,7 @@
     "largest_validation_adr_row_id": 8455,
     "largest_validation_adr": 5400.0,
     "prediction_for_largest_adr": 76.43051472907818,
-    "largest_row_share_of_total_squared_error": 0.854164679284036,
+    "largest_row_share_of_total_squared_error": 0.8541646792840358,
     "rmse_without_largest_validation_adr_diagnostic_only": 20.166312872636315,
     "negative_prediction_count": 0,
     "note": "The largest ADR row was INCLUDED in all primary validation metrics; removal is diagnostic only."

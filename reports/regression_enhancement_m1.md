@@ -6,7 +6,8 @@ This is an **additional fixed-configuration comparison**; it does not replace
 the mandatory untuned linear baseline in `reports/regression_m1.md`.
 The original `m1-group-stratified-v1` source assignments, `m1-draft-1`
 feature policy and all-finite-ADR population were retained.
-The final test subset was not loaded or evaluated.
+Reserved test rows were **not used for fitting, model selection, or evaluation**.
+The shared loader reads the full CSV prior to selecting split rows.
 
 - Source checksum: `6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4`.
 - Training/validation rows: 55,532 / 11,899.
@@ -16,16 +17,23 @@ The final test subset was not loaded or evaluated.
 - Preprocessing: Member 2's unfitted `tree` builder, fitted separately
   with each model on training rows only; categorical unknowns ignored.
 - Models: original LinearRegression baseline; fixed HistGradientBoostingRegressor
-  with absolute-error loss; RandomForestRegressor with 100 trees and
+  with absolute-error loss and `early_stopping=False` (no internal holdout);
+  RandomForestRegressor with 100 trees and
   minimum five training samples per leaf (predeclared, not searched).
+
+## Runtime versions and reproducibility
+
+- Runtime versions: `python=3.11.9`, `numpy=2.4.6`, `pandas=3.1.0`, `scipy=1.17.1`, `scikit-learn=1.9.1`, `matplotlib=3.11.2`, `PyYAML=6.0.3`.
+- `early_stopping=False` prevents a second, non-group-aware HGB internal split.
+- All candidate transformations are fitted solely on the frozen training rows.
 
 ## Full validation comparison
 
 | Model | Train MAE | Train RMSE | Train R² | Validation MAE | Validation RMSE | Validation R² | Fit seconds |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| `linear_regression` | 17.4007 | 24.4205 | 0.5755 | 18.1992 | 54.9850 | 0.2689 | 0.9267 |
-| `hist_gradient_boosting_mae` | 12.1615 | 20.2480 | 0.7082 | 15.3450 | 53.9205 | 0.2969 | 1.4797 |
-| `random_forest_regularized` | 5.7381 | 12.0968 | 0.8958 | 12.5223 | 52.8052 | 0.3257 | 3.0770 |
+| `linear_regression` | 17.4007 | 24.4205 | 0.5755 | 18.1992 | 54.9850 | 0.2689 | 3.1186 |
+| `hist_gradient_boosting_mae` | 11.8819 | 19.8696 | 0.7190 | 15.0025 | 53.7516 | 0.3013 | 3.6552 |
+| `random_forest_regularized` | 5.7381 | 12.0968 | 0.8958 | 12.5223 | 52.8052 | 0.3257 | 6.7181 |
 
 Model choice here uses **full-validation MAE** (RMSE breaks ties);
 test results and outlier-excluded diagnostics do not enter selection.
@@ -45,15 +53,17 @@ This selection is preliminary and is not a tuned/deployed M2 model.
 | Model | Prediction on largest ADR | Squared-error share | RMSE without largest row (diagnostic only) | Negative predictions |
 |---|---:|---:|---:|---:|
 | `linear_regression` | 75.3506 | 78.8103% | 25.3119 | 58 |
-| `hist_gradient_boosting_mae` | 78.5266 | 81.8551% | 22.9694 | 31 |
+| `hist_gradient_boosting_mae` | 76.2516 | 82.4406% | 22.5250 | 35 |
 | `random_forest_regularized` | 76.4305 | 85.4165% | 20.1663 | 0 |
 
 ## Evidence and interpretation
 
 - Metric table: `outputs/regression/comparison.csv`.
 - Structured comparison: `outputs/regression/comparison.json`.
-- Charts: `outputs/regression/comparison.png` and
-  `outputs/regression/enhanced_residuals.png` (shows `random_forest_regularized`).
+- Model comparison figure: `outputs/regression/comparison.png`.
+- HGB-only residuals: `outputs/regression/hist_gradient_boosting_mae_residuals.png`.
+- Random Forest-only residuals: `outputs/regression/random_forest_regularized_residuals.png`.
+- Backward-compatible enhanced residual alias: `outputs/regression/enhanced_residuals.png` (shows `random_forest_regularized`).
 - Individual candidate results: `outputs/regression/*_metrics.json`.
 - Large ADR events can dominate RMSE even when typical errors improve.
   The score gap alone does not prove ordinary overfitting.

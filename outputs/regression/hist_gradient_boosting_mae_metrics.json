@@ -3,7 +3,7 @@
   "model": "hist_gradient_boosting_mae",
   "parameters": {
     "categorical_features": "from_dtype",
-    "early_stopping": "auto",
+    "early_stopping": false,
     "interaction_cst": null,
     "l2_regularization": 0.0,
     "learning_rate": 0.1,
@@ -30,20 +30,29 @@
   "evaluation_subset": "validation",
   "seed": 42,
   "metrics": {
-    "mae": 15.34504451818146,
-    "rmse": 53.9204758950674,
-    "r2": 0.296930044657607
+    "mae": 15.00253196948691,
+    "rmse": 53.751637237222056,
+    "r2": 0.301326131203836
   },
-  "train_seconds": 1.4797462999995332,
+  "train_seconds": 3.65516499999967,
   "command": "python -m src.regression.improve",
+  "software_versions": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "PyYAML": "6.0.3"
+  },
   "figure_paths": [
     "outputs/regression/comparison.png",
-    "outputs/regression/enhanced_residuals.png"
+    "outputs/regression/hist_gradient_boosting_mae_residuals.png"
   ],
   "training_metrics": {
-    "mae": 12.161495791025512,
-    "rmse": 20.24800030000086,
-    "r2": 0.7081578661943004
+    "mae": 11.881893188015956,
+    "rmse": 19.86958563966217,
+    "r2": 0.7189644010783784
   },
   "features": [
     "LeadTime",
@@ -86,10 +95,10 @@
   "diagnostics": {
     "largest_validation_adr_row_id": 8455,
     "largest_validation_adr": 5400.0,
-    "prediction_for_largest_adr": 78.52660143429736,
-    "largest_row_share_of_total_squared_error": 0.8185512826026681,
-    "rmse_without_largest_validation_adr_diagnostic_only": 22.969361234463474,
-    "negative_prediction_count": 31,
+    "prediction_for_largest_adr": 76.2516194874892,
+    "largest_row_share_of_total_squared_error": 0.8244060746483169,
+    "rmse_without_largest_validation_adr_diagnostic_only": 22.52499435424782,
+    "negative_prediction_count": 35,
     "note": "The largest ADR row was INCLUDED in all primary validation metrics; removal is diagnostic only."
   },
   "test_set_evaluated": false,

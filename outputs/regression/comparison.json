@@ -35,6 +35,19 @@
     "actual_adr": 5400.0
   },
   "command": "python -m src.regression.improve",
+  "software_versions": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "PyYAML": "6.0.3"
+  },
+  "residual_figure_paths": {
+    "hist_gradient_boosting_mae": "outputs/regression/hist_gradient_boosting_mae_residuals.png",
+    "random_forest_regularized": "outputs/regression/random_forest_regularized_residuals.png"
+  },
   "test_set_evaluated": false,
   "comparison": [
     {
@@ -45,7 +58,7 @@
       "train_mae": 17.400693097062497,
       "train_rmse": 24.420492358001322,
       "train_r2": 0.5754854828413295,
-      "train_seconds": 0.9266683000005287,
+      "train_seconds": 3.1185855000003357,
       "diagnostics": {
         "prediction_for_largest_adr": 75.35055756941082,
         "largest_row_share_of_total_squared_error": 0.7881032985029479,
@@ -55,37 +68,37 @@
     },
     {
       "model": "hist_gradient_boosting_mae",
-      "mae": 15.34504451818146,
-      "rmse": 53.9204758950674,
-      "r2": 0.296930044657607,
-      "train_mae": 12.161495791025512,
-      "train_rmse": 20.24800030000086,
-      "train_r2": 0.7081578661943004,
-      "train_seconds": 1.4797462999995332,
+      "mae": 15.00253196948691,
+      "rmse": 53.751637237222056,
+      "r2": 0.301326131203836,
+      "train_mae": 11.881893188015956,
+      "train_rmse": 19.86958563966217,
+      "train_r2": 0.7189644010783784,
+      "train_seconds": 3.65516499999967,
       "diagnostics": {
         "largest_validation_adr_row_id": 8455,
         "largest_validation_adr": 5400.0,
-        "prediction_for_largest_adr": 78.52660143429736,
-        "largest_row_share_of_total_squared_error": 0.8185512826026681,
-        "rmse_without_largest_validation_adr_diagnostic_only": 22.969361234463474,
-        "negative_prediction_count": 31,
+        "prediction_for_largest_adr": 76.2516194874892,
+        "largest_row_share_of_total_squared_error": 0.8244060746483169,
+        "rmse_without_largest_validation_adr_diagnostic_only": 22.52499435424782,
+        "negative_prediction_count": 35,
         "note": "The largest ADR row was INCLUDED in all primary validation metrics; removal is diagnostic only."
       }
     },
     {
       "model": "random_forest_regularized",
       "mae": 12.522330039180826,
-      "rmse": 52.80522413111238,
-      "r2": 0.3257128444714076,
-      "train_mae": 5.73807525803412,
+      "rmse": 52.80522413111239,
+      "r2": 0.32571284447140747,
+      "train_mae": 5.738075258034119,
       "train_rmse": 12.096808072920853,
       "train_r2": 0.8958341660232374,
-      "train_seconds": 3.0769860000000335,
+      "train_seconds": 6.7180890999998155,
       "diagnostics": {
         "largest_validation_adr_row_id": 8455,
         "largest_validation_adr": 5400.0,
         "prediction_for_largest_adr": 76.43051472907818,
-        "largest_row_share_of_total_squared_error": 0.854164679284036,
+        "largest_row_share_of_total_squared_error": 0.8541646792840358,
         "rmse_without_largest_validation_adr_diagnostic_only": 20.166312872636315,
         "negative_prediction_count": 0,
         "note": "The largest ADR row was INCLUDED in all primary validation metrics; removal is diagnostic only."

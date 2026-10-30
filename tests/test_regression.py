@@ -113,7 +113,9 @@ def test_one_untuned_model_generates_real_outputs_without_touching_test(experime
     assert set(result["metrics"]) == {"mae", "rmse", "r2"}
     assert all(np.isfinite(v) for v in result["metrics"].values())
     assert "Validation" in report and "MAE" in report
-    assert "not loaded, predicted or evaluated" in report
+    assert "not used for fitting, model selection, or evaluation" in report
+    assert result["software_versions"]["python"]
+    assert result["software_versions"]["scikit-learn"]
     assert result["figure_paths"] == ["outputs/regression/residuals.png"]
 
 
@@ -179,3 +181,29 @@ def test_split_metadata_inconsistency_prevents_output(experiment):
     with pytest.raises(ValueError, match="metadata split version"):
         baseline.run(config, root)
     assert not (root / "outputs" / "regression" / "metrics.json").exists()
+
+
+def test_baseline_records_actual_config_argument(monkeypatch):
+    import sys
+    monkeypatch.setattr(sys, "argv", ["main.py", "--config", "alt-config.yaml", "baseline", "--task", "regression"])
+    assert baseline._actual_baseline_command() == (
+        "python main.py --config alt-config.yaml baseline --task regression"
+    )
+    monkeypatch.setattr(sys, "argv", ["main.py", "--config", "config with spaces.yaml", "baseline", "--task", "regression"])
+    assert "--config 'config with spaces.yaml'" in baseline._actual_baseline_command()
+
+
+def test_baseline_result_records_config_argument(experiment, monkeypatch):
+    import sys
+    root, config, train, validation, calls = experiment
+    monkeypatch.setattr(sys, "argv", [
+        "main.py", "--config", "alternate.yaml", "baseline", "--task", "regression"
+    ])
+    baseline.run(config, root)
+    result = json.loads((root / "outputs/regression/metrics.json").read_text())
+    assert result["command"] == (
+        "python main.py --config alternate.yaml baseline --task regression"
+    )
+    report = (root / "reports/regression_m1.md").read_text()
+    assert result["command"] in report
+    assert calls == ["train", "validation"]

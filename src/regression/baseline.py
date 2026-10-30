@@ -9,6 +9,10 @@ from __future__ import annotations
 
 import json
 import math
+import platform
+import shlex
+import sys
+from importlib.metadata import version as package_version
 from pathlib import Path
 from time import perf_counter
 
@@ -35,6 +39,31 @@ FORBIDDEN_FEATURES = frozenset({
     "ADR", "IsCanceled", "AssignedRoomType", "BookingChanges",
     "DaysInWaitingList", "ReservationStatus", "ReservationStatusDate",
 })
+
+
+def _software_versions() -> dict[str, str]:
+    """Capture actual runtime versions, not guessed library versions."""
+    return {
+        "python": platform.python_version(),
+        "numpy": package_version("numpy"),
+        "pandas": package_version("pandas"),
+        "scipy": package_version("scipy"),
+        "scikit-learn": package_version("scikit-learn"),
+        "matplotlib": package_version("matplotlib"),
+        "PyYAML": package_version("PyYAML"),
+    }
+
+
+def _actual_baseline_command() -> str:
+    """Preserve --config and other passed options when launched via main.py.
+
+    Direct unit-test calls to run() have no CLI invocation; retain the
+    documented default in that case. No changes to the shared CLI are needed.
+    """
+    argv = sys.argv
+    if Path(argv[0]).name.lower() != "main.py" or "baseline" not in argv[1:]:
+        return COMMAND
+    return "python " + shlex.join(["main.py", *argv[1:]])
 
 
 def _require_contract(config: dict) -> None:
@@ -166,9 +195,12 @@ def _write_report(path: Path, record: dict) -> None:
         f"- Source SHA-256: `{record['data_checksum']}`.",
         f"- Exact command: `{record['command']}`.",
         f"- Fit time: {record['train_seconds']:.4f} seconds (pipeline fit only).",
+        "- Runtime library versions: " + ", ".join(
+            f"`{name}={ver}`" for name, ver in record["software_versions"].items()
+        ) + ".",
         "",
         "## Exact input features",
-        "", 
+        "",
         *[f"{i}. `{feature}`" for i, feature in enumerate(features, start=1)],
         "",
         "## Population checks",
@@ -196,7 +228,8 @@ def _write_report(path: Path, record: dict) -> None:
         "",
         "- Validation figure: `outputs/regression/residuals.png`.",
         "- Machine-readable result: `outputs/regression/metrics.json`.",
-        "- The **final test set was not loaded, predicted or evaluated**.",
+        "- **Reserved test rows were not used for fitting, model selection, or evaluation.**",
+        "  The shared loader may read the complete source CSV before filtering by split.",
         "",
         "## Interpretation and limitations",
         "",
@@ -227,7 +260,7 @@ def _write_report(path: Path, record: dict) -> None:
         "`ReservationStatusDate` are also excluded. Disputed fields remain out",
         "under Member 2's current policy. The preprocessor and estimator were",
         "fitted together on training rows only. Validation rows were scored",
-        "only after fitting. No test records or test metrics were accessed.",
+        "only after fitting. Reserved test rows were not used for fitting, model selection, or evaluation.",
         "**Scientific sign-off remains required:** Zeina, Michael and Paula",
         "must approve the ADR population, prediction-point interpretation and",
         "feature policy in `reports/decisions.md`; current policy is provisional.",
@@ -258,7 +291,9 @@ def run(config: dict, project_root: Path) -> None:
     if FORBIDDEN_FEATURES.intersection(features):
         raise ValueError("Regression policy contains target or future-information features.")
 
-    # Explicitly call only train and validation. No test input or target load.
+    # Request only train and validation assignments. The shared data loader
+    # reads the source CSV before filtering; test rows are never used for fit,
+    # model selection, or evaluation by this runner.
     X_train_raw, y_train_raw = get_task_data(TASK, root, "train", config=config)
     X_valid_raw, y_valid_raw = get_task_data(TASK, root, "validation", config=config)
     if list(X_train_raw.columns) != features or list(X_valid_raw.columns) != features:
@@ -316,7 +351,8 @@ def run(config: dict, project_root: Path) -> None:
         "seed": seed,
         "metrics": validation_metrics,
         "train_seconds": float(elapsed),
-        "command": COMMAND,
+        "command": _actual_baseline_command(),
+        "software_versions": _software_versions(),
         "figure_paths": [relative_figure],
         "training_metrics": train_metrics,
         "training_subset": "train",

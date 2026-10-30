@@ -19,7 +19,8 @@ were included. This is one **untuned** baseline, not the M2 comparison.
 - Split version: `m1-group-stratified-v1`.
 - Source SHA-256: `6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4`.
 - Exact command: `python main.py baseline --task regression`.
-- Fit time: 0.9267 seconds (pipeline fit only).
+- Fit time: 3.1186 seconds (pipeline fit only).
+- Runtime library versions: `python=3.11.9`, `numpy=2.4.6`, `pandas=3.1.0`, `scipy=1.17.1`, `scikit-learn=1.9.1`, `matplotlib=3.11.2`, `PyYAML=6.0.3`.
 
 ## Exact input features
 
@@ -57,7 +58,8 @@ were included. This is one **untuned** baseline, not the M2 comparison.
 
 - Validation figure: `outputs/regression/residuals.png`.
 - Machine-readable result: `outputs/regression/metrics.json`.
-- The **final test set was not loaded, predicted or evaluated**.
+- **Reserved test rows were not used for fitting, model selection, or evaluation.**
+  The shared loader may read the complete source CSV before filtering by split.
 
 ## Interpretation and limitations
 
@@ -88,7 +90,7 @@ may also differ from what was known at booking entry.
 `ReservationStatusDate` are also excluded. Disputed fields remain out
 under Member 2's current policy. The preprocessor and estimator were
 fitted together on training rows only. Validation rows were scored
-only after fitting. No test records or test metrics were accessed.
+only after fitting. Reserved test rows were not used for fitting, model selection, or evaluation.
 **Scientific sign-off remains required:** Zeina, Michael and Paula
 must approve the ADR population, prediction-point interpretation and
 feature policy in `reports/decisions.md`; current policy is provisional.
