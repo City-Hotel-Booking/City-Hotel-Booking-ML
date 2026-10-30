@@ -39,7 +39,7 @@ The initial population includes all bookings with finite ADR targets, including 
 
 No automatic target clipping, outlier removal, duplicate deletion or resplitting was performed.
 
-The final test set was not loaded or evaluated in either experiment.
+The shared loader reads the complete H2 source CSV before selecting split rows. Reserved test rows were not used for fitting, model selection, or evaluation.
 
 ## 3. Stage 1 — Original Regression Baseline
 
@@ -91,6 +91,7 @@ Two additional fixed-configuration models were evaluated using the same training
 
 - Loss function: `absolute_error`
 - Random seed: 42
+- Early stopping: `False` (no internal validation holdout).
 - Purpose: Evaluate nonlinear relationships while emphasizing absolute prediction error.
 
 **Random Forest Regressor**
@@ -110,7 +111,7 @@ These were fixed experimental configurations, not results of systematic hyperpar
 | Model | Validation MAE | Validation RMSE | Validation R² |
 |---|---:|---:|---:|
 | Linear Regression | 18.1992 | 54.9850 | 0.2689 |
-| Histogram Gradient Boosting | 15.3450 | 53.9205 | 0.2969 |
+| Histogram Gradient Boosting | 15.0025 | 53.7516 | 0.3013 |
 | Random Forest | **12.5223** | **52.8052** | **0.3257** |
 
 Random Forest achieved the lowest validation MAE among the three evaluated configurations.
@@ -130,7 +131,7 @@ All three models were evaluated against this observation in their official valid
 | Model | Percentage of validation squared error attributable to the extreme observation |
 |---|---:|
 | Linear Regression | 78.81% |
-| Histogram Gradient Boosting | 81.86% |
+| Histogram Gradient Boosting | 82.44% |
 | Random Forest | 85.42% |
 
 The larger percentage for Random Forest does not mean its total error was worse. Random Forest reduced errors elsewhere, making the extreme observation account for a greater proportion of the remaining squared error.
@@ -154,19 +155,19 @@ Learned preprocessing and estimators were fitted exclusively using training reco
 
 The frozen training and validation assignments were preserved across experiments.
 
-The reserved supervised test set remained untouched.
+Reserved test rows were not used for fitting, model selection, or evaluation. The shared loader reads the full source CSV before selecting the requested split.
 
 **Scientific approval is still required** for the regression population, prediction-point interpretation, and feature-availability policy. These decisions must not be presented as already approved.
 
 ## 7. Testing and Reproducibility
 
-The focused regression suite completed successfully with 13 passing tests.
+The focused regression suite completed successfully with 18 passing tests.
 
 The full repository test suite subsequently reported:
 
-**86 tests passed and 2 subtests passed.**
+**91 tests passed and 2 subtests passed.**
 
-The verified local environment used Python 3.11.9.
+The verified local environment used Python 3.11.9, NumPy 2.4.6, pandas 3.1.0, SciPy 1.17.1, scikit-learn 1.9.1, Matplotlib 3.11.2, and PyYAML 6.0.3.
 
 ### Reproduction commands
 
@@ -185,7 +186,9 @@ The verified local environment used Python 3.11.9.
 - `outputs/regression/comparison.json`
 - `outputs/regression/comparison.csv`
 - `outputs/regression/comparison.png`
-- `outputs/regression/enhanced_residuals.png`
+- `outputs/regression/enhanced_residuals.png` (Random Forest alias)
+- `outputs/regression/hist_gradient_boosting_mae_residuals.png` (HGB)
+- `outputs/regression/random_forest_regularized_residuals.png` (Random Forest)
 - `outputs/regression/hist_gradient_boosting_mae_metrics.json`
 - `outputs/regression/random_forest_regularized_metrics.json`
 
