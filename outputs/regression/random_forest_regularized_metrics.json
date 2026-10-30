@@ -1,0 +1,94 @@
+{
+  "task": "regression",
+  "model": "random_forest_regularized",
+  "parameters": {
+    "bootstrap": true,
+    "ccp_alpha": 0.0,
+    "criterion": "squared_error",
+    "max_depth": null,
+    "max_features": 1.0,
+    "max_leaf_nodes": null,
+    "max_samples": null,
+    "min_impurity_decrease": 0.0,
+    "min_samples_leaf": 5,
+    "min_samples_split": 2,
+    "min_weight_fraction_leaf": 0.0,
+    "monotonic_cst": null,
+    "n_estimators": 100,
+    "n_jobs": -1,
+    "oob_score": false,
+    "random_state": 42,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "validation",
+  "seed": 42,
+  "metrics": {
+    "mae": 12.522330039180826,
+    "rmse": 52.80522413111238,
+    "r2": 0.3257128444714076
+  },
+  "train_seconds": 3.0769860000000335,
+  "command": "python -m src.regression.improve",
+  "figure_paths": [
+    "outputs/regression/comparison.png",
+    "outputs/regression/enhanced_residuals.png"
+  ],
+  "training_metrics": {
+    "mae": 5.73807525803412,
+    "rmse": 12.096808072920853,
+    "r2": 0.8958341660232374
+  },
+  "features": [
+    "LeadTime",
+    "ArrivalDateYear",
+    "ArrivalDateMonth",
+    "ArrivalDateWeekNumber",
+    "ArrivalDateDayOfMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "PreviousCancellations",
+    "PreviousBookingsNotCanceled",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "population": {
+    "train": {
+      "source_rows": 55532,
+      "eligible_rows": 55532,
+      "excluded_nonfinite_adr": 0,
+      "zero_adr_rows": 785,
+      "negative_adr_rows": 0,
+      "maximum_adr": 451.5
+    },
+    "validation": {
+      "source_rows": 11899,
+      "eligible_rows": 11899,
+      "excluded_nonfinite_adr": 0,
+      "zero_adr_rows": 215,
+      "negative_adr_rows": 0,
+      "maximum_adr": 5400.0
+    }
+  },
+  "population_policy": "all_bookings_with_finite_adr",
+  "preprocessing_model_family": "tree",
+  "diagnostics": {
+    "largest_validation_adr_row_id": 8455,
+    "largest_validation_adr": 5400.0,
+    "prediction_for_largest_adr": 76.43051472907818,
+    "largest_row_share_of_total_squared_error": 0.854164679284036,
+    "rmse_without_largest_validation_adr_diagnostic_only": 20.166312872636315,
+    "negative_prediction_count": 0,
+    "note": "The largest ADR row was INCLUDED in all primary validation metrics; removal is diagnostic only."
+  },
+  "test_set_evaluated": false,
+  "tuned": false
+}
