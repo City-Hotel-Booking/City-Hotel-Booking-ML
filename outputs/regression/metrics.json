@@ -1,0 +1,109 @@
+{
+  "task": "regression",
+  "experiment_id": "regression_m1_linear_v1",
+  "model": "linear_regression",
+  "parameters": {
+    "copy_X": true,
+    "fit_intercept": true,
+    "n_jobs": null,
+    "positive": false,
+    "tol": 1e-06
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "validation",
+  "seed": 42,
+  "metrics": {
+    "mae": 18.199150576117923,
+    "rmse": 54.984998261659975,
+    "r2": 0.26889536439782913
+  },
+  "train_seconds": 3.1185855000003357,
+  "command": "python main.py baseline --task regression",
+  "software_versions": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "pandas": "3.1.0",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "PyYAML": "6.0.3"
+  },
+  "figure_paths": [
+    "outputs/regression/residuals.png"
+  ],
+  "training_metrics": {
+    "mae": 17.400693097062497,
+    "rmse": 24.420492358001322,
+    "r2": 0.5754854828413295
+  },
+  "training_subset": "train",
+  "diagnostics": {
+    "largest_validation_adr_row_id": 8455,
+    "largest_validation_adr": 5400.0,
+    "prediction_for_largest_adr": 75.35055756941082,
+    "largest_adr_squared_error_share": 0.7881032985029479,
+    "negative_prediction_count": 58,
+    "no_outliers_dropped": true
+  },
+  "features": [
+    "LeadTime",
+    "ArrivalDateYear",
+    "ArrivalDateMonth",
+    "ArrivalDateWeekNumber",
+    "ArrivalDateDayOfMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "PreviousCancellations",
+    "PreviousBookingsNotCanceled",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "prediction_point": "at_booking_entry",
+  "decision_status": "starting_assumption",
+  "population_policy": "all_bookings_with_finite_adr",
+  "population": {
+    "train": {
+      "source_rows": 55532,
+      "eligible_rows": 55532,
+      "excluded_nonfinite_adr": 0,
+      "zero_adr_rows": 785,
+      "negative_adr_rows": 0,
+      "maximum_adr": 451.5
+    },
+    "validation": {
+      "source_rows": 11899,
+      "eligible_rows": 11899,
+      "excluded_nonfinite_adr": 0,
+      "zero_adr_rows": 215,
+      "negative_adr_rows": 0,
+      "maximum_adr": 5400.0
+    }
+  },
+  "preprocessing_model_family": "linear",
+  "preprocessing": {
+    "numeric_imputation": "median",
+    "numeric_scaling": "standard",
+    "categorical_imputation": "constant_missing",
+    "categorical_encoding": "one_hot",
+    "unknown_categories": "ignore",
+    "high_cardinality_encoding": "one_hot_rare",
+    "high_cardinality_min_frequency": 20,
+    "skewed_numeric_features": [
+      "LeadTime"
+    ]
+  },
+  "test_set_evaluated": false,
+  "fitted_artifact_saved": false,
+  "metric_notes": {
+    "mae": "Lower is better.",
+    "rmse": "Lower is better.",
+    "r2": "Higher is better; negative values are possible."
+  }
+}
