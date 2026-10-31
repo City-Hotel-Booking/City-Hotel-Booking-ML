@@ -1,0 +1,180 @@
+{
+  "task": "classification",
+  "experiment_id": "logistic-regression-m1-provisional-v1",
+  "status": "provisional",
+  "model": "LogisticRegression",
+  "parameters": {
+    "C": 1.0,
+    "class_weight": null,
+    "dual": false,
+    "fit_intercept": true,
+    "intercept_scaling": 1,
+    "l1_ratio": 0.0,
+    "max_iter": 2000,
+    "n_jobs": null,
+    "penalty": "deprecated",
+    "random_state": 42,
+    "solver": "lbfgs",
+    "tol": 0.0001,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "validation",
+  "seed": 42,
+  "metrics": {
+    "accuracy": 0.5752584250777376,
+    "precision": 0.46390916463909165,
+    "recall": 0.11520644511581067,
+    "f1": 0.1845756695708293,
+    "roc_auc": 0.6394434679909641,
+    "average_precision": 0.519296396733698
+  },
+  "metric_notes": {},
+  "train_seconds": 2.0409991999986232,
+  "command": "& C:\\Users\\youss\\Downloads\\City-Hotel-Booking-ML-main\\City-Hotel-Booking-ML-main\\.venv\\Scripts\\python.exe main.py baseline --task classification",
+  "figure_paths": [
+    "outputs/classification/confusion_matrix.png"
+  ],
+  "positive_class": 1,
+  "decision_threshold": 0.5,
+  "confusion_matrix": [
+    [
+      6273,
+      661
+    ],
+    [
+      4393,
+      572
+    ]
+  ],
+  "confusion_matrix_labels": [
+    0,
+    1
+  ],
+  "features": [
+    "LeadTime",
+    "ArrivalDateYear",
+    "ArrivalDateMonth",
+    "ArrivalDateWeekNumber",
+    "ArrivalDateDayOfMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "PreviousCancellations",
+    "PreviousBookingsNotCanceled",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "model_family": "linear",
+  "preprocessing": {
+    "numeric_imputation": "median",
+    "numeric_scaling": "standard",
+    "categorical_imputation": "constant_missing",
+    "categorical_encoding": "one_hot",
+    "unknown_categories": "ignore",
+    "high_cardinality_encoding": "one_hot_rare",
+    "high_cardinality_min_frequency": 20,
+    "skewed_numeric_features": [
+      "LeadTime"
+    ]
+  },
+  "effective_config": {
+    "project": {
+      "name": "city-hotel-booking-demand",
+      "random_seed": 42
+    },
+    "data": {
+      "raw_path": "data/H2.csv",
+      "expected_rows": 79330,
+      "expected_columns": 31,
+      "null_token": "NULL",
+      "strip_padded_text": true
+    },
+    "targets": {
+      "regression": "ADR",
+      "classification": "IsCanceled"
+    },
+    "decisions": {
+      "prediction_point": {
+        "regression": "at_booking_entry",
+        "classification": "at_booking_entry",
+        "clustering": "at_booking_entry"
+      },
+      "prediction_point_status": "starting_assumption",
+      "adr_population": "all_bookings_with_finite_adr",
+      "duplicate_policy": "preserve_rows_group_identical_for_split",
+      "invalid_row_policy": "flag_without_automatic_removal",
+      "split_method": "stratified_group_random",
+      "split_parameters": {
+        "train": 0.7,
+        "validation": 0.15,
+        "test": 0.15,
+        "stratify_column": "IsCanceled",
+        "group_columns": "all_31_source_columns"
+      },
+      "feature_policy_reference": "src.features.policy",
+      "feature_policy_version": "m1-draft-1",
+      "split_version": "m1-group-stratified-v1"
+    },
+    "preprocessing": {
+      "numeric_imputation": "median",
+      "numeric_scaling": "standard",
+      "categorical_imputation": "constant_missing",
+      "categorical_encoding": "one_hot",
+      "unknown_categories": "ignore",
+      "high_cardinality_encoding": "one_hot_rare",
+      "high_cardinality_min_frequency": 20,
+      "skewed_numeric_features": [
+        "LeadTime"
+      ]
+    },
+    "baselines": {
+      "regression": null,
+      "classification": null,
+      "clustering": null
+    },
+    "paths": {
+      "artifacts": "artifacts",
+      "data_outputs": "outputs/data",
+      "eda_outputs": "outputs/eda",
+      "regression_outputs": "outputs/regression",
+      "classification_outputs": "outputs/classification",
+      "clustering_outputs": "outputs/clustering",
+      "reports": "reports"
+    }
+  },
+  "prediction_point": "at_booking_entry",
+  "population": "All frozen training and validation rows with valid binary IsCanceled; invalid targets are rejected; no row exclusions.",
+  "row_counts": {
+    "train": 55532,
+    "validation": 11899
+  },
+  "class_counts": {
+    "train": {
+      "0": 32360,
+      "1": 23172
+    },
+    "validation": {
+      "0": 6934,
+      "1": 4965
+    }
+  },
+  "task_specific_exclusions": 0,
+  "policy_departures": [],
+  "optimizer_iterations": [
+    97
+  ],
+  "environment": {
+    "python": "3.12.10",
+    "scikit_learn": "1.9.1",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4"
+  }
+}
