@@ -1,0 +1,1290 @@
+[
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 2,
+      "n_init": 10
+    },
+    "fit_seconds": 0.16060150001430884,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.22278955007719142,
+      "davies_bouldin": 1.8542055132789852,
+      "n_clusters": 2,
+      "minimum_share": 0.2172,
+      "maximum_share": 0.7828,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3914,
+        "1": 1086
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 2,
+      "n_init": 20
+    },
+    "fit_seconds": 0.3268908000027295,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.22278955007719142,
+      "davies_bouldin": 1.8542055132789852,
+      "n_clusters": 2,
+      "minimum_share": 0.2172,
+      "maximum_share": 0.7828,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3914,
+        "1": 1086
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 3,
+      "n_init": 10
+    },
+    "fit_seconds": 0.25478689998271875,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14241545324269891,
+      "davies_bouldin": 2.1394333551584226,
+      "n_clusters": 3,
+      "minimum_share": 0.2168,
+      "maximum_share": 0.4272,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1780,
+        "1": 2136,
+        "2": 1084
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 3,
+      "n_init": 20
+    },
+    "fit_seconds": 0.6210906000051182,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14241545324269891,
+      "davies_bouldin": 2.1394333551584226,
+      "n_clusters": 3,
+      "minimum_share": 0.2168,
+      "maximum_share": 0.4272,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1780,
+        "1": 2136,
+        "2": 1084
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 4,
+      "n_init": 10
+    },
+    "fit_seconds": 0.29025700001511723,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14313901003831223,
+      "davies_bouldin": 2.034891600410582,
+      "n_clusters": 4,
+      "minimum_share": 0.1206,
+      "maximum_share": 0.3902,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1951,
+        "1": 603,
+        "2": 838,
+        "3": 1608
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 4,
+      "n_init": 20
+    },
+    "fit_seconds": 0.6491813999891747,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14313901003831223,
+      "davies_bouldin": 2.034891600410582,
+      "n_clusters": 4,
+      "minimum_share": 0.1206,
+      "maximum_share": 0.3902,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1951,
+        "1": 603,
+        "2": 838,
+        "3": 1608
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 5,
+      "n_init": 10
+    },
+    "fit_seconds": 0.3683121000067331,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1561628111856581,
+      "davies_bouldin": 1.7944244781218788,
+      "n_clusters": 5,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.385,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1925,
+        "1": 560,
+        "2": 805,
+        "3": 1472,
+        "4": 238
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 5,
+      "n_init": 20
+    },
+    "fit_seconds": 0.6858384000079241,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1561628111856581,
+      "davies_bouldin": 1.7944244781218788,
+      "n_clusters": 5,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.385,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1925,
+        "1": 560,
+        "2": 805,
+        "3": 1472,
+        "4": 238
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 6,
+      "n_init": 10
+    },
+    "fit_seconds": 0.3404134000011254,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14565628309057463,
+      "davies_bouldin": 1.8430289652896432,
+      "n_clusters": 6,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.2726,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 915,
+        "1": 549,
+        "2": 1130,
+        "3": 805,
+        "4": 238,
+        "5": 1363
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 6,
+      "n_init": 20
+    },
+    "fit_seconds": 0.8144562999950722,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14565628309057463,
+      "davies_bouldin": 1.8430289652896432,
+      "n_clusters": 6,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.2726,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 915,
+        "1": 549,
+        "2": 1130,
+        "3": 805,
+        "4": 238,
+        "5": 1363
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 7,
+      "n_init": 10
+    },
+    "fit_seconds": 0.4334604000032414,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1494374211512111,
+      "davies_bouldin": 1.8893681023819175,
+      "n_clusters": 7,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.2308,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 954,
+        "1": 550,
+        "2": 384,
+        "3": 1154,
+        "4": 238,
+        "5": 1051,
+        "6": 669
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 7,
+      "n_init": 20
+    },
+    "fit_seconds": 0.2544989000016358,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14962256363723092,
+      "davies_bouldin": 1.8875018057438104,
+      "n_clusters": 7,
+      "minimum_share": 0.0476,
+      "maximum_share": 0.2324,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 669,
+        "1": 1162,
+        "2": 1087,
+        "3": 238,
+        "4": 899,
+        "5": 384,
+        "6": 561
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 8,
+      "n_init": 10
+    },
+    "fit_seconds": 0.12559609999880195,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.17338641738986038,
+      "davies_bouldin": 1.6661687184302034,
+      "n_clusters": 8,
+      "minimum_share": 0.0226,
+      "maximum_share": 0.3722,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 113,
+        "1": 1861,
+        "2": 636,
+        "3": 936,
+        "4": 660,
+        "5": 353,
+        "6": 237,
+        "7": 204
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "kmeans",
+    "parameters": {
+      "n_clusters": 8,
+      "n_init": 20
+    },
+    "fit_seconds": 0.2536765999975614,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.16611908241261436,
+      "davies_bouldin": 1.7166919591840655,
+      "n_clusters": 8,
+      "minimum_share": 0.0174,
+      "maximum_share": 0.203,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 455,
+        "1": 795,
+        "2": 1015,
+        "3": 991,
+        "4": 87,
+        "5": 944,
+        "6": 238,
+        "7": 475
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 2,
+      "linkage": "ward"
+    },
+    "fit_seconds": 2.152177700016182,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.2177190375858645,
+      "davies_bouldin": 1.8913117996426911,
+      "n_clusters": 2,
+      "minimum_share": 0.215,
+      "maximum_share": 0.785,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3925,
+        "1": 1075
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 2,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.987992199981818,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.34215020169401994,
+      "davies_bouldin": 1.1908613061175013,
+      "n_clusters": 2,
+      "minimum_share": 0.0014,
+      "maximum_share": 0.9986,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 4993,
+        "1": 7
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 2,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.7150172000110615,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.13418002431948298,
+      "davies_bouldin": 2.68564851410712,
+      "n_clusters": 2,
+      "minimum_share": 0.3426,
+      "maximum_share": 0.6574,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3287,
+        "1": 1713
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 3,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.8130756999889854,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.24212006806119682,
+      "davies_bouldin": 1.6186980434094271,
+      "n_clusters": 3,
+      "minimum_share": 0.0466,
+      "maximum_share": 0.7384,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3692,
+        "1": 1075,
+        "2": 233
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 3,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.7331449000048451,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.33479938640593787,
+      "davies_bouldin": 1.255742905412143,
+      "n_clusters": 3,
+      "minimum_share": 0.0014,
+      "maximum_share": 0.9758,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 114,
+        "1": 7,
+        "2": 4879
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 3,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.7326845999923535,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14313725381837844,
+      "davies_bouldin": 2.1741538664100317,
+      "n_clusters": 3,
+      "minimum_share": 0.0268,
+      "maximum_share": 0.6306,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1713,
+        "1": 3153,
+        "2": 134
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 4,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.7983344999956898,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14000919940835485,
+      "davies_bouldin": 1.9289025839409641,
+      "n_clusters": 4,
+      "minimum_share": 0.0466,
+      "maximum_share": 0.3934,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1075,
+        "1": 1725,
+        "2": 233,
+        "3": 1967
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 4,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.8012625999981537,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.33479938640593787,
+      "davies_bouldin": 1.1697979049212384,
+      "n_clusters": 4,
+      "minimum_share": 0.0004,
+      "maximum_share": 0.9758,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 7,
+        "1": 112,
+        "2": 4879,
+        "3": 2
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 4,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.7545669999963138,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14010858146462926,
+      "davies_bouldin": 1.9321434509323627,
+      "n_clusters": 4,
+      "minimum_share": 0.0102,
+      "maximum_share": 0.6306,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1662,
+        "1": 3153,
+        "2": 134,
+        "3": 51
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 5,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.8768258999916725,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.15201602902466074,
+      "davies_bouldin": 1.9672723402695902,
+      "n_clusters": 5,
+      "minimum_share": 0.0466,
+      "maximum_share": 0.3934,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1725,
+        "1": 1967,
+        "2": 233,
+        "3": 322,
+        "4": 753
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 5,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.7893327999918256,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.2742116498829449,
+      "davies_bouldin": 1.0390587829051168,
+      "n_clusters": 5,
+      "minimum_share": 0.0004,
+      "maximum_share": 0.9758,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 4879,
+        "1": 112,
+        "2": 5,
+        "3": 2,
+        "4": 2
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 5,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.746881700004451,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1102038139855214,
+      "davies_bouldin": 2.050964235946239,
+      "n_clusters": 5,
+      "minimum_share": 0.0102,
+      "maximum_share": 0.6306,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3153,
+        "1": 51,
+        "2": 134,
+        "3": 250,
+        "4": 1412
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 6,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.841687300009653,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.16434453502945293,
+      "davies_bouldin": 1.8592431846701654,
+      "n_clusters": 6,
+      "minimum_share": 0.0426,
+      "maximum_share": 0.3934,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1967,
+        "1": 1512,
+        "2": 233,
+        "3": 322,
+        "4": 753,
+        "5": 213
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 6,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.7879109000205062,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.26504884013176644,
+      "davies_bouldin": 1.0958738177083938,
+      "n_clusters": 6,
+      "minimum_share": 0.0004,
+      "maximum_share": 0.9288,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 235,
+        "1": 112,
+        "2": 4644,
+        "3": 2,
+        "4": 2,
+        "5": 5
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 6,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.7873794999904931,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1231450875939035,
+      "davies_bouldin": 1.9345194232744742,
+      "n_clusters": 6,
+      "minimum_share": 0.0102,
+      "maximum_share": 0.5714,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 134,
+        "1": 51,
+        "2": 296,
+        "3": 250,
+        "4": 1412,
+        "5": 2857
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 7,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.7949745999940205,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.12824857728523748,
+      "davies_bouldin": 1.878871451357418,
+      "n_clusters": 7,
+      "minimum_share": 0.0426,
+      "maximum_share": 0.3024,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 1512,
+        "1": 322,
+        "2": 914,
+        "3": 1053,
+        "4": 753,
+        "5": 213,
+        "6": 233
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 7,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.7535427999973763,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.2623842085854188,
+      "davies_bouldin": 1.1134360973373503,
+      "n_clusters": 7,
+      "minimum_share": 0.0004,
+      "maximum_share": 0.9288,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 4644,
+        "1": 112,
+        "2": 229,
+        "3": 2,
+        "4": 2,
+        "5": 5,
+        "6": 6
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 7,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.6943329999921843,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.122169843439515,
+      "davies_bouldin": 1.8562016287700085,
+      "n_clusters": 7,
+      "minimum_share": 0.0012,
+      "maximum_share": 0.5714,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 128,
+        "1": 51,
+        "2": 296,
+        "3": 250,
+        "4": 1412,
+        "5": 2857,
+        "6": 6
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 8,
+      "linkage": "ward"
+    },
+    "fit_seconds": 0.7687644999823533,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14320317328295915,
+      "davies_bouldin": 1.8385861669384331,
+      "n_clusters": 8,
+      "minimum_share": 0.0426,
+      "maximum_share": 0.252,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 322,
+        "1": 1260,
+        "2": 914,
+        "3": 1053,
+        "4": 753,
+        "5": 213,
+        "6": 233,
+        "7": 252
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 8,
+      "linkage": "average"
+    },
+    "fit_seconds": 0.7680415000068024,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.24846504856163484,
+      "davies_bouldin": 1.1301171011000515,
+      "n_clusters": 8,
+      "minimum_share": 0.0004,
+      "maximum_share": 0.9258,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 112,
+        "1": 4629,
+        "2": 229,
+        "3": 15,
+        "4": 2,
+        "5": 5,
+        "6": 6,
+        "7": 2
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "agglomerative",
+    "parameters": {
+      "n_clusters": 8,
+      "linkage": "complete"
+    },
+    "fit_seconds": 0.7118413999851327,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.11905781080187573,
+      "davies_bouldin": 1.9299387935958499,
+      "n_clusters": 8,
+      "minimum_share": 0.0012,
+      "maximum_share": 0.5714,
+      "noise_fraction": 0.0,
+      "eligible": false,
+      "cluster_sizes": {
+        "0": 296,
+        "1": 51,
+        "2": 107,
+        "3": 250,
+        "4": 1412,
+        "5": 2857,
+        "6": 6,
+        "7": 21
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 2,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.2202984000032302,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.20204807883501963,
+      "davies_bouldin": 2.9473459066566217,
+      "n_clusters": 2,
+      "minimum_share": 0.1638,
+      "maximum_share": 0.8362,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 4181,
+        "1": 819
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 2,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.453289400000358,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.21327482781120474,
+      "davies_bouldin": 3.0122075208491568,
+      "n_clusters": 2,
+      "minimum_share": 0.1938,
+      "maximum_share": 0.8062,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 4031,
+        "1": 969
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 3,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.37818100000731647,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.11896706011159598,
+      "davies_bouldin": 2.834892615072542,
+      "n_clusters": 3,
+      "minimum_share": 0.0788,
+      "maximum_share": 0.6054,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3027,
+        "1": 394,
+        "2": 1579
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 3,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.298819799994817,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.11940112556435482,
+      "davies_bouldin": 2.616649053203267,
+      "n_clusters": 3,
+      "minimum_share": 0.1422,
+      "maximum_share": 0.6068,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3034,
+        "1": 711,
+        "2": 1255
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 4,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.3202577000192832,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.07618909828352169,
+      "davies_bouldin": 2.502865373687272,
+      "n_clusters": 4,
+      "minimum_share": 0.1002,
+      "maximum_share": 0.543,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 949,
+        "1": 501,
+        "2": 2715,
+        "3": 835
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 4,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.3287391000194475,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.12011630616365564,
+      "davies_bouldin": 2.5158615094661156,
+      "n_clusters": 4,
+      "minimum_share": 0.1258,
+      "maximum_share": 0.4718,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 2359,
+        "1": 629,
+        "2": 726,
+        "3": 1286
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 5,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.41928490001009777,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.13375838637055293,
+      "davies_bouldin": 2.6508536406394554,
+      "n_clusters": 5,
+      "minimum_share": 0.0656,
+      "maximum_share": 0.5374,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 419,
+        "1": 328,
+        "2": 2687,
+        "3": 837,
+        "4": 729
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 5,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.46863449999364093,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.10657804298591107,
+      "davies_bouldin": 2.6835837824153055,
+      "n_clusters": 5,
+      "minimum_share": 0.0892,
+      "maximum_share": 0.403,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 654,
+        "1": 446,
+        "2": 2015,
+        "3": 1156,
+        "4": 729
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 6,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.5762905000010505,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.10743061152084969,
+      "davies_bouldin": 2.200382771347383,
+      "n_clusters": 6,
+      "minimum_share": 0.0478,
+      "maximum_share": 0.3298,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 925,
+        "1": 426,
+        "2": 638,
+        "3": 1649,
+        "4": 239,
+        "5": 1123
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 6,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.6467303000099491,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.10271193571272261,
+      "davies_bouldin": 2.1781668162686656,
+      "n_clusters": 6,
+      "minimum_share": 0.0478,
+      "maximum_share": 0.339,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 824,
+        "1": 508,
+        "2": 1118,
+        "3": 616,
+        "4": 239,
+        "5": 1695
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 7,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.8184165999991819,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.11161299209732142,
+      "davies_bouldin": 2.8260484106877994,
+      "n_clusters": 7,
+      "minimum_share": 0.0334,
+      "maximum_share": 0.3248,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 931,
+        "1": 167,
+        "2": 347,
+        "3": 1624,
+        "4": 239,
+        "5": 1123,
+        "6": 569
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 7,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.8828615999955218,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.11042243817004976,
+      "davies_bouldin": 2.3738679434447616,
+      "n_clusters": 7,
+      "minimum_share": 0.043,
+      "maximum_share": 0.3216,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 922,
+        "1": 401,
+        "2": 215,
+        "3": 1608,
+        "4": 239,
+        "5": 1045,
+        "6": 570
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 8,
+      "covariance_type": "diag",
+      "reg_covar": 0.001
+    },
+    "fit_seconds": 0.47471099998801947,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.14613846275527873,
+      "davies_bouldin": 2.030287182022064,
+      "n_clusters": 8,
+      "minimum_share": 0.0402,
+      "maximum_share": 0.2152,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 916,
+        "1": 868,
+        "2": 1076,
+        "3": 373,
+        "4": 201,
+        "5": 239,
+        "6": 478,
+        "7": 849
+      }
+    },
+    "error": null
+  },
+  {
+    "algorithm": "gmm",
+    "parameters": {
+      "n_components": 8,
+      "covariance_type": "diag",
+      "reg_covar": 0.01
+    },
+    "fit_seconds": 0.6996373999863863,
+    "converged": true,
+    "scores": {
+      "silhouette": 0.1403940982478247,
+      "davies_bouldin": 2.0512672377866625,
+      "n_clusters": 8,
+      "minimum_share": 0.0404,
+      "maximum_share": 0.3376,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 509,
+        "1": 346,
+        "2": 866,
+        "3": 779,
+        "4": 202,
+        "5": 239,
+        "6": 1688,
+        "7": 371
+      }
+    },
+    "error": null
+  }
+]

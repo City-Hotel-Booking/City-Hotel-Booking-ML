@@ -1,0 +1,3 @@
+LeadTime,ArrivalDateMonth,Adults,Children,Babies,Meal,MarketSegment,DistributionChannel,IsRepeatedGuest,ReservedRoomType,CustomerType
+60,August,2,0,0,BB,Online TA,TA/TO,0,A,Transient
+5,May,1,0,0,BB,Corporate,Corporate,1,A,Transient
