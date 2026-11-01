@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "task": "clustering_preprocessing",
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "train",
+  "features": [
+    "LeadTime",
+    "ArrivalDateMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "input_shape": [
+    55532,
+    11
+  ],
+  "transformed_shape": [
+    55532,
+    45
+  ],
+  "transformed_bytes": 19991520,
+  "missing_training_inputs": {
+    "LeadTime": 0,
+    "ArrivalDateMonth": 0,
+    "Adults": 0,
+    "Children": 1,
+    "Babies": 0,
+    "Meal": 0,
+    "MarketSegment": 0,
+    "DistributionChannel": 0,
+    "IsRepeatedGuest": 0,
+    "ReservedRoomType": 0,
+    "CustomerType": 0
+  },
+  "numeric_training_medians": {
+    "LeadTime": 88.0,
+    "Adults": 2.0,
+    "Children": 0.0,
+    "Babies": 0.0,
+    "IsRepeatedGuest": 0.0
+  },
+  "numeric_scaled_standard_deviations": {
+    "LeadTime": 0.9999999999999435,
+    "Adults": 1.0000000000003797,
+    "Children": 0.999999999999652,
+    "Babies": 1.0000000000002953,
+    "IsRepeatedGuest": 0.9999999999996981
+  },
+  "categorical_levels": {
+    "ArrivalDateMonth": 12,
+    "Meal": 4,
+    "MarketSegment": 7,
+    "DistributionChannel": 5,
+    "ReservedRoomType": 8,
+    "CustomerType": 4
+  },
+  "checks": {
+    "no_target": true,
+    "exact_training_row_ids": true,
+    "active_features_only": true,
+    "outcomes_absent": true,
+    "separate_instances": true,
+    "fresh_builder_unfitted": true,
+    "dense_finite_output": true,
+    "one_output_row_per_training_booking": true,
+    "medians_match_training_only": true,
+    "scaler_matches_training_transforms": true,
+    "numeric_means_near_zero": true,
+    "unseen_category_and_missing_numeric_supported": true,
+    "transform_does_not_learn_probe_category": true,
+    "unseen_meal_block_is_zero": true,
+    "repeat_fit_same_representation": true
+  },
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.15.3",
+    "PyYAML": "6.0.3"
+  },
+  "command": "python -m src.clustering.check_preprocessing",
+  "limitations": [
+    "Source loader reads the complete CSV to verify identity; only training feature rows are transformed or fitted.",
+    "Synthetic probes derive from training inputs; no validation/test evaluation occurred.",
+    "Passing checks does not establish historical booking-entry availability or validate distance weighting.",
+    "No clustering estimator or PCA was fitted; no fitted artifacts are saved."
+  ]
+}

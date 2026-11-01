@@ -1,0 +1,7 @@
+algorithm,stage,parameters,silhouette,davies_bouldin,n_clusters,minimum_share,maximum_share,noise_fraction,eligible,fit_seconds,stability_mean_ari
+kmeans,baseline,"{""n_clusters"": 3, ""n_init"": 10}",0.14241545324269891,2.1394333551584226,3,0.2168,0.4272,0.0,True,0.23847620000015013,0.9566635134249329
+kmeans,optimized,"{""n_clusters"": 2, ""n_init"": 10}",0.22278955007719142,1.8542055132789852,2,0.2172,0.7828,0.0,True,0.16569590001017787,0.9430796876570232
+agglomerative,baseline,"{""linkage"": ""ward"", ""n_clusters"": 3}",0.24212006806119682,1.6186980434094271,3,0.0466,0.7384,0.0,True,2.3601833000138868,0.7064229674926293
+agglomerative,optimized,"{""linkage"": ""ward"", ""n_clusters"": 3}",0.24212006806119682,1.6186980434094271,3,0.0466,0.7384,0.0,True,1.9055311999982223,0.7064229674926293
+gmm,baseline,"{""covariance_type"": ""diag"", ""n_components"": 3, ""reg_covar"": 0.001}",0.11896706011159598,2.834892615072542,3,0.0788,0.6054,0.0,True,0.45026359998155385,0.8604162600023847
+gmm,optimized,"{""covariance_type"": ""diag"", ""n_components"": 2, ""reg_covar"": 0.01}",0.21327482781120474,3.0122075208491568,2,0.1938,0.8062,0.0,True,0.5624648000230081,0.9275501626505881

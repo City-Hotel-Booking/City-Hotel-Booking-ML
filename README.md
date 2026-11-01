@@ -373,3 +373,27 @@ and models, scratch outputs and the two local reference documents.
 
 Record the tested environment, reproduction commands and submitted revision
 when preparing the milestone package.
+
+## Local completed clustering contribution
+
+Task C now has a local M1 baseline and a complete three-algorithm M2 workflow.
+This supersedes earlier clustering placeholder status in this README; other
+task owners' work is unchanged. No remote integration has been performed.
+
+```powershell
+python main.py cluster run
+python main.py cluster view
+python main.py cluster search
+python main.py cluster predict --input examples/clustering_bookings.csv --output outputs/tmp/assignments.csv
+python -m src.clustering.verify_complete
+python scripts/package_clustering.py
+```
+
+See [the clustering guide](docs/clustering_guide.md) for the tested environment,
+exact local commands, safe test-temp setup and artifact regeneration.
+See [the final clustering report](reports/clustering_final.md) for all measured
+results, baseline/tuned comparisons, search spaces, stability, profiles,
+feature/timing limitations and application behavior. Tested package versions
+are listed in requirements-clustering.txt. Artifacts remain local and are
+excluded from submission/clustering_source.zip. That ZIP is a local clustering
+contribution, not a committed or official complete-team submission.

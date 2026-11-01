@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "search_candidates": 49,
+  "comparison_records": 6,
+  "full_training_records": 4,
+  "training_rows": 55532,
+  "subset_rows": 5000,
+  "full_pipeline_assignments_reproduced": [
+    "kmeans",
+    "gmm"
+  ],
+  "all_subset_assignments_reproduced": true,
+  "no_validation_or_test_evaluation": true,
+  "command": "python -m src.clustering.verify_complete",
+  "final_bundle_tests": {
+    "passed": 81,
+    "subtests_passed": 2,
+    "seconds": 32.23
+  },
+  "cli_smoke_tests": [
+    "view",
+    "search",
+    "predict"
+  ],
+  "zip_verified": true
+}

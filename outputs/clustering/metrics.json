@@ -1,0 +1,116 @@
+{
+  "task": "clustering",
+  "model": "KMeans",
+  "parameters": {
+    "algorithm": "lloyd",
+    "copy_x": true,
+    "init": "k-means++",
+    "max_iter": 300,
+    "n_clusters": 3,
+    "n_init": 10,
+    "random_state": 42,
+    "tol": 0.0001,
+    "verbose": 0
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "train",
+  "seed": 42,
+  "metrics": {
+    "silhouette": 0.24493033848878007,
+    "davies_bouldin": 1.834343438214421,
+    "inertia": 337341.39146666334,
+    "n_clusters": 3
+  },
+  "metric_notes": {},
+  "train_seconds": 1.0386350999997376,
+  "preprocess_seconds": 0.6439409000004161,
+  "metric_seconds": 0.18655519999992975,
+  "command": "python main.py baseline --task clustering",
+  "figure_paths": [
+    "outputs/clustering/cluster_sizes.png",
+    "outputs/clustering/pca_clusters.png"
+  ],
+  "features": [
+    "LeadTime",
+    "ArrivalDateMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "model_family": "distance",
+  "preprocessing": {
+    "numeric_imputation": "median",
+    "numeric_scaling": "standard",
+    "categorical_imputation": "constant_missing",
+    "categorical_encoding": "one_hot",
+    "unknown_categories": "ignore",
+    "high_cardinality_encoding": "one_hot_rare",
+    "high_cardinality_min_frequency": 20,
+    "skewed_numeric_features": [
+      "LeadTime"
+    ]
+  },
+  "population": "All frozen training bookings; no task exclusions; outcomes not provided to clustering.",
+  "input_shape": [
+    55532,
+    11
+  ],
+  "transformed_shape": [
+    55532,
+    45
+  ],
+  "cluster_sizes": {
+    "0": 39945,
+    "1": 1328,
+    "2": 14259
+  },
+  "n_iter": 20,
+  "converged_before_iteration_limit": true,
+  "silhouette_sampling": {
+    "method": "uniform without replacement, fixed before evaluation",
+    "seed": 42,
+    "rows": 3000,
+    "row_ids_path": "outputs/clustering/silhouette_sample.csv"
+  },
+  "davies_bouldin_population": "all training rows in the 45-dimensional prepared representation",
+  "pca": {
+    "purpose": "visualization only; clustering uses original prepared features",
+    "fit_subset": "train",
+    "explained_variance_ratio": [
+      0.17924936785907197,
+      0.14093513810216782
+    ],
+    "plot_rows": 10000,
+    "plot_seed": 43
+  },
+  "artifact_paths": [
+    "artifacts/clustering/kmeans_pipeline.joblib",
+    "artifacts/clustering/visualization_pca.joblib",
+    "artifacts/clustering/assignments.csv"
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.15.3",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0"
+  },
+  "limitations": [
+    "k=3 is a fixed untuned reference, not an optimized cluster count.",
+    "Scores describe training geometry, not held-out predictive performance.",
+    "Uniform silhouette sampling can underrepresent rare clusters.",
+    "Snapshot timing assumptions and outcome-stratified manifest provenance remain provisional.",
+    "Standardized rare counts and correlated channel inputs can dominate distances.",
+    "PCA projection discards information and does not establish cluster separation."
+  ]
+}

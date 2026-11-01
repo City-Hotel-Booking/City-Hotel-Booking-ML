@@ -24,7 +24,9 @@ def build_parser() -> argparse.ArgumentParser:
     commands.add_parser("validate", help="Check H2 source data and save validation evidence.")
     commands.add_parser("analyze", help="Produce EDA tables, plots and unusual-record review.")
     commands.add_parser("prepare", help="Create the grouped, stratified split manifest.")
-    baseline = commands.add_parser("baseline", help="Run one baseline (not implemented).")
+    cluster = commands.add_parser("cluster", help="Run/view complete clustering analysis or assign bookings.")
+    cluster.add_argument("arguments", nargs=argparse.REMAINDER)
+    baseline = commands.add_parser("baseline", help="Run the task baseline.")
     baseline.add_argument(
         "--task", required=True, choices=("regression", "classification", "clustering")
     )
@@ -34,6 +36,13 @@ def build_parser() -> argparse.ArgumentParser:
 def main() -> int:
     parser = build_parser()
     args = parser.parse_args()
+    if args.command == "cluster":
+        from src.clustering.complete import main as clustering_main
+        try:
+            clustering_main(["--config", args.config, *args.arguments])
+        except (ValueError, FileNotFoundError) as exc:
+            parser.exit(2, f"{exc}\n")
+        return 0
     from src.settings import load_config
 
     config_path = Path(args.config)

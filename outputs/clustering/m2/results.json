@@ -1,0 +1,715 @@
+{
+  "task": "clustering",
+  "model": "three_algorithm_comparison",
+  "parameters": {
+    "baselines": {
+      "kmeans": {
+        "n_clusters": 3,
+        "n_init": 10
+      },
+      "agglomerative": {
+        "n_clusters": 3,
+        "linkage": "ward"
+      },
+      "gmm": {
+        "n_components": 3,
+        "covariance_type": "diag",
+        "reg_covar": 0.001
+      }
+    },
+    "search_space": {
+      "kmeans": [
+        {
+          "n_clusters": 2,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 2,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 3,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 3,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 4,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 4,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 5,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 5,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 6,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 6,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 7,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 7,
+          "n_init": 20
+        },
+        {
+          "n_clusters": 8,
+          "n_init": 10
+        },
+        {
+          "n_clusters": 8,
+          "n_init": 20
+        }
+      ],
+      "agglomerative": [
+        {
+          "n_clusters": 2,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 2,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 2,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 3,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 3,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 3,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 4,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 4,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 4,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 5,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 5,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 5,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 6,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 6,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 6,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 7,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 7,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 7,
+          "linkage": "complete"
+        },
+        {
+          "n_clusters": 8,
+          "linkage": "ward"
+        },
+        {
+          "n_clusters": 8,
+          "linkage": "average"
+        },
+        {
+          "n_clusters": 8,
+          "linkage": "complete"
+        }
+      ],
+      "gmm": [
+        {
+          "n_components": 2,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 2,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 3,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 3,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 4,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 4,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 5,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 5,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 6,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 6,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 7,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 7,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        },
+        {
+          "n_components": 8,
+          "covariance_type": "diag",
+          "reg_covar": 0.001
+        },
+        {
+          "n_components": 8,
+          "covariance_type": "diag",
+          "reg_covar": 0.01
+        }
+      ]
+    }
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "train",
+  "seed": 42,
+  "metrics": {
+    "comparison_rows": 5000,
+    "winner_silhouette": 0.24212006806119682
+  },
+  "train_seconds": 30.374984900001436,
+  "command": "python main.py cluster run",
+  "figure_paths": [
+    "outputs/clustering/m2/comparison_pca.png",
+    "outputs/clustering/m2/comparison_sizes.png",
+    "outputs/clustering/m2/comparison_metrics.png",
+    "outputs/clustering/m2/dendrogram.png",
+    "outputs/clustering/m2/feature_distributions.png"
+  ],
+  "selection": {
+    "criterion": "eligible converged solutions: maximize sampled silhouette, then minimize DB, then fewer clusters; prefer stability ARI >= 0.7",
+    "eligibility": "Every cluster >=1% and largest <=95%; no outcome labels",
+    "analysis_winner": "agglomerative",
+    "assignment_model": "kmeans",
+    "stability_threshold_fallback": false
+  },
+  "comparison": [
+    {
+      "algorithm": "kmeans",
+      "parameters": {
+        "n_clusters": 3,
+        "n_init": 10
+      },
+      "fit_seconds": 0.23847620000015013,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.14241545324269891,
+        "davies_bouldin": 2.1394333551584226,
+        "n_clusters": 3,
+        "minimum_share": 0.2168,
+        "maximum_share": 0.4272,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 1780,
+          "1": 2136,
+          "2": 1084
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 0.9472630557621416
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 0.9940503272216006
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.9286771572910568
+          }
+        ],
+        "mean_ari": 0.9566635134249329
+      },
+      "stage": "baseline"
+    },
+    {
+      "algorithm": "kmeans",
+      "parameters": {
+        "n_clusters": 2,
+        "n_init": 10
+      },
+      "fit_seconds": 0.16569590001017787,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.22278955007719142,
+        "davies_bouldin": 1.8542055132789852,
+        "n_clusters": 2,
+        "minimum_share": 0.2172,
+        "maximum_share": 0.7828,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 3914,
+          "1": 1086
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 1.0
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 0.9944683592746351
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.8347707036964344
+          }
+        ],
+        "mean_ari": 0.9430796876570232
+      },
+      "stage": "optimized"
+    },
+    {
+      "algorithm": "agglomerative",
+      "parameters": {
+        "n_clusters": 3,
+        "linkage": "ward"
+      },
+      "fit_seconds": 2.3601833000138868,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.24212006806119682,
+        "davies_bouldin": 1.6186980434094271,
+        "n_clusters": 3,
+        "minimum_share": 0.0466,
+        "maximum_share": 0.7384,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 3692,
+          "1": 1075,
+          "2": 233
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 0.4250858236200034
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 0.8329627325859477
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.8612203462719369
+          }
+        ],
+        "mean_ari": 0.7064229674926293
+      },
+      "stage": "baseline"
+    },
+    {
+      "algorithm": "agglomerative",
+      "parameters": {
+        "n_clusters": 3,
+        "linkage": "ward"
+      },
+      "fit_seconds": 1.9055311999982223,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.24212006806119682,
+        "davies_bouldin": 1.6186980434094271,
+        "n_clusters": 3,
+        "minimum_share": 0.0466,
+        "maximum_share": 0.7384,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 3692,
+          "1": 1075,
+          "2": 233
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 0.4250858236200034
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 0.8329627325859477
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.8612203462719369
+          }
+        ],
+        "mean_ari": 0.7064229674926293
+      },
+      "stage": "optimized"
+    },
+    {
+      "algorithm": "gmm",
+      "parameters": {
+        "n_components": 3,
+        "covariance_type": "diag",
+        "reg_covar": 0.001
+      },
+      "fit_seconds": 0.45026359998155385,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.11896706011159598,
+        "davies_bouldin": 2.834892615072542,
+        "n_clusters": 3,
+        "minimum_share": 0.0788,
+        "maximum_share": 0.6054,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 3027,
+          "1": 394,
+          "2": 1579
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 0.9945111729399658
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 1.0
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.5867376070671882
+          }
+        ],
+        "mean_ari": 0.8604162600023847
+      },
+      "stage": "baseline"
+    },
+    {
+      "algorithm": "gmm",
+      "parameters": {
+        "n_components": 2,
+        "covariance_type": "diag",
+        "reg_covar": 0.01
+      },
+      "fit_seconds": 0.5624648000230081,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.21327482781120474,
+        "davies_bouldin": 3.0122075208491568,
+        "n_clusters": 2,
+        "minimum_share": 0.1938,
+        "maximum_share": 0.8062,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 4031,
+          "1": 969
+        }
+      },
+      "stability": {
+        "method": "80% without replacement; fixed preprocessor; label-invariant ARI on overlap",
+        "replicates": [
+          {
+            "seed": 53,
+            "rows": 4000,
+            "ari": 0.9929851002883341
+          },
+          {
+            "seed": 64,
+            "rows": 4000,
+            "ari": 0.9919365005074381
+          },
+          {
+            "seed": 75,
+            "rows": 4000,
+            "ari": 0.7977288871559921
+          }
+        ],
+        "mean_ari": 0.9275501626505881
+      },
+      "stage": "optimized"
+    }
+  ],
+  "full_training_runs": [
+    {
+      "algorithm": "kmeans",
+      "parameters": {
+        "n_clusters": 3,
+        "n_init": 10
+      },
+      "fit_seconds": 2.1087555999984033,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.16243399904483957,
+        "davies_bouldin": 2.153019537739063,
+        "n_clusters": 3,
+        "minimum_share": 0.21142764532161637,
+        "maximum_share": 0.4754555931715047,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 11741,
+          "1": 26403,
+          "2": 17388
+        }
+      },
+      "stage": "baseline"
+    },
+    {
+      "algorithm": "kmeans",
+      "parameters": {
+        "n_clusters": 2,
+        "n_init": 10
+      },
+      "fit_seconds": 2.1336087999807205,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.2170666428156867,
+        "davies_bouldin": 2.095300997953447,
+        "n_clusters": 2,
+        "minimum_share": 0.27456241446373264,
+        "maximum_share": 0.7254375855362674,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 40285,
+          "1": 15247
+        }
+      },
+      "stage": "optimized"
+    },
+    {
+      "algorithm": "gmm",
+      "parameters": {
+        "n_components": 3,
+        "covariance_type": "diag",
+        "reg_covar": 0.001
+      },
+      "fit_seconds": 3.3671275000087917,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.1058010979166068,
+        "davies_bouldin": 2.8458357734353723,
+        "n_clusters": 3,
+        "minimum_share": 0.17078441259093854,
+        "maximum_share": 0.5577504862061514,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 15075,
+          "1": 9484,
+          "2": 30973
+        }
+      },
+      "stage": "baseline"
+    },
+    {
+      "algorithm": "gmm",
+      "parameters": {
+        "n_components": 2,
+        "covariance_type": "diag",
+        "reg_covar": 0.01
+      },
+      "fit_seconds": 2.106983500008937,
+      "converged": true,
+      "scores": {
+        "silhouette": 0.19877628920864462,
+        "davies_bouldin": 2.9109193062813348,
+        "n_clusters": 2,
+        "minimum_share": 0.15720665562198372,
+        "maximum_share": 0.8427933443780162,
+        "noise_fraction": 0.0,
+        "eligible": true,
+        "cluster_sizes": {
+          "0": 8730,
+          "1": 46802
+        }
+      },
+      "stage": "optimized"
+    }
+  ],
+  "sensitivity": {
+    "change": "Drop standardized IsRepeatedGuest dimension for diagnostic only; no shared policy change",
+    "scores": {
+      "silhouette": 0.21999528651392844,
+      "davies_bouldin": 1.8056047603245917,
+      "n_clusters": 2,
+      "minimum_share": 0.2168,
+      "maximum_share": 0.7832,
+      "noise_fraction": 0.0,
+      "eligible": true,
+      "cluster_sizes": {
+        "0": 3916,
+        "1": 1084
+      }
+    },
+    "ari_vs_original_kmeans": 0.9982175458343032
+  },
+  "features": [
+    "LeadTime",
+    "ArrivalDateMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "preprocessing": {
+    "shared": {
+      "numeric_imputation": "median",
+      "numeric_scaling": "standard",
+      "categorical_imputation": "constant_missing",
+      "categorical_encoding": "one_hot",
+      "unknown_categories": "ignore",
+      "high_cardinality_encoding": "one_hot_rare",
+      "high_cardinality_min_frequency": 20,
+      "skewed_numeric_features": [
+        "LeadTime"
+      ]
+    },
+    "task_variant": "m2-distance-cap3-v1",
+    "fixed_standardized_cap": [
+      -3.0,
+      3.0
+    ]
+  },
+  "population": {
+    "train_rows": 55532,
+    "comparison_rows": 5000,
+    "silhouette_rows": 1500,
+    "subset_seed": 42,
+    "metric_seed": 43,
+    "no_task_exclusions": true
+  },
+  "pca_variance": [
+    0.22138530559191094,
+    0.17078800023314328
+  ],
+  "artifact_directory": "artifacts/clustering/m2",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.15.3",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0"
+  },
+  "limitations": [
+    "All selection uses training geometry, not held-out generalization.",
+    "Fixed subset and repeated metric use can favor sample-specific structure.",
+    "Stability fixes preprocessing; it does not measure full preprocessing uncertainty.",
+    "Snapshot timing and inherited outcome-stratified manifest remain provisional.",
+    "Gaussian densities on one-hot features are an approximation; diagonal covariance and regularization control singularities.",
+    "Agglomerative model is subset-only and has no new-row predict method.",
+    "Full-data predictive refits can differ from subset ranking; compare separately.",
+    "No supervised final test set evaluation or GitHub update performed."
+  ]
+}
