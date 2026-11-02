@@ -1,9 +1,12 @@
+"""Member 5: one provisional, untuned M1 K-Means experiment."""
 
 from __future__ import annotations
 
 import hashlib
 import json
 import platform
+import shlex
+import sys
 from importlib.metadata import version
 from pathlib import Path
 from time import perf_counter
@@ -22,8 +25,16 @@ from threadpoolctl import threadpool_limits
 
 from src.data.prepare import get_task_data
 from src.evaluation.results import save_result
+from src.features.policy import get_features
 from src.preprocessing.builders import build_preprocessor, NUMERIC_COLUMNS
 
+
+
+def actual_command():
+    """Keep CLI options such as --config without changing the shared router."""
+    if Path(sys.argv[0]).name.lower() == "main.py" and "baseline" in sys.argv[1:]:
+        return "python " + shlex.join(["main.py", *sys.argv[1:]])
+    return "python main.py baseline --task clustering"
 
 def evaluate(Z, labels, seed, sample_size=3000):
     """Use original prepared distances, never distances in the 2D plot."""
@@ -75,6 +86,8 @@ def run(config: dict, project_root: Path) -> None:
     X, target = get_task_data("clustering", root, "train", config=config)
     if target is not None or set(X) & {"IsCanceled", "ADR", "ReservationStatus", "ReservationStatusDate"}:
         raise ValueError("Clustering inputs must exclude supervised outcomes.")
+    if list(X.columns) != get_features("clustering", config):
+        raise ValueError("Inputs differ from the current clustering feature policy.")
     if len(X) <= k or not X.index.is_unique:
         raise ValueError("Need unique source row IDs and more rows than clusters.")
     output = root / config["paths"]["clustering_outputs"]
@@ -96,7 +109,9 @@ def run(config: dict, project_root: Path) -> None:
         metrics, metric_notes, sample_ids = evaluate(Z, labels, seed)
         metric_seconds = perf_counter() - start
         pca = PCA(n_components=2, svd_solver="full")
+        start = perf_counter()
         coordinates = pca.fit_transform(Z)
+        pca_seconds = perf_counter() - start
     summary, frequencies = profiles(X, labels)
     summary.to_csv(output / "cluster_profiles.csv", index=False)
     frequencies.to_csv(output / "category_profiles.csv", index=False)
@@ -137,11 +152,18 @@ def run(config: dict, project_root: Path) -> None:
         "evaluation_subset": "train", "seed": seed,
         "metrics": {**metrics, "inertia": float(model.inertia_), "n_clusters": int(len(np.unique(labels)))},
         "metric_notes": metric_notes, "train_seconds": train_seconds,
-        "preprocess_seconds": preprocess_seconds, "metric_seconds": metric_seconds,
-        "command": "python main.py baseline --task clustering",
+        "preprocess_seconds": preprocess_seconds, "metric_seconds": metric_seconds, "pca_seconds": pca_seconds,
+        "timing_notes": {"train_seconds": "K-Means fit_predict only", "preprocess_seconds": "Shared preprocessor fit_transform only", "metric_seconds": "Silhouette and Davies-Bouldin evaluation", "pca_seconds": "Visualization PCA fit_transform only"},
+        "command": actual_command(),
+        "command_source": "cli" if Path(sys.argv[0]).name.lower() == "main.py" else "programmatic_default",
+        "effective_config": config,
         "figure_paths": [(output / name).relative_to(root).as_posix() for name in ("cluster_sizes.png", "pca_clusters.png")],
         "features": list(X.columns), "model_family": "distance", "preprocessing": config["preprocessing"],
         "population": "All frozen training bookings; no task exclusions; outcomes not provided to clustering.",
+        "row_counts": {"train": len(X)}, "task_specific_exclusions": 0,
+        "prediction_point": config["decisions"]["prediction_point"]["clustering"],
+        "scientific_status": "provisional; shared policy awaiting team review",
+        "test_set_evaluated": False,
         "input_shape": list(X.shape), "transformed_shape": list(Z.shape),
         "cluster_sizes": {str(row.cluster): int(row.size) for row in summary.itertuples()},
         "n_iter": int(model.n_iter_), "converged_before_iteration_limit": bool(model.n_iter_ < model.max_iter),
@@ -149,8 +171,8 @@ def run(config: dict, project_root: Path) -> None:
         "davies_bouldin_population": "all training rows in the original prepared representation",
         "pca": {"purpose": "visualization only; clustering uses original prepared features", "fit_subset": "train", "explained_variance_ratio": variance.tolist(), "plot_rows": len(plot_ids), "plot_seed": seed + 1},
         "artifact_paths": [(artifacts / name).relative_to(root).as_posix() for name in ("kmeans_pipeline.joblib", "visualization_pca.joblib", "assignments.csv")],
-        "environment": {"python": platform.python_version(), **{name: version(name) for name in ("numpy", "pandas", "scikit-learn", "scipy", "matplotlib", "joblib")}},
-        "limitations": ["k=3 is a fixed untuned reference, not an optimized cluster count.", "Scores describe training geometry, not held-out predictive performance.", "Uniform silhouette sampling can underrepresent rare clusters.", "Snapshot timing assumptions and outcome-stratified manifest provenance remain provisional.", "Standardized rare counts and correlated channel inputs can dominate distances.", "PCA projection discards information and does not establish cluster separation."],
+        "environment": {"python": platform.python_version(), **{name: version(name) for name in ("numpy", "pandas", "scikit-learn", "scipy", "matplotlib", "joblib", "PyYAML", "threadpoolctl")}},
+        "limitations": ["k=3 is a fixed untuned reference, not an optimized cluster count.", "Scores describe training geometry, not held-out predictive performance.", "Uniform silhouette sampling can underrepresent rare clusters.", "Snapshot timing assumptions and outcome-stratified manifest provenance remain provisional.", "Standardized rare counts and correlated channel inputs can dominate distances.", "PCA projection discards information and does not establish cluster separation.", "Reserved test rows were not used for fitting, parameter selection, metric evaluation or PCA fitting. The shared loader reads the source CSV before selecting the requested subset."],
     }
     save_result(result, output / "metrics.json")
     print(json.dumps({"metrics": result["metrics"], "cluster_sizes": result["cluster_sizes"], "train_seconds": train_seconds, "output": str(output)}, indent=2))

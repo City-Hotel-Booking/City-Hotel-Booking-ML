@@ -1,4 +1,4 @@
-# Tested core versions for the local clustering contribution
+# M1 versions verified on 2026-11-02; use with requirements-dev.txt
 numpy==2.3.5
 pandas==3.0.1
 scikit-learn==1.6.1

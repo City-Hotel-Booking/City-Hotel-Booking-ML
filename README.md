@@ -21,8 +21,8 @@ Implemented:
 - Common experiment-result serialization.
 - Data, preparation, preprocessing and result-writer tests.
 
-The regression, classification and clustering baseline runners remain assigned
-to their model owners. No baseline model results are included yet.
+Task owners maintain the implemented regression, classification and clustering
+baselines and their result files. Clustering remains scientifically provisional.
 The integrated Milestone 1 report remains in progress.
 
 ## Team
@@ -185,7 +185,7 @@ Inspect output differences before committing regenerated evidence.
 
 ### Baseline experiments
 
-The owners will implement these existing command routes:
+Run task baselines through the existing command routes:
 
 ```powershell
 .\.venv\Scripts\python.exe main.py baseline --task regression
@@ -193,7 +193,8 @@ The owners will implement these existing command routes:
 .\.venv\Scripts\python.exe main.py baseline --task clustering
 ```
 
-Until implemented, each baseline command reports an unfinished-task message.
+The clustering command runs one untuned K-Means experiment on frozen training
+rows. See `reports/clustering_m1.md` for results and pending scientific review.
 
 ### Alternative configuration
 
@@ -374,26 +375,20 @@ and models, scratch outputs and the two local reference documents.
 Record the tested environment, reproduction commands and submitted revision
 when preparing the milestone package.
 
-## Local completed clustering contribution
+## Milestone 1 clustering contribution
 
-Task C now has a local M1 baseline and a complete three-algorithm M2 workflow.
-This supersedes earlier clustering placeholder status in this README; other
-task owners' work is unchanged. No remote integration has been performed.
+Member 5 provides an untuned K-Means baseline (k=3, n_init=10, seed 42),
+training-only shared preprocessing, sampled internal metrics, measured
+profiles, a PCA view and focused synthetic integration tests. The contribution
+is under review as an M1-only contribution; scientific approval and merge remain pending.
 
 ```powershell
-python main.py cluster run
-python main.py cluster view
-python main.py cluster search
-python main.py cluster predict --input examples/clustering_bookings.csv --output outputs/tmp/assignments.csv
-python -m src.clustering.verify_complete
-python scripts/package_clustering.py
+python -m src.clustering.check_preprocessing
+python main.py baseline --task clustering
+python -m pytest tests/test_clustering.py -q
 ```
 
-See [the clustering guide](docs/clustering_guide.md) for the tested environment,
-exact local commands, safe test-temp setup and artifact regeneration.
-See [the final clustering report](reports/clustering_final.md) for all measured
-results, baseline/tuned comparisons, search spaces, stability, profiles,
-feature/timing limitations and application behavior. Tested package versions
-are listed in requirements-clustering.txt. Artifacts remain local and are
-excluded from submission/clustering_source.zip. That ZIP is a local clustering
-contribution, not a committed or official complete-team submission.
+See [the M1 guide](docs/clustering_guide.md),
+[report](reports/clustering_m1.md) and
+[handoff](reports/clustering_handoff_m1.md). Tested version constraints are in
+requirements-clustering.txt. M2 implementation is excluded from this PR.
