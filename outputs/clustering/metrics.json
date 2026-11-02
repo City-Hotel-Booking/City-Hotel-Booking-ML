@@ -1,0 +1,199 @@
+{
+  "task": "clustering",
+  "model": "KMeans",
+  "parameters": {
+    "algorithm": "lloyd",
+    "copy_x": true,
+    "init": "k-means++",
+    "max_iter": 300,
+    "n_clusters": 3,
+    "n_init": 10,
+    "random_state": 42,
+    "tol": 0.0001,
+    "verbose": 0
+  },
+  "data_checksum": "6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4",
+  "feature_policy_version": "m1-draft-1",
+  "split_version": "m1-group-stratified-v1",
+  "evaluation_subset": "train",
+  "seed": 42,
+  "metrics": {
+    "silhouette": 0.24493033848878007,
+    "davies_bouldin": 1.834343438214421,
+    "inertia": 337341.39146666334,
+    "n_clusters": 3
+  },
+  "metric_notes": {},
+  "train_seconds": 1.3611277999880258,
+  "preprocess_seconds": 0.892651800008025,
+  "metric_seconds": 0.26357429998461157,
+  "pca_seconds": 0.2765186000033282,
+  "timing_notes": {
+    "train_seconds": "K-Means fit_predict only",
+    "preprocess_seconds": "Shared preprocessor fit_transform only",
+    "metric_seconds": "Silhouette and Davies-Bouldin evaluation",
+    "pca_seconds": "Visualization PCA fit_transform only"
+  },
+  "command": "python main.py baseline --task clustering",
+  "command_source": "cli",
+  "effective_config": {
+    "project": {
+      "name": "city-hotel-booking-demand",
+      "random_seed": 42
+    },
+    "data": {
+      "raw_path": "data/H2.csv",
+      "expected_rows": 79330,
+      "expected_columns": 31,
+      "null_token": "NULL",
+      "strip_padded_text": true
+    },
+    "targets": {
+      "regression": "ADR",
+      "classification": "IsCanceled"
+    },
+    "decisions": {
+      "prediction_point": {
+        "regression": "at_booking_entry",
+        "classification": "at_booking_entry",
+        "clustering": "at_booking_entry"
+      },
+      "prediction_point_status": "starting_assumption",
+      "adr_population": "all_bookings_with_finite_adr",
+      "duplicate_policy": "preserve_rows_group_identical_for_split",
+      "invalid_row_policy": "flag_without_automatic_removal",
+      "split_method": "stratified_group_random",
+      "split_parameters": {
+        "train": 0.7,
+        "validation": 0.15,
+        "test": 0.15,
+        "stratify_column": "IsCanceled",
+        "group_columns": "all_31_source_columns"
+      },
+      "feature_policy_reference": "src.features.policy",
+      "feature_policy_version": "m1-draft-1",
+      "split_version": "m1-group-stratified-v1"
+    },
+    "preprocessing": {
+      "numeric_imputation": "median",
+      "numeric_scaling": "standard",
+      "categorical_imputation": "constant_missing",
+      "categorical_encoding": "one_hot",
+      "unknown_categories": "ignore",
+      "high_cardinality_encoding": "one_hot_rare",
+      "high_cardinality_min_frequency": 20,
+      "skewed_numeric_features": [
+        "LeadTime"
+      ]
+    },
+    "baselines": {
+      "regression": null,
+      "classification": null,
+      "clustering": null
+    },
+    "paths": {
+      "artifacts": "artifacts",
+      "data_outputs": "outputs/data",
+      "eda_outputs": "outputs/eda",
+      "regression_outputs": "outputs/regression",
+      "classification_outputs": "outputs/classification",
+      "clustering_outputs": "outputs/clustering",
+      "reports": "reports"
+    }
+  },
+  "figure_paths": [
+    "outputs/clustering/cluster_sizes.png",
+    "outputs/clustering/pca_clusters.png"
+  ],
+  "features": [
+    "LeadTime",
+    "ArrivalDateMonth",
+    "Adults",
+    "Children",
+    "Babies",
+    "Meal",
+    "MarketSegment",
+    "DistributionChannel",
+    "IsRepeatedGuest",
+    "ReservedRoomType",
+    "CustomerType"
+  ],
+  "model_family": "distance",
+  "preprocessing": {
+    "numeric_imputation": "median",
+    "numeric_scaling": "standard",
+    "categorical_imputation": "constant_missing",
+    "categorical_encoding": "one_hot",
+    "unknown_categories": "ignore",
+    "high_cardinality_encoding": "one_hot_rare",
+    "high_cardinality_min_frequency": 20,
+    "skewed_numeric_features": [
+      "LeadTime"
+    ]
+  },
+  "population": "All frozen training bookings; no task exclusions; outcomes not provided to clustering.",
+  "row_counts": {
+    "train": 55532
+  },
+  "task_specific_exclusions": 0,
+  "prediction_point": "at_booking_entry",
+  "scientific_status": "provisional; shared policy awaiting team review",
+  "test_set_evaluated": false,
+  "input_shape": [
+    55532,
+    11
+  ],
+  "transformed_shape": [
+    55532,
+    45
+  ],
+  "cluster_sizes": {
+    "0": 39945,
+    "1": 1328,
+    "2": 14259
+  },
+  "n_iter": 20,
+  "converged_before_iteration_limit": true,
+  "silhouette_sampling": {
+    "method": "uniform without replacement, fixed before evaluation",
+    "seed": 42,
+    "rows": 3000,
+    "row_ids_path": "outputs/clustering/silhouette_sample.csv"
+  },
+  "davies_bouldin_population": "all training rows in the original prepared representation",
+  "pca": {
+    "purpose": "visualization only; clustering uses original prepared features",
+    "fit_subset": "train",
+    "explained_variance_ratio": [
+      0.17924936785907197,
+      0.14093513810216782
+    ],
+    "plot_rows": 10000,
+    "plot_seed": 43
+  },
+  "artifact_paths": [
+    "artifacts/clustering/kmeans_pipeline.joblib",
+    "artifacts/clustering/visualization_pca.joblib",
+    "artifacts/clustering/assignments.csv"
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "3.0.1",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.15.3",
+    "matplotlib": "3.11.2",
+    "joblib": "1.6.0",
+    "PyYAML": "6.0.3",
+    "threadpoolctl": "3.7.0"
+  },
+  "limitations": [
+    "k=3 is a fixed untuned reference, not an optimized cluster count.",
+    "Scores describe training geometry, not held-out predictive performance.",
+    "Uniform silhouette sampling can underrepresent rare clusters.",
+    "Snapshot timing assumptions and outcome-stratified manifest provenance remain provisional.",
+    "Standardized rare counts and correlated channel inputs can dominate distances.",
+    "PCA projection discards information and does not establish cluster separation.",
+    "Reserved test rows were not used for fitting, parameter selection, metric evaluation or PCA fitting. The shared loader reads the source CSV before selecting the requested subset."
+  ]
+}

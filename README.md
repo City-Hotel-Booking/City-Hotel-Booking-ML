@@ -21,8 +21,8 @@ Implemented:
 - Common experiment-result serialization.
 - Data, preparation, preprocessing and result-writer tests.
 
-The regression, classification and clustering baseline runners remain assigned
-to their model owners. No baseline model results are included yet.
+Task owners maintain the implemented regression, classification and clustering
+baselines and their result files. Clustering remains scientifically provisional.
 The integrated Milestone 1 report remains in progress.
 
 ## Team
@@ -185,7 +185,7 @@ Inspect output differences before committing regenerated evidence.
 
 ### Baseline experiments
 
-The owners will implement these existing command routes:
+Run task baselines through the existing command routes:
 
 ```powershell
 .\.venv\Scripts\python.exe main.py baseline --task regression
@@ -193,7 +193,8 @@ The owners will implement these existing command routes:
 .\.venv\Scripts\python.exe main.py baseline --task clustering
 ```
 
-Until implemented, each baseline command reports an unfinished-task message.
+The clustering command runs one untuned K-Means experiment on frozen training
+rows. See `reports/clustering_m1.md` for results and pending scientific review.
 
 ### Alternative configuration
 
@@ -373,3 +374,21 @@ and models, scratch outputs and the two local reference documents.
 
 Record the tested environment, reproduction commands and submitted revision
 when preparing the milestone package.
+
+## Milestone 1 clustering contribution
+
+Member 5 provides an untuned K-Means baseline (k=3, n_init=10, seed 42),
+training-only shared preprocessing, sampled internal metrics, measured
+profiles, a PCA view and focused synthetic integration tests. The contribution
+is under review as an M1-only contribution; scientific approval and merge remain pending.
+
+```powershell
+python -m src.clustering.check_preprocessing
+python main.py baseline --task clustering
+python -m pytest tests/test_clustering.py -q
+```
+
+See [the M1 guide](docs/clustering_guide.md),
+[report](reports/clustering_m1.md) and
+[handoff](reports/clustering_handoff_m1.md). Tested version constraints are in
+requirements-clustering.txt. M2 implementation is excluded from this PR.
