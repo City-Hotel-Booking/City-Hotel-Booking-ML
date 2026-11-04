@@ -1,6 +1,6 @@
 # Milestone 1 preliminary leakage audit
 
-Owner: Member 2, for review with Members 1 and 3-5. Updated 29 October 2026.
+Owner: Member 2, for review with Members 1 and 3-5. Updated 4 November 2026.
 Status: **provisional** (`m1-draft-1`); the team has not yet approved the
 feature lists or ADR population.
 
@@ -196,3 +196,85 @@ transformer fitting, unknown-category handling, forbidden outcomes absent,
 label-free manifest, deterministic assignments, finite transformed train and
 validation arrays, and zero duplicate-group crossings. No model or learned
 transformer has been fitted on final test rows.
+
+## Evidence from merged Milestone 1 runners (4 November 2026)
+
+This review covers merged `main` revision `229f456` and its committed result
+files. It establishes what the inspected code and saved runs did, not that
+every active field was available in its initial form at booking entry. All
+three result records use the source checksum recorded in
+`outputs/data/split_metadata.json`, split version `m1-group-stratified-v1`,
+and feature-policy version `m1-draft-1`. Their saved feature lists match
+`get_features(task, config)` exactly: 16 regression, 16 classification and
+11 clustering columns. `src/data/prepare.py:99-130` checks version, source
+checksum and manifest row IDs before it selects a task's subset and columns.
+The nine checks in `outputs/data/preprocessing_checks.json` all pass,
+including label-free manifest, zero exact duplicate-group crossings,
+train-only transformer fitting and unseen-category handling. A fresh Python
+3.11.9 environment rerun on 4 November returned `122 passed, 2 subtests
+passed` from `python -m pytest -q`.
+
+| Task | Found or ruled-out risk in actual M1 code | Evidence | Remaining limit |
+| --- | --- | --- | --- |
+| ADR regression | Requests only frozen `train` and `validation`; gets the 16 active policy inputs; fits shared preprocessing and `LinearRegression` in one pipeline on training rows. No final-status feature or test evaluation appears in this runner. | `src/regression/baseline.py:284-325`; `outputs/regression/metrics.json` (`evaluation_subset=validation`, `test_set_evaluated=false`) | The all-finite-ADR population includes zero-rate, zero-night and canceled bookings. Their business meaning and timing of mutable active inputs remain unapproved. The validation ADR 5,400 was scored, not removed. |
+| Cancellation classification | Requests frozen `train` and `validation`; fits shared preprocessing and logistic regression in one pipeline on training rows. `IsCanceled` is the target. Final status/date, recorded ADR and later-change fields are absent from the result's feature list. | `src/classification/baseline.py:313-377`; `outputs/classification/metrics.json` (`evaluation_subset=validation`, 16 features, `test_set_evaluated=false`) | Initial values of guest counts, meal, customer type and prior-history cutoff need source-system evidence. The 0.5 threshold is fixed, not tuned. |
+| Booking clustering | Requests frozen `train` only, rejects an outcome target/column and fits the shared dense distance transformer and K-Means there. Silhouette uses a fixed 3,000-row training sample; Davies-Bouldin uses all training rows. PCA fits training representations for the plot only. | `src/clustering/baseline.py:77-113,134-175`; `outputs/clustering/metrics.json` (`evaluation_subset=train`, `test_set_evaluated=false`) | The common training membership was stratified by `IsCanceled` during split creation. This is outcome-informed sample selection even though the clustering runner never receives labels. Purpose and k=3 remain provisional; do not select k or describe groups by cancellation/status. |
+
+The optional regression comparison also uses policy features, frozen
+train/validation subsets, and a fresh shared preprocessor in each fixed
+candidate pipeline (`src/regression/improve.py:260-347`). It chooses among
+two candidates by full-validation MAE (RMSE for ties) without a test score.
+Repeated choices on the same validation subset can still overfit it. The
+untuned M1 reference remains `outputs/regression/metrics.json`.
+
+### Separation of stages in the inspected code
+
+1. **Source and assignment:** `src/data/load.py` preserves source row IDs.
+   `src/data/split.py` creates the label-free manifest after grouping exact
+   normalized rows. `src/data/prepare.py:107-130` checks version and checksum
+   before handing out a subset. `IsCanceled` stratified the assignment but is
+   absent from the manifest and active inputs.
+2. **Feature policy and engineering:** `src/features/policy.py` fixes active
+   columns before modeling. `src/preprocessing/builders.py:76-159` puts
+   numeric parsing, median imputation, optional `LeadTime` `log1p`, scaling,
+   categorical cleaning and one-hot encoding in a reusable transformer.
+   There is no separate fitted feature-engineering step in the three M1
+   baseline runners.
+3. **Learned preprocessing:** supervised runners put a fresh transformer
+   inside a scikit-learn `Pipeline` and fit on training rows
+   (`src/regression/baseline.py:311-321`;
+   `src/classification/baseline.py:350-375`). Clustering calls
+   `fit_transform` only after requesting frozen training rows
+   (`src/clustering/baseline.py:86-106`). Validation is transformed by
+   already-fitted supervised pipelines. The real-H2 check records three
+   training-index transformer fits, one per task.
+4. **Dimensionality reduction:** M1 clustering PCA fits prepared training
+   data only for its 2D plot. K-Means and internal metrics use the original
+   45-dimensional representation (`src/clustering/baseline.py:109-114,134-172`).
+   Supervised PCA and LDA comparisons are **not implemented** in these M1
+   runners. In M2, both must fit inside each training fold; LDA must receive
+   only that fold's training labels.
+5. **Tuning and selection:** the three M1 baselines use fixed settings;
+   K-Means uses k=3. No search-based tuning is claimed. The optional
+   regression comparison uses validation to choose between two fixed
+   candidates (`src/regression/improve.py:313-347`). In M2, keep preprocessing,
+   dimensionality reduction and estimator inside each group-aware training
+   fold, and record the search space and seed.
+6. **Final evaluation:** supervised M1 records identify `validation` as the
+   evaluation subset and say `test_set_evaluated=false`. Reserve final test
+   scoring until all choices are frozen. Reading source rows for identity or
+   aggregate split metadata is different from fitting/scoring test rows;
+   do not let the metadata's test-class balance guide model selection.
+
+### Cross-team inconsistency to resolve
+
+`reports/eda_notes.md:145`, generated by `src/data/eda.py:243`, says the
+modeling builder converts `Agent`/`Company` `NULL` to missing. The current
+builder explicitly preserves `NULL` for those two columns
+(`src/preprocessing/builders.py:33-55`), and the preparation check says
+`not_applicable_ids_preserved: PASS`. They are inactive M1 features, so the
+incorrect sentence does not change these saved runs. Member 1 should fix
+the generating text and regenerate the EDA note. Literal `NA` is treated as
+missing in analysis/model views, while frozen split hashing retains its
+documented older normalization rule. Changing group hashing requires a
+new split version and assignment audit.
