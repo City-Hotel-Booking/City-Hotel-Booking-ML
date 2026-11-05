@@ -33,10 +33,10 @@ EDA describes the full source and does not fit or evaluate predictive models. Th
 
 | Area | EDA behavior | Existing shared behavior | Required review |
 |---|---|---|---|
-| Agent and Company NULL | Preserve NULL as a not-applicable category, following the dataset paper. | The modeling preprocessor converts NULL to missing. Both columns are excluded from all active feature lists. | Zeina and Michael must agree the representation before enabling either field and version the relevant feature/preprocessing policy. |
+| Agent and Company NULL | Preserve NULL as a not-applicable category, following the dataset paper. | The modeling preprocessor also preserves NULL as a categorical not-applicable value. Both columns are excluded from all active feature lists. | Zeina and Michael should confirm semantics, timing and encoding before enabling either field. Any change to active features or preprocessing requires review and appropriate versioning. |
 | Literal NA and duplicate groups | Interpret NA as missing in the analysis view. | The split reader trims text and normalizes blank/NULL only; literal NA remains part of the group-hash input. | Zeina and Michael must agree normalization for group identity. Any change requires review of its effect on hashes and assignments, a new split version where affected, and reproducible verification. |
 
-These differences are documented, not resolved by this contribution. Exclusion of Agent and Company prevents their mismatch from affecting current active model inputs. The existing frozen manifest must remain intact until any normalization change is explicitly reviewed and versioned. Record agreed treatments, reviewers and dates in `reports/decisions.md`; no approval is implied here.
+EDA and modeling agree on the not-applicable meaning of Agent/Company NULL. Their exclusion from active inputs remains unchanged. The literal NA normalization difference in frozen group hashing remains documented; preserve the current manifest until any proposed change is reviewed and versioned. Record scientific decisions, reviewers and dates in `reports/decisions.md`; no approval is implied here.
 
 ## Reproduction and verification
 

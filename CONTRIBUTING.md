@@ -1,233 +1,110 @@
-# Team contributions and workflow
+# Team Contributions and Workflow
 
-## Ownership
+> Ownership, experiment integrity and review rules for the City Hotel project.
 
-| Member | Name | GitHub account | Primary responsibility |
-| --- | --- | --- | --- |
-| 1 | Zeina | zeihany0375 | Data loading, validation, EDA and data-quality evidence |
-| 2 | Michael | MichaelHany48 | Shared splitting, feature policy, preprocessing and leakage audit |
-| 3 | Paula | PaulaAdelDev | ADR regression |
-| 4 | Youssef | youssefklopp-del | Cancellation classification |
-| 5 | Aya | ayaoraby63 | Clustering |
-| 6 | Makarious | makarioussafa | Integration, common result handling, documentation and report assembly |
+## Contributions and ownership
 
-Each member implements, tests and explains their own contribution.
-The integrated report records actual work and supporting files or commits.
+| Member | GitHub account | Main responsibility and supporting files |
+| --- | --- | --- |
+| Zeina | `zeihany0375` | Loading, validation and EDA: `src/data/`, source evidence and data reports |
+| Michael | `MichaelHany48` | Shared split, feature policy, preprocessing and leakage audit |
+| Paula | `PaulaAdelDev` | `src/regression/`, regression tests, results and reports |
+| Youssef | `youssefklopp-del` | `src/classification/`, classification tests, results and report |
+| Aya | `ayaoraby63` | `src/clustering/`, clustering checks, tests, profiles and reports |
+| Makarious | `makarioussafa` | Shared command routing, configuration integration, result writer, documentation and submission verification |
 
-## Shared experiment rules
+Michael maintains `src/data/split.py` and `src/data/prepare.py` within the
+shared data package. Preserve each member's implementation and contribution
+history. Explain focused corrections rather than replacing completed work.
 
-Use the starting assumptions in `reports/decisions.md`.
+The integrated M1 report is maintained in
+`Milestone_1_Report/milestone1_report.md`, with task owners checking their sections.
 
-- Preserve the source file, source ordering and zero-based row IDs.
-- Use the frozen split assignments and matching source checksum.
-- Fit learned preprocessing and models on training data only.
-- Keep the final supervised test set reserved for Milestone 2.
-- Use group-aware folds if introducing cross-validation.
-- Exclude information unavailable at the stated prediction point.
-- Use unsupervised criteria to select clustering parameters.
+## Experiment rules
 
-Owners may independently make justified task-specific changes to algorithms,
-features, populations, preprocessing and prediction points. Record each
-change, its reason, supporting evidence and effect on the experiment.
+- Preserve source bytes, source row IDs and frozen assignments.
+- Use the active feature policy and record prediction point and population.
+- Fit learned preprocessing inside the training pipeline and each training fold.
+- Use group-aware folds when introducing cross-validation.
+- Reserve final supervised test evaluation for M2.
+- Use unsupervised criteria for clustering selection.
+- Document exclusions within existing splits, policy departures and their reasons.
+- Keep provisional assumptions distinct from recorded scientific approval.
 
-Keep alternatives within the task's module or configuration. Shared changes
-affecting other tasks are reviewed through a pull request.
+See [decisions](reports/decisions.md) and
+[leakage audit](reports/leakage_audit_m1.md) for the current protocol.
 
-## Shared data and preprocessing interfaces
+## Shared interfaces
 
-Every task runner exposes:
-
-```python
-def run(config: dict, project_root: Path) -> None:
-    ...
-```
-
-Use the configuration passed by the command router:
+Each task runner exposes `run(config, project_root)` and uses the supplied
+configuration. Request data through:
 
 ```python
-from src.data.prepare import get_task_data
-
 X_train, y_train = get_task_data(
     task, project_root, "train", config=config
 )
 ```
 
-For supervised validation, request `"validation"` using the same interface.
-Clustering returns `(X, None)`.
+The function is provided by `src.data.prepare`; validation uses the same
+interface with `"validation"`. Clustering returns `(X, None)`.
 
-Create a fresh transformer using:
+Create a fresh transformer with `build_preprocessor` from
+`src.preprocessing.builders`. Use `model_family="linear"` or `"distance"`
+for scaled inputs and `"tree"` for unscaled inputs. Clustering uses the
+separate dense distance representation.
 
-```python
-from src.preprocessing.builders import build_preprocessor
+## Results and task reports
 
-preprocessor = build_preprocessor(
-    task, config, model_family="linear"
-)
+Save results through `save_result` in `src/evaluation/results.py`.
+Required fields are:
+
+```text
+task, model, parameters, data_checksum, feature_policy_version,
+split_version, evaluation_subset, seed, metrics, train_seconds,
+command, figure_paths
 ```
 
-Choose `"linear"` or `"distance"` for scaled preprocessing and `"tree"`
-for unscaled tree preprocessing. Clustering requires `"distance"`.
+Also record actual inputs, preprocessing, population, row counts and
+departures from the shared policy. Classification records positive class,
+threshold and confusion matrix; clustering records profiles, metric sampling
+and cluster sizes. Use ordinary JSON-compatible values. Unavailable metrics
+use `None` with an explanation; NaN and infinity are rejected.
 
-For supervised experiments, place preprocessing and the estimator inside
-one scikit-learn Pipeline. Fit the pipeline on training rows only.
+| Task | Result location | Main evidence |
+| --- | --- | --- |
+| Regression | `outputs/regression/` | MAE, RMSE, R² and residual figure |
+| Classification | `outputs/classification/` | Accuracy, precision, recall, F1, ranking metrics and confusion matrix |
+| Clustering | `outputs/clustering/` | Internal metrics, cluster profiles and 2D visualization |
 
-Approved task-specific exclusions occur within the existing splits.
-Preserve row IDs and record exclusion reasons and affected counts.
+Task reports explain settings, measured results, limitations, exact commands
+and future work. Planned experiments must not be presented as completed.
 
-## Model deliverables
-
-### Paula: regression
-
-Implement:
-
-- `src/regression/baseline.py`
-- `tests/test_regression.py`
-- `reports/regression_m1.md`
-
-Save under `outputs/regression/`:
-
-- `metrics.json`
-- An error figure, such as residuals or actual versus predicted ADR.
-
-Report validation MAE, RMSE or MSE, R2 and training time.
-Define the ADR population and explain any exclusions or target transformations.
-
-Command:
-
-```powershell
-python main.py baseline --task regression
-```
-
-### Youssef: classification
-
-Implement:
-
-- `src/classification/baseline.py`
-- `tests/test_classification.py`
-- `reports/classification_m1.md`
-
-Save under `outputs/classification/`:
-
-- `metrics.json`
-- A labeled confusion-matrix figure.
-
-Report validation accuracy, precision, recall, F1 and ROC-AUC or PR-AUC
-where appropriate. Record training time, positive class and threshold.
-The starting positive class is `IsCanceled=1`.
-
-Command:
-
-```powershell
-python main.py baseline --task classification
-```
-
-### Aya: clustering
-
-Implement:
-
-- `src/clustering/baseline.py`
-- `tests/test_clustering.py`
-- `reports/clustering_m1.md`
-
-Save under `outputs/clustering/`:
-
-- `metrics.json`
-- `cluster_profiles.csv`
-- A two-dimensional cluster visualization.
-
-State the segmentation purpose, population, features, preprocessing,
-algorithm and parameter choices. Report cluster sizes, silhouette and
-Davies-Bouldin scores where defined, plus training time.
-
-Document sampling and seed for expensive evaluations. Explain unavailable
-scores rather than replacing them with zero. Do not use outcome labels
-to choose features, algorithms or clustering parameters.
-
-Command:
-
-```powershell
-python main.py baseline --task clustering
-```
-
-## Result records
-
-Use `save_result(result, path)` from `src/evaluation/results.py`.
-
-Required fields:
-
-- `task`
-- `model`
-- `parameters`
-- `data_checksum`
-- `feature_policy_version`
-- `split_version`
-- `evaluation_subset`
-- `seed`
-- `metrics`
-- `train_seconds`
-- `command`
-- `figure_paths`
-
-Also record the exact features, model family, preprocessing settings,
-population definition and relevant row counts. Include an experiment
-identifier and document departures from the shared starting policy.
-
-Classification adds positive class and threshold.
-Clustering adds sampling and population details. Record the frozen split
-version when clustering uses its training assignments.
-
-Use ordinary Python values in result dictionaries. Convert NumPy scalars
-and arrays before saving. NaN and infinity are rejected.
-Unavailable metrics use `None`, with explanations in `metric_notes`.
-
-Figure paths are repository-relative. Keep fitted models and pipelines
-under the ignored `artifacts/` directory.
-
-## Task reports
-
-Each task report includes:
-
-1. Purpose, prediction or analysis point and population.
-2. Selected untuned baseline and fixed settings.
-3. Inputs, preprocessing, source checksum and versions.
-4. Actual metrics and links to saved figures or tables.
-5. Interpretation and limitations.
-6. Departures from the starting policy and supporting reasons.
-7. Exact command and actual member contribution.
-8. Planned Milestone 2 extensions.
-
-Do not present planned work as completed experiments.
-
-## Integration responsibilities
-
-Makarious maintains command routing, configuration loading, the common
-result writer, root documentation and `reports/milestone1_report.md`.
-
-Zeina maintains source evidence and EDA.
-Michael maintains shared preparation and leakage documentation.
-Model owners verify their sections of the integrated report.
-
-## GitHub workflow
+## GitHub review workflow
 
 1. Start a task branch from the latest merged `main`.
-2. Make meaningful commits using your own account.
-3. Run relevant tests and inspect the diff.
-4. Stage specific files.
-5. Push the branch and open a pull request into `main`.
-6. Describe the change, verification commands, outputs and limitations.
-7. Resolve review feedback before merging.
-8. Use Create a merge commit to preserve original commits and authorship.
+2. Make focused changes using your own account.
+3. Run relevant checks, inspect the diff and stage specific files.
+4. Push the task branch and open a pull request.
+5. Resolve review feedback and obtain another member's approval.
+6. Use **Create a merge commit** to preserve original commits.
 
-Makarious reviews Michael's pull requests.
-Michael reviews Makarious's pull requests.
-Either may review other members' pull requests.
-A member must not approve their own pull request.
+Michael reviews Makarious's pull requests; Makarious reviews Michael's.
+Either may review model-owner work. A pull-request author does not approve
+their own request. Reproducing another member's experiment is integration
+work and does not transfer implementation ownership.
 
-## Tracked and local files
+## Verification and submission
 
-Keep the unchanged `data/H2.csv` locally; it is ignored by Git and must match
-the checksum in the frozen split metadata.
+Install the shared environment using `requirements-dev.txt`.
+Use pytest for the full suite and `scripts/verify_outputs.py` for independent
+data reconciliation and unittest-compatible checks. Run commands from the
+repository root; [README](README.md) contains setup and execution instructions.
 
-Commit source code, configuration, tests, relevant results and report figures.
-Do not commit raw data, environments, caches, secrets, processed datasets or fitted
-models and pipelines. Keep the two local reference documents excluded.
+Commit code, configuration, dependencies, tests, reports and relevant result
+tables/figures. Keep raw H2, environments, caches, temporary output, secrets
+and fitted artifacts local. Preserve `artifacts/README.md`.
+
+For each milestone, package the submitted repository version as a ZIP,
+including its applicable report. The submission README must contain the
+repository URL and submitted commit SHA. Final inference artifacts are
+excluded from the ZIP and must be available locally for the M2 discussion.

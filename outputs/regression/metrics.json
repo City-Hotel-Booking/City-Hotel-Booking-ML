@@ -15,17 +15,17 @@
   "evaluation_subset": "validation",
   "seed": 42,
   "metrics": {
-    "mae": 18.199150576117923,
+    "mae": 18.19915057611792,
     "rmse": 54.984998261659975,
     "r2": 0.26889536439782913
   },
-  "train_seconds": 3.1185855000003357,
+  "train_seconds": 2.363596299999699,
   "command": "python main.py baseline --task regression",
   "software_versions": {
-    "python": "3.11.9",
-    "numpy": "2.4.6",
+    "python": "3.13.6",
+    "numpy": "2.5.4",
     "pandas": "3.1.0",
-    "scipy": "1.17.1",
+    "scipy": "1.18.1",
     "scikit-learn": "1.9.1",
     "matplotlib": "3.11.2",
     "PyYAML": "6.0.3"
@@ -42,7 +42,7 @@
   "diagnostics": {
     "largest_validation_adr_row_id": 8455,
     "largest_validation_adr": 5400.0,
-    "prediction_for_largest_adr": 75.35055756941082,
+    "prediction_for_largest_adr": 75.35055756941075,
     "largest_adr_squared_error_share": 0.7881032985029479,
     "negative_prediction_count": 58,
     "no_outliers_dropped": true

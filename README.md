@@ -1,394 +1,186 @@
-# City Hotel Booking ML
+# City Hotel Booking Demand
 
-CSE382 university machine learning project using the City Hotel H2 dataset.
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Regression](https://img.shields.io/badge/Task-Regression-2563EB)
+![Classification](https://img.shields.io/badge/Task-Classification-7C3AED)
+![Clustering](https://img.shields.io/badge/Task-Clustering-0F766E)
 
-The project covers ADR regression, cancellation classification and booking
-segmentation through clustering.
+> A CSE382 machine learning project exploring hotel rates, booking cancellations
+> and booking segments using the City Hotel H2 dataset.
 
-- Milestone 1: 5 November 2026.
-- Milestone 2: 11 December 2026.
+**79,330 bookings · 31 source variables · Three initial baselines**
 
-## Current status
+## Project at a glance
 
-Implemented:
-
-- H2 loading with stable source row IDs and checksum tracking.
-- Data validation, EDA and unusual-record review.
-- A frozen grouped and stratified train/validation/test split.
-- Task-specific starting feature lists and a preliminary leakage audit.
-- Unfitted preprocessing for linear, distance-based and tree models.
-- Shared task-data access with configuration propagation.
-- Common experiment-result serialization.
-- Data, preparation, preprocessing and result-writer tests.
-
-Task owners maintain the implemented regression, classification and clustering
-baselines and their result files. Clustering remains scientifically provisional.
-The integrated Milestone 1 report remains in progress.
-
-## Team
-
-| Member | Name | Responsibility |
+| Task | Question | Implemented baseline |
 | --- | --- | --- |
-| 1 | Zeina | Data validation and EDA |
-| 2 | Michael | Shared preparation and leakage policy |
-| 3 | Paula | Regression |
-| 4 | Youssef | Classification |
-| 5 | Aya | Clustering |
-| 6 | Makarious | Integration and report assembly |
+| Regression | What recorded Average Daily Rate is associated with a booking? | Linear Regression |
+| Classification | Will a booking be canceled? | Logistic Regression |
+| Clustering | Which bookings share similar characteristics? | K-Means |
 
-See `CONTRIBUTING.md` for file ownership, deliverables and the review workflow.
+Milestone 1 covers data understanding, reusable preparation and initial experiments.
+The working prediction point is initial booking entry. H2 is a later snapshot,
+so feature-timing and population assumptions remain provisional.
 
-## Local setup
+## Current results
 
-Run commands from the repository root.
+| Experiment | Evaluation | Main results |
+| --- | --- | --- |
+| Linear Regression | Validation: 11,899 rows | MAE **18.1992** · RMSE **54.9850** · R² **0.2689** |
+| Logistic Regression | Validation: 11,899 rows | Accuracy **57.53%** · F1 **0.1846** · ROC-AUC **0.6394** |
+| K-Means, k=3 | Training: 55,532 rows | Sampled silhouette **0.2449** · Davies–Bouldin **1.8343** |
 
-Create an isolated Python environment:
+Regression error is strongly affected by an extreme validation ADR.
+Classification has low cancellation recall at its fixed 0.5 threshold and
+does not outperform the majority-class accuracy reference. Clustering shows
+overlapping groups and sensitivity to feature scaling, rather than validated
+business segments. These are development results; final supervised test
+performance has not been evaluated.
+
+Paula's additional fixed-configuration regression comparison is preserved
+alongside the original baseline. It is not systematic hyperparameter tuning.
+
+<details>
+<summary><strong>View baseline figures</strong></summary>
+
+### Regression residuals
+![Regression residuals](outputs/regression/residuals.png)
+
+### Cancellation classification
+![Validation confusion matrix](outputs/classification/confusion_matrix.png)
+
+### Booking groups
+![Training PCA view](outputs/clustering/pca_clusters.png)
+
+The clustering plot is a training-fitted 2D projection retaining 32.02% of
+variance. Clustering and internal metrics use the original prepared features.
+
+</details>
+
+## Completed work
+
+- Source validation, missing-value and duplicate review, and unusual-record analysis.
+- Fifteen EDA tables and seven descriptive figures.
+- Frozen grouped and cancellation-stratified assignments with seed 42.
+- Task-specific feature policy and a preliminary leakage audit.
+- Fresh reusable preprocessing fitted on training data.
+- Three baseline runners, saved results, task reports and tests.
+- Successful baseline execution in the shared submission environment.
+
+**Verification:** 122 tests and two subtests passed in the integrated suite.
+Clustering preparation passed 15/15 checks. The independent data verifier
+also passed its 31 unittest checks; these counts overlap with the full suite.
+
+## Dataset and evaluation
+
+Use **H2.csv only**. Obtain the [course-specified H2 mirror](https://raw.githubusercontent.com/afaq-ahmad/Hotel-booking-demand-Case-Study/master/H2.csv)
+and place the unchanged file at `data/H2.csv`. Raw data is excluded from Git.
+
+| Training | Validation | Reserved test |
+| ---: | ---: | ---: |
+| 55,532 | 11,899 | 11,899 |
+
+Identical normalized records stay within one subset. This random split does
+not measure future-period drift. Active input counts are 16 for regression,
+16 for classification and 11 for clustering.
+
+Source identity and ordering are verified against the frozen split.
+See [data setup](data/README.md), [feature policy](src/features/policy.py),
+[experiment decisions](reports/decisions.md) and
+[leakage audit](reports/leakage_audit_m1.md).
+
+## Setup and run
+
+Run from the repository root using **Python 3.13.6**. Runtime packages are
+pinned in `requirements.txt`; development requirements add the test runner.
 
 ```powershell
 python -m venv .venv
-```
-
-Install runtime and test dependencies:
-
-```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-```
-
-Check the command interface:
-
-```powershell
 .\.venv\Scripts\python.exe main.py --help
 ```
 
-Run the test suite:
-
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q
-```
-
-Using the environment's executable directly avoids requiring activation.
-
-The Member 6 environment uses Python 3.13.6. The dependency lists are currently
-unpinned. Earlier source verification used the environment recorded in
-`outputs/verification.json`; that record describes its original run.
-
-## Dataset
-
-Use City Hotel H2 only. Place the unchanged, locally held CSV at:
-
-```text
-data/H2.csv
-```
-
-Expected dimensions: 79,330 rows and 31 source columns.
-
-Expected SHA-256:
-
-```text
-6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4
-```
-
-Verify the local file:
-
-```powershell
-Get-FileHash -LiteralPath ".\data\H2.csv" -Algorithm SHA256
-```
-
-Do not edit or resave the source CSV to perform cleaning.
-The frozen split refers to this exact source file and row ordering.
-
-The loader preserves original tokens separately from a normalized view.
-It trims surrounding whitespace, parses numeric fields and retains stable
-zero-based source row IDs. It does not remove or impute rows.
-
-Agent and Company NULL values represent not applicable and remain categorical.
-Their identifiers must not be treated as numeric measurements.
-Unknown Children values must not be assumed to mean zero.
-
-See `data/README.md` for source references and identity details.
-
-## Project structure
-
-```text
-main.py                    Shared command interface
-config.yaml                Starting experiment configuration
-src/data/                  Loading, validation, EDA, splitting and task data
-src/features/              Feature availability and leakage policy
-src/preprocessing/         Unfitted transformers and preparation checks
-src/evaluation/            Common result serialization
-src/regression/            Regression experiments
-src/classification/        Classification experiments
-src/clustering/            Clustering experiments
-src/tuning/                Milestone 2 tuning extension
-src/inference/             Milestone 2 inference extension
-data/H2.csv                Local H2 source (ignored by Git)
-outputs/data/              Validation, review and frozen split evidence
-outputs/eda/               Descriptive tables and figures
-outputs/regression/        Regression results
-outputs/classification/    Classification results
-outputs/clustering/        Clustering results
-reports/                   Decisions, task notes and milestone report
-tests/                     Behavioral and integration checks
-scripts/                   Output verification utilities
-artifacts/                 Ignored local fitted pipelines and models
-app/                       Milestone 2 application extension
-```
-
-## Commands
-
-The commands below are shown with the project environment's executable.
-
-### Data validation
+### Data preparation
 
 ```powershell
 .\.venv\Scripts\python.exe main.py validate
-```
-
-Writes validation evidence and the source schema under `outputs/data/`.
-
-### Exploratory analysis
-
-```powershell
 .\.venv\Scripts\python.exe main.py analyze
-```
-
-Generates 15 EDA tables, seven figures, unusual-record evidence and reports.
-
-### Shared preparation
-
-```powershell
 .\.venv\Scripts\python.exe main.py prepare
-```
-
-Routes through `src.data.prepare` to create or verify the shared split.
-An incompatible existing split is rejected rather than silently replaced.
-
-### Preparation checks
-
-```powershell
 .\.venv\Scripts\python.exe -m src.preprocessing.checks
 ```
 
-Checks source identity, frozen assignments, duplicate-group containment,
-feature exclusions, training-only fitting and transformed data.
-
-### Independent output verification
-
-```powershell
-.\.venv\Scripts\python.exe scripts/verify_outputs.py
-```
-
-Reconciles saved data evidence against the CSV and runs the unittest-compatible checks. Run pytest separately for the complete test suite.
-
-Validation, analysis and verification commands write their respective outputs.
-Inspect output differences before committing regenerated evidence.
-
 ### Baseline experiments
-
-Run task baselines through the existing command routes:
 
 ```powershell
 .\.venv\Scripts\python.exe main.py baseline --task regression
 .\.venv\Scripts\python.exe main.py baseline --task classification
+.\.venv\Scripts\python.exe -m src.clustering.check_preprocessing
 .\.venv\Scripts\python.exe main.py baseline --task clustering
 ```
 
-The clustering command runs one untuned K-Means experiment on frozen training
-rows. See `reports/clustering_m1.md` for results and pending scientific review.
+Additional regression comparison:
 
-### Alternative configuration
+```powershell
+.\.venv\Scripts\python.exe -m src.regression.improve
+```
 
-Place `--config` before the command:
+### Verification
+
+```powershell
+.\.venv\Scripts\python.exe scripts/verify_outputs.py
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
+The verifier checks source evidence and runs unittest-compatible tests;
+pytest runs the complete suite. Analysis and experiment commands regenerate
+their outputs, so inspect differences before committing. Runtime and small
+floating-point differences can vary across environments.
+
+For alternative settings, place `--config` before the command:
 
 ```powershell
 .\.venv\Scripts\python.exe main.py --config experiment.yaml baseline --task regression
 ```
 
-Paths inside configuration files are relative to the project root.
+Paths in configuration files are relative to the project root.
 
-## Starting experiment policy
+## Repository layout
 
-The starting prediction point is initial booking entry into the hotel PMS.
-H2 is a later snapshot, so feature timing assumptions require explicit
-discussion in experiment reports.
+| Location | Contents |
+| --- | --- |
+| `src/` | Data, features, preprocessing, experiments and result handling |
+| `outputs/` | Validation evidence, frozen assignments, tables, metrics and figures |
+| `reports/` | Task reports, data findings, decisions and leakage audit |
+| `docs/` | Code and task-specific guides |
+| `tests/` · `scripts/` | Automated checks and output verification |
+| `app/` · `src/inference/` · `src/tuning/` | Planned M2 extensions |
+| `artifacts/` | Local fitted objects, excluded from Git |
 
-Starting input counts:
+## Team
 
-- Regression: 16.
-- Classification: 16.
-- Clustering: 11.
+| Member | Account | Contribution |
+| --- | --- | --- |
+| Zeina | [zeihany0375](https://github.com/zeihany0375) | Data loading, validation and EDA |
+| Michael | [MichaelHany48](https://github.com/MichaelHany48) | Shared preparation, feature policy and leakage review |
+| Paula | [PaulaAdelDev](https://github.com/PaulaAdelDev) | Regression experiments |
+| Youssef | [youssefklopp-del](https://github.com/youssefklopp-del) | Classification experiment |
+| Aya | [ayaoraby63](https://github.com/ayaoraby63) | Clustering experiment |
+| Makarious | [makarioussafa](https://github.com/makarioussafa) | Integration, result handling and submission verification |
 
-The source of the exact lists is `src/features/policy.py`.
-Feature-policy version: `m1-draft-1`.
+See [team contributions and workflow](CONTRIBUTING.md) for responsibilities
+and review rules.
 
-Shared split version: `m1-group-stratified-v1`, seed 42.
+## Next milestone
 
-| Subset | Rows |
-| --- | ---: |
-| Train | 55,532 |
-| Validation | 11,899 |
-| Reserved test | 11,899 |
+M2 will extend model comparisons, tuning, dimensionality reduction and final
+evaluation, then expose saved inference pipelines through a usable application.
+Specific experiments will be documented as they are developed.
 
-Exact duplicate groups remain together. The split is random and does not
-measure future-year drift.
+| Milestone | Deadline |
+| --- | --- |
+| M1: preparation and initial baselines | 5 November 2026 |
+| M2: complete end-to-end project | 11 December 2026 |
 
-Start regression with all finite ADR targets, including canceled and zero-rate
-records. Apply no automatic exclusions or clipping. An owner may define a
-different scientifically justified population and document affected counts.
+## Repository
 
-Start clustering with the existing 11 inputs and frozen training rows.
-Do not use cancellation or final-status outcomes to select clusters.
-
-Owners may make justified task-specific changes to algorithms, features,
-population, preprocessing and prediction point. Record the change, reason,
-evidence, exact inputs and impact in the task report and result settings.
-
-Preserve source identity and frozen split assignments. Shared changes affecting
-other tasks are reviewed through a pull request.
-
-See `reports/decisions.md` for the full policy.
-
-## Model-owner interface
-
-Use the configuration and project root received by the task runner:
-
-```python
-from sklearn.pipeline import Pipeline
-
-from src.data.prepare import get_task_data
-from src.preprocessing.builders import build_preprocessor
-
-
-def run(config, project_root):
-    X_train, y_train = get_task_data(
-        "classification", project_root, "train", config=config
-    )
-    X_validation, y_validation = get_task_data(
-        "classification", project_root, "validation", config=config
-    )
-
-    # The owner supplies a selected, configured estimator.
-    classifier = ...
-
-    pipeline = Pipeline([
-        (
-            "preprocess",
-            build_preprocessor(
-                "classification", config, model_family="linear"
-            ),
-        ),
-        ("model", classifier),
-    ])
-
-    pipeline.fit(X_train, y_train)
-    predictions = pipeline.predict(X_validation)
-```
-
-This is an interface illustration; replace the estimator placeholder with the
-owner's implementation.
-
-`get_task_data` returns inputs and a supervised target. For clustering,
-the target is `None`. Returned indexes preserve source row IDs.
-
-Preprocessing choices:
-
-- `model_family="linear"` or `"distance"`: numeric median imputation,
-  the configured LeadTime log1p transform and standard scaling.
-- `model_family="tree"`: numeric median imputation without scaling or log1p.
-- Clustering: a separate distance preprocessor with dense output.
-- Categorical inputs: missing marker and one-hot encoding with unknown
-  categories ignored.
-- Agent, Company and Country remain excluded from starting inputs.
-  Rare-category encoding is available for justified future policies.
-
-All builders return fresh unfitted objects. Fit supervised preprocessing inside
-the model Pipeline and inside each training cross-validation fold.
-
-## Results and deliverables
-
-Use `save_result(result, path)` from `src/evaluation/results.py`.
-
-Each owner supplies:
-
-- A working task runner and relevant tests.
-- `metrics.json` under their task's output folder.
-- Actual figures or tables.
-- A completed task report with interpretation and limitations.
-- Exact settings, input population, features, command and runtime.
-- An accurate contribution statement.
-
-Use `None` with an explanation for unavailable metrics.
-Convert NumPy values to ordinary Python values before JSON serialization.
-NaN and infinity are rejected.
-
-Detailed requirements are in `CONTRIBUTING.md`.
-
-## Leakage and evaluation
-
-- Reserve final supervised test evaluation for Milestone 2.
-- Fit learned transformations and models on training folds only.
-- Use group-aware folds if introducing cross-validation.
-- Exclude future information at the stated prediction point.
-- Apply task-specific exclusions within existing splits.
-- Do not use supervised outcomes to select clustering parameters.
-- Treat full-source EDA thresholds as descriptions, not fitted treatment rules.
-- Explain comparisons involving different populations or prediction points.
-
-See `reports/leakage_audit_m1.md` for the preliminary audit.
-
-## Reports
-
-- `reports/eda_notes.md`: source understanding and EDA.
-- `reports/data_review.md`: unusual records and duplicate evidence.
-- `reports/member1_integration.md`: source-format reconciliation.
-- `reports/decisions.md`: starting assumptions and experiment rules.
-- `reports/leakage_audit_m1.md`: preliminary leakage audit.
-- `reports/handoff_member2.md`: preparation handoff.
-- `reports/regression_m1.md`: Paula's regression report.
-- `reports/classification_m1.md`: Youssef's classification report.
-- `reports/clustering_m1.md`: Aya's clustering report.
-- `reports/milestone1_report.md`: integrated progress report.
-
-## Milestone 2
-
-Extend the project with at least three algorithms per task, baseline and
-tuned comparisons, an ensemble/boosting supervised model, PCA and LDA
-experiments, final supervised test evaluation, clustering interpretation and
-visualization, saved inference pipelines and a usable application.
-
-The application must load saved pipelines for inference.
-
-## Repository and submission
-
-Repository:
-
-https://github.com/City-Hotel-Booking/City-Hotel-Booking-ML
-
-Submitted commit SHA: pending milestone submission.
-
-Commit source code, configuration, tests, relevant result
-tables and figures, and reports.
-
-Exclude raw data, environments, caches, secrets, processed datasets, fitted pipelines
-and models, scratch outputs and the two local reference documents.
-
-Record the tested environment, reproduction commands and submitted revision
-when preparing the milestone package.
-
-## Milestone 1 clustering contribution
-
-Member 5 provides an untuned K-Means baseline (k=3, n_init=10, seed 42),
-training-only shared preprocessing, sampled internal metrics, measured
-profiles, a PCA view and focused synthetic integration tests. The contribution
-is under review as an M1-only contribution; scientific approval and merge remain pending.
-
-```powershell
-python -m src.clustering.check_preprocessing
-python main.py baseline --task clustering
-python -m pytest tests/test_clustering.py -q
-```
-
-See [the M1 guide](docs/clustering_guide.md),
-[report](reports/clustering_m1.md) and
-[handoff](reports/clustering_handoff_m1.md). Tested version constraints are in
-requirements-clustering.txt. M2 implementation is excluded from this PR.
+[City-Hotel-Booking-ML](https://github.com/City-Hotel-Booking/City-Hotel-Booking-ML)

@@ -1,7 +1,10 @@
 # Member 2 handoff for Milestone 1
 
-Owner: Michael. Updated 29 October 2026. Scientific choices remain provisional
-until the named owners respond in `reports/decisions.md`.
+Owner: Michael. Original preparation handoff: 29 October 2026.
+The shared preparation interfaces and all three M1 baselines are now
+integrated into main. Current execution evidence and open scientific
+decisions are recorded in `reports/leakage_audit_m1.md` and
+`reports/decisions.md`.
 
 ## What is ready
 
@@ -23,12 +26,14 @@ until the named owners respond in `reports/decisions.md`.
   default `"distance"` for scaled inputs. Clustering requires the scaled
   distance choice and returns dense data.
 - `python -m src.data.prepare` and `python main.py prepare` both create or
-  verify the frozen split. Member 6 should route the latter to
-  `src.data.prepare` for one shared public entry point.
+  verify the frozen split. The shared command entry point routes
+  `prepare` to `src.data.prepare`.
 - `python -m src.preprocessing.checks` writes
-  `outputs/data/preprocessing_checks.json`; all nine checks passed on the
-  confirmed H2 file. The test suite reported 31 passed and two subtests
-  passed. No model evaluation was performed on final test rows.
+  `outputs/data/preprocessing_checks.json`; all nine recorded checks passed
+  on the confirmed H2 file. At the original preparation handoff, the test
+  suite reported 31 passed and two subtests passed. This historical count
+  is not the complete integrated M1 test-suite count. No model evaluation
+  was performed on final test rows.
 
 ## Still awaiting a team decision
 
@@ -150,53 +155,12 @@ using unsupervised criteria on a documented training sample; a full silhouette
 calculation on all 55,532 rows can be expensive. Fit PCA for the 2D plot on
 training rows only. Never use cancellation/status labels in selection.
 
-## Copy-paste messages to teammates
 
-**Zeina, Member 1:**
-> Thanks for the H2 validation and EDA. Your zero-based row_id, 79,330 rows,
-> 31 official labels and source checksum match our frozen split. I kept your
-> raw-token loader for grouping. Please confirm the 4 unknown Children values,
-> Agent/Company NULL as not applicable, and whether the original booking-time
-> values of guest counts and stay nights can be established. The NA and NULL
-> grouping difference is documented; we have not changed the manifest.
-
-**Paula, Member 3:**
-> The frozen train/validation row IDs and 16 provisional ADR inputs are ready
-> through `get_task_data("regression", root, split)`. The training set has 785
-> zero-ADR and 224 zero-night rows; Member 1's full-source review also flags
-> the ADR maximum of 5,400. Please agree the ADR population with Zeina and me
-> before accepting your baseline. Keep exclusions inside each existing split.
-
-**Youssef, Member 4:**
-> The provisional prediction point is first booking entry. The positive class
-> is `IsCanceled=1`. Use the 16 approved inputs from `get_task_data` and an
-> unfitted preprocessor inside your model Pipeline. Final status and status
-> date are excluded, as are recorded ADR and later booking-change fields.
-> Please record the classification threshold and class-aware validation metrics.
-
-**Aya, Member 5:**
-> The current clustering policy has 11 booking-time inputs. Use the separate
-> scaled clustering preprocessor on training rows only. IsCanceled, ADR,
-> ReservationStatus and ReservationStatusDate are not active cluster inputs.
-> Please confirm the segment purpose and population with me, then choose k
-> using unsupervised scores and record any sample and seed.
-
-**Makarious, Member 6:**
-> Member 2 now provides `src.data.prepare.run(config, project_root)` and
-> `python -m src.data.prepare`. Please route `python main.py prepare` to
-> `src.data.prepare` when updating main.py. Example: set
-> `RUNNERS["prepare"] = "src.data.prepare"`. I have not edited main.py or your
-> config sections. Result records need the data checksum, split version and
-> feature policy version, plus task/model/parameters/metrics/runtime/command.
-> The current versions are `m1-group-stratified-v1` and `m1-draft-1`.
-
-These are prepared text for Michael to send; this file does not claim the
-messages have been delivered or decisions approved.
 
 ## Review checklist for each later baseline
 
 - [ ] Uses the same frozen train and validation row IDs and source checksum.
-- [ ] Uses only the task's currently approved inputs and records policy version.
+- [ ] Uses only the task's active policy inputs and records policy version.
 - [ ] Fits preprocessing, feature selection and model on training folds only.
 - [ ] Does not load, transform for scoring, or tune on final test rows in M1.
 - [ ] Documents task-specific row exclusions without moving other rows.

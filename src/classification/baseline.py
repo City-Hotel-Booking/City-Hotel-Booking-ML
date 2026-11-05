@@ -397,6 +397,7 @@ def run(config: dict, project_root: Path) -> None:
         ],
         "split_version": metadata["split_version"],
         "evaluation_subset": "validation",
+        "test_set_evaluated": False,
         "seed": seed,
         "metrics": metrics,
         "metric_notes": metric_notes,
