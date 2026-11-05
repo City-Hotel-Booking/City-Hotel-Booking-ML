@@ -23,18 +23,19 @@
   "feature_policy_version": "m1-draft-1",
   "split_version": "m1-group-stratified-v1",
   "evaluation_subset": "validation",
+  "test_set_evaluated": false,
   "seed": 42,
   "metrics": {
     "accuracy": 0.5752584250777376,
     "precision": 0.46390916463909165,
     "recall": 0.11520644511581067,
     "f1": 0.1845756695708293,
-    "roc_auc": 0.6394434679909641,
-    "average_precision": 0.519296396733698
+    "roc_auc": 0.6394441941586491,
+    "average_precision": 0.5192975046181709
   },
   "metric_notes": {},
-  "train_seconds": 2.0409991999986232,
-  "command": "& C:\\Users\\youss\\Downloads\\City-Hotel-Booking-ML-main\\City-Hotel-Booking-ML-main\\.venv\\Scripts\\python.exe main.py baseline --task classification",
+  "train_seconds": 3.27585739999995,
+  "command": "& \"D:\\Machine Learning\\Machine Learning\\Project\\.venv\\Scripts\\python.exe\" main.py baseline --task classification",
   "figure_paths": [
     "outputs/classification/confusion_matrix.png"
   ],
@@ -172,7 +173,7 @@
     97
   ],
   "environment": {
-    "python": "3.12.10",
+    "python": "3.13.6",
     "scikit_learn": "1.9.1",
     "pandas": "3.1.0",
     "numpy": "2.5.4"

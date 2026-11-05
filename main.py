@@ -1,4 +1,4 @@
-"""Shared command entry point. Task owners implement the unfinished runners."""
+"""Shared command entry point for data preparation and task baselines."""
 
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def build_parser() -> argparse.ArgumentParser:
     commands.add_parser("validate", help="Check H2 source data and save validation evidence.")
     commands.add_parser("analyze", help="Produce EDA tables, plots and unusual-record review.")
     commands.add_parser("prepare", help="Create the grouped, stratified split manifest.")
-    baseline = commands.add_parser("baseline", help="Run one baseline (not implemented).")
+    baseline = commands.add_parser("baseline", help="Run one task baseline.")
     baseline.add_argument(
         "--task", required=True, choices=("regression", "classification", "clustering")
     )

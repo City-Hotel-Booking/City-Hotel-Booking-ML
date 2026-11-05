@@ -5,11 +5,12 @@ This contribution runs one provisional untuned K-Means baseline. Read
 
 ## Setup
 
-Use Python 3.12 and create an isolated environment from the repository root:
+Use the shared Python 3.13.6 environment for all three tasks. Create an
+isolated environment from the repository root:
 
 ```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt -r requirements-clustering.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
 ```
 
 Place the unchanged course H2 at `data/H2.csv`. Its SHA-256 must match the

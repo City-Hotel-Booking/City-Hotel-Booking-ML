@@ -118,6 +118,7 @@ def test_runner_fits_only_train_and_saves_consistent_outputs(
     )
 
     assert result["evaluation_subset"] == "validation"
+    assert result["test_set_evaluated"] is False
     assert result["positive_class"] == 1
     assert result["decision_threshold"] == 0.5
     assert result["row_counts"] == {"train": 40, "validation": 12}

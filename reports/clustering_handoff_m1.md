@@ -1,7 +1,8 @@
 # Member 5 Milestone 1 handoff
 
-Status: implementation complete; M1-only contribution under review, not merged. Scientific
-approval of the shared booking-entry assumptions remains pending.
+Status: implementation complete; the M1 contribution was merged into main
+through PR #9. Scientific approval of the shared booking-entry assumptions
+remains pending.
 
 ## Progress report contribution
 
@@ -10,8 +11,8 @@ clustering baseline uses the current 11 inputs and fresh shared distance
 preprocessing (45 numeric output dimensions). Untuned K-Means uses k=3,
 n_init=10 and seed 42. Silhouette is 0.244930 on a fixed
 3,000-row training sample; Davies-Bouldin is 1.834343
-on all training rows. Model fitting took 1.361128 seconds and
-preprocessing took 0.892652 seconds in the current run.
+on all training rows. Model fitting took 2.509092 seconds and
+preprocessing took 1.594856 seconds in the submission-environment rerun.
 
 Cluster sizes are 39,945, 1,328 and 14,259. Median lead times are 131, 5 and
 11 days. The smallest group contains all repeated guests, indicating strong
@@ -48,6 +49,11 @@ passed**; complete repository suite **122 passed and 2 subtests passed**
 Source/checksum, uncapped 45D representation, training-only sample IDs,
 metrics/profile totals, figure paths and protected shared/supervised files
 were checked for consistency.
+
+On 5 November 2026, Makarious reran Aya's unchanged clustering implementation
+for submission integration. All 15 preprocessing checks passed; clustering
+metrics and cluster sizes matched the original run. The saved JSON records
+the rerun environment and timings. Aya remains the implementation owner.
 
 Michael reviews scientific assumptions and feature timing. Makarious receives
 these results for integrated M1 report assembly; that report is unchanged.

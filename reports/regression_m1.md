@@ -19,8 +19,8 @@ were included. This is one **untuned** baseline, not the M2 comparison.
 - Split version: `m1-group-stratified-v1`.
 - Source SHA-256: `6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4`.
 - Exact command: `python main.py baseline --task regression`.
-- Fit time: 3.1186 seconds (pipeline fit only).
-- Runtime library versions: `python=3.11.9`, `numpy=2.4.6`, `pandas=3.1.0`, `scipy=1.17.1`, `scikit-learn=1.9.1`, `matplotlib=3.11.2`, `PyYAML=6.0.3`.
+- Fit time: 2.3636 seconds (pipeline fit only).
+- Runtime library versions: `python=3.13.6`, `numpy=2.5.4`, `pandas=3.1.0`, `scipy=1.18.1`, `scikit-learn=1.9.1`, `matplotlib=3.11.2`, `PyYAML=6.0.3`.
 
 ## Exact input features
 

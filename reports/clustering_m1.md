@@ -1,9 +1,10 @@
 # Milestone 1 clustering baseline
 
 Owner: Aya, Member 5. Verified: 2 November 2026.
-Implementation and baseline evidence are complete; scientific approval under
-`m1-draft-1` is pending. This contribution is under review as an M1-only contribution and is not
-merged. No optimized cluster count or validated business segments are claimed.
+Implementation and baseline evidence are complete. The M1 contribution was
+merged into main through PR #9; scientific approval under `m1-draft-1`
+remains pending. No optimized cluster count or validated business segments
+are claimed.
 
 ## Purpose and population
 
@@ -82,10 +83,10 @@ optimized nor scientifically approved. K-Means receives no target labels.
 | Silhouette | 0.244930 | Uniform sample of 3,000 training rows, without replacement, seed 42 |
 | Davies-Bouldin | 1.834343 | All 55,532 training rows |
 | Inertia | 337341.391467 | All training rows |
-| K-Means fitting | 1.361128 seconds | fit_predict only |
-| Preprocessing | 0.892652 seconds | fit_transform only |
-| Metric evaluation | 0.263574 seconds | Both internal metrics |
-| Visualization PCA | 0.276519 seconds | Training-only fit_transform |
+| K-Means fitting | 2.509092 seconds | fit_predict only |
+| Preprocessing | 1.594856 seconds | fit_transform only |
+| Metric evaluation | 0.498420 seconds | Both internal metrics |
+| Visualization PCA | 0.593314 seconds | Training-only fit_transform |
 
 The model stopped after 20 iterations. Metrics use the prepared 45D
 representation before PCA. Sample IDs in `silhouette_sample.csv` are fixed,
@@ -148,8 +149,14 @@ An alternative configuration is passed before the subcommand:
 `python main.py --config experiment.yaml baseline --task clustering`.
 The saved command retains --config and the record contains effective settings,
 actual parameters, population, source/policy versions, sampling and timings.
-Actual current environment: python 3.12.14, numpy 2.3.5, pandas 3.0.1, scikit-learn 1.6.1, scipy 1.15.3, matplotlib 3.11.2, joblib 1.6.0, PyYAML 6.0.3, threadpoolctl 3.7.0.
-See `requirements-clustering.txt` for the tested package constraints.
+Submission-environment rerun on 5 November 2026: python 3.13.6, numpy 2.5.4, pandas 3.1.0, scikit-learn 1.9.1, scipy 1.18.1, matplotlib 3.11.2, joblib 1.6.0, PyYAML 6.0.3, threadpoolctl 3.7.0.
+The current table and saved JSON timings refer to this rerun by Makarious
+for submission integration. All 15 preprocessing checks passed; clustering
+metrics and cluster sizes matched Aya's original run. PCA variance ratios
+differed only in the last decimal places. Aya's implementation was unchanged.
+The shared `requirements.txt` and `requirements-dev.txt` pin the packages
+used for this rerun. The original verification below remains historical
+evidence from Aya's earlier environment.
 
 Verified on 2 November 2026 against current integrated code based on origin/main
 `1cc934a`: all 15 preprocessing checks passed; focused clustering tests **11
@@ -169,8 +176,8 @@ output belongs in this PR. No supervised test performance is reported.
 
 Member 5 supplies the baseline runner, preprocessing diagnostic, synthetic
 integration tests, metrics, profiles, sample IDs, two figures and M1 notes.
-Member 6 retains ownership of integrated-report assembly. Implementation is
-complete; scientific review and PR merge remain pending.
+Member 6 retains ownership of integrated-report assembly. Implementation
+and PR integration are complete; scientific review remains pending.
 
 Planned for M2 only: compare at least three algorithms before/after systematic
 optimization, investigate k and representation sensitivity, evaluate stability,

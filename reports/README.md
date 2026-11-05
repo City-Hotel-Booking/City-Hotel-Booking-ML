@@ -1,7 +1,8 @@
 # Project reports
 
-This directory contains data findings, experiment policies, task reports
-and the integrated Milestone 1 progress report.
+This directory contains data findings, experiment policies and task reports.
+The integrated progress report is maintained separately in
+`../Milestone_1_Report/milestone1_report.md`.
 
 ## Report ownership
 
@@ -16,16 +17,17 @@ and the integrated Milestone 1 progress report.
 | `regression_m1.md` | Paula | Regression experiment and interpretation |
 | `classification_m1.md` | Youssef | Classification experiment and interpretation |
 | `clustering_m1.md` | Aya | Clustering experiment and interpretation |
-| `milestone1_report.md` | Makarious, checked by all owners | Integrated progress report |
+| `../Milestone_1_Report/milestone1_report.md` | Makarious, checked by all owners | Integrated progress report |
 
 ## Current work
 
 Data validation, EDA and shared preparation evidence are available.
-The model reports remain templates until their owners complete actual
-baseline experiments.
+Regression, classification and clustering baseline implementations, saved
+results and task reports are integrated into main. Their scientific
+assumptions remain provisional as recorded in `decisions.md`.
 
-The integrated report is assembled progressively. It must distinguish
-completed work, starting assumptions, experiment results and remaining work.
+The integrated report distinguishes completed work, starting assumptions,
+experiment results and remaining work.
 
 ## Experiment reports
 

@@ -66,7 +66,7 @@ Decision threshold: 0.5.
 A probability equal to the threshold is classified as cancellation.
 The threshold was fixed before evaluation and was not optimized on validation.
 
-Training time including preprocessing: 2.040999 seconds.
+Training time including preprocessing: 3.275857 seconds.
 Optimizer iterations: [97].
 
 ## Inputs and preprocessing
@@ -125,8 +125,8 @@ No learned preprocessing is fitted on validation or final test rows.
 | precision | 0.463909 |
 | recall | 0.115206 |
 | f1 | 0.184576 |
-| roc_auc | 0.639443 |
-| average_precision | 0.519296 |
+| roc_auc | 0.639444 |
+| average_precision | 0.519298 |
 
 Average precision is calculated using average_precision_score.
 It is not described as trapezoidal area under the precision-recall curve.
@@ -182,9 +182,9 @@ ranking metrics together, while preserving this baseline for comparison.
 
 Run from the project root:
 
-    & C:\Users\youss\Downloads\City-Hotel-Booking-ML-main\City-Hotel-Booking-ML-main\.venv\Scripts\python.exe main.py baseline --task classification
+    & "D:\Machine Learning\Machine Learning\Project\.venv\Scripts\python.exe" main.py baseline --task classification
 
-Python: 3.12.10.
+Python: 3.13.6.
 scikit-learn: 1.9.1.
 pandas: 3.1.0.
 NumPy: 2.5.4.
