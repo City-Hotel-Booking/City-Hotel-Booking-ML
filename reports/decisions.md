@@ -1,6 +1,6 @@
 # Shared experiment decisions
 
-Status: **Member 2 draft, awaiting team review**. Updated **29 October 2026**.
+Status: **Member 2 draft, awaiting team review**. Updated **4 November 2026**.
 The booking-time feature policy is m1-draft-1. Proposed settings are recorded
 in config.yaml; they are not evidence that the team has approved or run them.
 Record the reviewers and approval date here before calling a decision final.
@@ -80,7 +80,7 @@ a change to group definition, source identity/order, seed, ratios, or assignment
 requires a reviewed split-version change. Task-specific row exclusions stay
 within each frozen split and need a documented population rule.
 
-## Pending decisions before Milestone 1
+## Historical response requests recorded on 29 October
 
 The dates below are proposed team response dates, not recorded approvals.
 If a response is late, use the stated **provisional** default for development
@@ -97,3 +97,37 @@ and mark the result provisional; do not silently call a decision approved.
 
 Approval record: reviewer names, decision, date, and resulting version are
 **pending**. Record them here when the owners respond.
+
+## Milestone 1 execution and approval status on 4 November 2026
+
+The table above records requests made before the model owners ran their
+experiments. The table below records what the merged code and saved results
+actually used. **Default used** means an experiment ran under a documented
+starting assumption; it does not mean the scientific decision was approved.
+No named scientific approval and date were found in this tracker or the merged
+task reports. Pull-request merges establish code integration, not approval of
+the prediction-time or population assumptions.
+
+| Decision | M1 status and actual use | Scientific approver/date | Evidence |
+| --- | --- | --- | --- |
+| Prediction/analysis point | **Default used; approval open.** All three result records say `at_booking_entry`. | NOT FOUND | `outputs/{regression,classification,clustering}/metrics.json`; `config.yaml` decisions |
+| ADR regression population | **Default used; approval open.** The baseline retained all 55,532 training and 11,899 validation rows with finite ADR; no row was excluded or clipped. | NOT FOUND; Zeina, Paula and Michael still need to decide the business meaning. | `outputs/regression/metrics.json` population; `src/regression/baseline.py:304-308` |
+| Import cleaning and missing semantics | **Default used; approval open.** The shared builder preserves `Agent`/`Company` `NULL` as a categorical not-applicable value; both IDs remain inactive features. | NOT FOUND; Zeina and Michael to confirm. | `src/preprocessing/builders.py:33-55`; `src/features/policy.py` |
+| Duplicate policy | **Default used; approval open.** Keep all records and group identical normalized source rows when assigning splits. | NOT FOUND; Zeina, Paula, Youssef and Michael to confirm. | `outputs/data/split_metadata.json`; `outputs/data/preprocessing_checks.json` |
+| Supervised split | **Default used; approval open.** Seed 42; 55,532/11,899/11,899 row assignments; zero duplicate groups cross subsets. | NOT FOUND; same reviewers as duplicate policy. | `outputs/data/split_metadata.json`; `outputs/data/preprocessing_checks.json` |
+| Task feature lists | **Default used; approval open.** Result records use the current 16/16/11 policy columns exactly. Disputed columns remain inactive. | NOT FOUND; Zeina and Members 3-5 to confirm timing. | `src/features/policy.py`; task `metrics.json` feature lists |
+| Shared preprocessing | **Default used; approval open.** All three task runners call `build_preprocessor`; supervised models fit it inside a pipeline on training rows. | NOT FOUND; model owners and Michael to review. | `src/regression/baseline.py:311-318`; `src/classification/baseline.py:350-364`; `src/clustering/baseline.py:97-106` |
+| ADR and cancellation cross-use | **Default used; approval open.** `IsCanceled` is not an ADR feature; recorded ADR is not a classification or clustering feature. | NOT FOUND; Paula, Youssef, Aya and Michael to confirm. | `src/features/policy.py`; task `metrics.json` feature lists |
+| High-cardinality fields | **Open; excluded.** `Agent`, `Company` and `Country` are not active inputs. | NOT FOUND; Zeina and model owners to review if proposed later. | `src/features/policy.py`; task `metrics.json` feature lists |
+| Clustering purpose/population | **Default used; approval open.** The untuned K-Means baseline fits all 55,532 frozen training rows without an outcome input. | NOT FOUND; Aya and Michael to confirm. | `src/clustering/baseline.py:77-113`; `outputs/clustering/metrics.json` |
+| Final supervised test | **Implemented as reserved for M1.** Regression and classification runners request only training and validation. The regression result records `test_set_evaluated: false`; the classification result currently omits that field. | No named scientific approval recorded; preserve this rule for M2. | `src/regression/baseline.py:294-321`; `src/classification/baseline.py:317-377`; task `metrics.json` |
+| Baseline algorithms/result schema | **Default used; approval open.** Linear Regression, Logistic Regression and K-Means ran and saved the common result fields. `config.yaml` still has `baselines: null`, so the selections are recorded in each result, not the shared configuration. | NOT FOUND; Paula, Youssef, Aya and Makarious to confirm. | `outputs/{regression,classification,clustering}/metrics.json`; `config.yaml:49-52` |
+
+The identifiers for **these unchanged M1 experiments** are
+`split_version=m1-group-stratified-v1` and
+`feature_policy_version=m1-draft-1`. Their source SHA-256 is
+`6796f5b9b2b9e7281662b29730fc2880f8e614107d0d14d09be2ede1a6e605a4`.
+This update records the use of existing policies; it does not change the
+manifest, feature lists or preprocessing and therefore does not increment
+either version. Any later scientific decision that changes them needs a new
+version and rerun of affected experiments.
